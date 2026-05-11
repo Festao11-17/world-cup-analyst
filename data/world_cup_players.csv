@@ -1,19 +1,190 @@
-Giocatore,Squadra,Ruolo,Età,Presenze,Gol,Assist,xG,Tiri,Velocita
-Mbappe,Francia,ATT,26,48,44,12,31.5,140,97
-Dembele,Francia,ALA,28,42,15,14,11.2,80,95
-Camavinga,Francia,CEN,22,39,4,6,3.5,25,82
-Vinicius,Brasile,ALA,25,45,24,18,19.4,90,95
-Rodrygo,Brasile,ATT,24,40,19,10,15.3,75,90
-Bruno Guimaraes,Brasile,CEN,27,44,6,8,4.1,30,78
-Messi,Argentina,ATT,39,50,30,16,22.1,100,76
-Julian Alvarez,Argentina,ATT,26,38,21,7,16.2,88,84
-Mac Allister,Argentina,CEN,27,41,8,9,6.5,40,77
-Bellingham,Inghilterra,CEN,22,46,21,10,14.2,70,82
-Saka,Inghilterra,ALA,24,43,18,12,13.4,72,91
-Rice,Inghilterra,CEN,27,47,5,7,3.2,20,74
-Pedri,Spagna,CEN,23,37,9,14,6.3,40,80
-Yamal,Spagna,ALA,19,29,12,11,8.5,55,94
-Rodri,Spagna,CEN,30,49,7,10,5.1,35,70
-Leao,Portogallo,ALA,27,40,17,9,12.7,68,96
-Bruno Fernandes,Portogallo,CEN,31,52,14,18,10.2,60,79
-Bernardo Silva,Portogallo,CEN,32,48,9,13,7.1,44,75
+Giocatore,Squadra,Ruolo,Età,Presenze,Gol,Assist,xG,Tiri,Velocita,KeyPasses,Dribbling,DuelliVinti,ProgressiveCarries,PassAccuracy
+Vinicius,Brasile,ALA,25,45,24,18,19.4,90,95,72,8.2,61,7.1,84
+Rodrygo,Brasile,ATT,24,40,19,10,15.3,75,90,55,6.1,54,5.8,82
+Neymar,Brasile,ALA,33,48,28,22,22.1,95,88,80,9.1,58,8.2,81
+Bruno Guimaraes,Brasile,CEN,27,44,6,8,4.1,30,78,61,5.2,68,6.4,88
+Casemiro,Brasile,CEN,33,52,4,5,2.8,20,70,40,4.1,72,4.2,85
+Militao,Brasile,DIF,27,46,3,2,1.5,12,75,18,2.1,74,2.8,86
+Marquinhos,Brasile,DIF,31,55,4,3,1.8,14,72,20,1.8,76,2.4,87
+Alisson,Brasile,POR,32,50,0,0,0.0,0,65,5,0.0,60,0.8,91
+Paqueta,Brasile,CEN,28,42,8,11,6.2,35,80,58,4.8,64,5.6,86
+Endrick,Brasile,ATT,19,22,11,5,9.1,48,91,38,5.2,52,4.8,80
+Savinho,Brasile,ALA,22,28,9,8,7.4,40,93,44,6.8,55,5.2,83
+Gabriel Martinelli,Brasile,ALA,24,36,14,9,11.2,60,92,48,7.1,57,5.9,82
+Renan Lodi,Brasile,DIF,27,34,1,4,0.8,8,78,22,1.2,70,2.1,85
+Fabinho,Brasile,CEN,31,44,2,4,1.4,15,71,35,3.2,69,3.8,87
+Mbappe,Francia,ATT,26,48,44,12,31.5,140,97,65,7.8,62,6.4,83
+Dembele,Francia,ALA,28,42,15,14,11.2,80,95,58,8.4,60,5.8,82
+Camavinga,Francia,CEN,22,39,4,6,3.5,25,82,52,4.2,70,5.1,88
+Griezmann,Francia,ATT,34,52,32,20,24.8,110,78,70,5.1,58,5.5,85
+Tchouameni,Francia,CEN,25,40,3,4,2.1,18,76,44,3.8,72,4.4,87
+Hernandez,Francia,DIF,28,44,2,5,1.2,10,80,20,1.8,68,2.2,85
+Varane,Francia,DIF,32,48,2,1,1.0,8,73,14,1.2,75,1.8,87
+Kounde,Francia,DIF,26,38,1,3,0.8,9,77,18,1.4,71,2.0,86
+Maignan,Francia,POR,29,42,0,0,0.0,0,68,6,0.0,62,0.9,89
+Rabiot,Francia,CEN,30,41,5,7,3.8,28,74,46,3.4,65,4.2,84
+Thuram,Francia,ATT,27,36,14,8,10.8,62,85,42,5.6,55,4.9,81
+Saliba,Francia,DIF,24,35,2,1,0.9,7,74,16,1.2,73,1.9,88
+Messi,Argentina,ATT,38,50,30,16,22.1,100,76,85,4.8,54,5.2,87
+Julian Alvarez,Argentina,ATT,25,38,21,7,16.2,88,84,48,5.4,58,5.1,82
+Mac Allister,Argentina,CEN,27,41,8,9,6.5,40,77,60,4.9,68,5.4,88
+Di Maria,Argentina,ALA,37,45,18,21,13.4,70,85,62,7.2,55,5.8,81
+De Paul,Argentina,CEN,31,48,6,10,4.8,32,75,58,5.4,66,5.2,86
+Otamendi,Argentina,DIF,37,52,3,1,1.4,10,70,16,1.4,72,2.0,84
+Romero,Argentina,DIF,27,38,2,2,1.0,8,74,18,1.2,74,1.8,86
+Martinez E.,Argentina,POR,32,44,0,0,0.0,0,66,7,0.0,64,1.0,90
+Molina,Argentina,DIF,27,35,4,6,2.8,22,80,28,2.4,68,2.8,84
+Acuna,Argentina,DIF,33,42,2,5,1.5,14,76,24,1.8,65,2.2,83
+Bellingham,Inghilterra,CEN,22,46,21,10,14.2,70,82,68,6.2,70,6.8,87
+Saka,Inghilterra,ALA,24,43,18,12,13.4,72,91,62,7.8,62,6.2,85
+Rice,Inghilterra,CEN,27,47,5,7,3.2,20,74,52,4.1,74,4.8,89
+Kane,Inghilterra,ATT,32,58,42,16,32.8,145,78,55,4.2,55,4.8,84
+Foden,Inghilterra,ALA,25,40,14,11,10.4,60,86,58,6.8,58,5.8,84
+Trippier,Inghilterra,DIF,34,45,3,8,2.1,18,74,32,2.8,65,2.5,85
+Maguire,Inghilterra,DIF,32,50,4,1,1.8,12,70,14,1.2,71,1.8,83
+Pickford,Inghilterra,POR,31,48,0,0,0.0,0,65,6,0.0,60,0.9,87
+Alexander-Arnold,Inghilterra,DIF,26,40,5,10,3.2,25,78,38,2.8,68,3.4,88
+Gordon,Inghilterra,ALA,24,30,10,7,7.8,45,89,44,5.8,55,5.1,82
+Pedri,Spagna,CEN,23,37,9,14,6.3,40,80,72,5.8,72,6.4,91
+Yamal,Spagna,ALA,18,29,12,11,8.5,55,94,58,8.2,60,6.8,88
+Rodri,Spagna,CEN,29,49,7,10,5.1,35,70,55,4.2,76,5.0,92
+Morata,Spagna,ATT,32,48,20,8,15.8,85,78,42,4.1,52,4.4,82
+Williams N.,Spagna,ALA,22,28,10,9,7.6,48,92,52,7.1,58,5.9,86
+Gavi,Spagna,CEN,21,32,5,8,3.8,28,79,62,5.2,68,5.6,89
+Carvajal,Spagna,DIF,33,46,3,7,1.8,16,74,28,2.2,68,2.6,88
+Le Normand,Spagna,DIF,28,34,1,2,0.8,7,72,14,1.0,74,1.6,87
+Unai Simon,Spagna,POR,28,36,0,0,0.0,0,66,6,0.0,62,0.9,89
+Fabian Ruiz,Spagna,CEN,28,38,6,8,4.4,30,76,50,4.0,68,4.8,88
+Laporte,Spagna,DIF,31,40,2,2,1.1,9,71,16,1.2,72,1.8,86
+Torres F.,Spagna,ATT,25,32,11,7,8.4,50,82,38,4.8,53,4.4,83
+Olmo,Spagna,ATT,27,34,13,10,10.1,58,81,50,5.4,56,5.2,85
+Leao,Portogallo,ALA,26,40,17,9,12.7,68,96,55,8.1,60,6.2,84
+Bruno Fernandes,Portogallo,CEN,30,52,14,18,10.2,60,79,70,6.8,66,6.4,87
+Bernardo Silva,Portogallo,CEN,30,48,9,13,7.1,44,75,64,5.8,68,5.8,88
+Cristiano Ronaldo,Portogallo,ATT,40,52,35,10,26.4,130,74,42,3.4,50,4.0,82
+Joao Felix,Portogallo,ATT,25,40,15,11,11.4,65,84,50,6.2,58,5.6,83
+Ruben Dias,Portogallo,DIF,28,46,3,2,1.4,10,73,16,1.2,75,1.8,87
+Cancelo,Portogallo,DIF,31,44,4,8,2.4,20,79,30,2.4,67,2.8,86
+Diogo Costa,Portogallo,POR,26,38,0,0,0.0,0,67,6,0.0,63,0.9,88
+Neves,Portogallo,CEN,28,40,5,7,3.6,26,74,48,3.8,70,4.4,88
+Pedro Neto,Portogallo,ALA,25,34,11,8,8.2,50,90,46,6.4,56,5.4,83
+Musiala,Germania,CEN,22,38,14,12,10.4,58,85,68,7.2,65,6.8,88
+Wirtz,Germania,ALA,22,34,13,14,10.1,55,84,64,7.8,62,7.0,87
+Havertz,Germania,ATT,26,44,16,8,12.2,68,80,44,4.8,55,4.8,84
+Kimmich,Germania,CEN,30,50,6,12,4.2,28,74,60,4.8,74,5.2,90
+Rudiger,Germania,DIF,32,48,4,2,2.0,14,78,16,1.4,74,2.0,86
+Ter Stegen,Germania,POR,33,44,0,0,0.0,0,66,6,0.0,62,0.9,88
+Gnabry,Germania,ALA,30,40,12,9,9.2,52,87,48,6.2,58,5.4,83
+Gundogan,Germania,CEN,34,44,8,10,5.8,35,74,55,4.8,68,5.0,88
+Schlotterbeck,Germania,DIF,28,34,2,2,1.0,8,73,14,1.2,72,1.8,86
+Brandt,Germania,CEN,29,36,6,8,4.4,30,77,50,4.2,66,4.6,86
+Fullkrug,Germania,ATT,32,30,12,4,9.8,52,74,30,3.2,50,3.6,80
+Donnarumma,Italia,POR,27,42,0,0,0.0,0,68,7,0.0,64,1.0,88
+Barella,Italia,CEN,28,46,8,10,5.8,35,78,62,5.4,70,5.8,88
+Chiesa,Italia,ALA,27,38,12,8,9.1,52,87,50,6.8,58,5.6,83
+Immobile,Italia,ATT,35,48,24,8,18.4,90,72,38,3.4,52,3.8,82
+Verratti,Italia,CEN,33,44,4,8,2.8,22,72,60,4.4,68,5.0,89
+Bonucci,Italia,DIF,38,48,3,2,1.4,10,68,14,1.0,72,1.6,85
+Bastoni,Italia,DIF,26,36,2,4,1.2,10,74,20,1.4,74,2.0,87
+Tonali,Italia,CEN,25,34,5,6,3.8,28,76,52,4.2,68,4.8,87
+Raspadori,Italia,ATT,25,30,10,5,7.8,45,80,34,4.0,53,4.0,82
+Di Lorenzo,Italia,DIF,32,40,3,5,1.8,16,75,26,2.0,66,2.4,86
+Retegui,Italia,ATT,26,28,12,4,9.4,50,76,30,3.2,51,3.6,81
+Calafiori,Italia,DIF,23,28,2,3,1.0,10,76,18,1.4,70,1.8,86
+Van Dijk,Olanda,DIF,33,50,5,2,2.4,14,72,16,1.2,76,2.0,87
+Depay,Olanda,ATT,31,44,18,10,13.8,72,82,42,4.8,54,4.4,82
+Gakpo,Olanda,ALA,26,38,14,11,10.8,60,88,52,6.8,60,5.8,84
+De Jong F.,Olanda,CEN,28,44,6,9,4.4,28,78,62,5.2,70,5.6,89
+Dumfries,Olanda,DIF,29,40,4,7,2.4,20,80,28,2.4,66,2.8,85
+Blind,Olanda,DIF,34,38,1,3,0.8,8,70,18,1.2,68,1.8,84
+Flekken,Olanda,POR,31,34,0,0,0.0,0,65,6,0.0,61,0.9,87
+Simons,Olanda,CEN,22,30,8,10,6.2,40,82,58,5.8,64,5.4,87
+Bergwijn,Olanda,ALA,27,34,10,7,7.8,48,86,44,5.8,57,5.0,83
+Reijnders,Olanda,CEN,26,30,6,7,4.4,32,78,52,4.6,66,4.8,88
+De Ligt,Olanda,DIF,26,38,2,1,1.0,8,73,14,1.0,73,1.8,86
+De Bruyne,Belgio,CEN,34,50,14,22,10.2,55,76,80,7.2,68,7.0,88
+Lukaku,Belgio,ATT,32,52,28,10,21.4,105,78,38,3.8,55,4.0,80
+Trossard,Belgio,ALA,30,40,12,10,9.2,52,84,50,6.2,58,5.6,84
+Castagne,Belgio,DIF,29,38,2,5,1.4,14,76,22,1.8,65,2.2,84
+Vertonghen,Belgio,DIF,38,50,3,2,1.4,10,68,14,1.0,72,1.6,85
+Courtois,Belgio,POR,33,46,0,0,0.0,0,68,7,0.0,64,1.0,89
+Doku,Belgio,ALA,23,32,10,9,7.6,48,94,52,8.2,59,6.2,82
+Onana A.,Belgio,CEN,23,28,5,7,3.8,28,80,54,4.6,66,4.8,87
+Vanaken,Belgio,CEN,32,40,7,9,5.2,34,74,58,4.8,68,5.0,86
+Theate,Belgio,DIF,24,28,1,2,0.8,8,74,16,1.2,70,1.8,85
+Modric,Croazia,CEN,40,50,8,12,5.8,35,72,72,5.8,70,5.6,88
+Perisic,Croazia,ALA,36,48,12,14,9.2,52,80,54,5.8,60,5.2,83
+Kovacic,Croazia,CEN,31,44,5,8,3.8,26,76,60,4.8,70,5.0,88
+Kramaric,Croazia,ATT,34,44,16,10,12.4,65,76,42,4.4,54,4.2,83
+Livakovic,Croazia,POR,30,38,0,0,0.0,0,66,6,0.0,62,0.9,87
+Gvardiol,Croazia,DIF,23,36,4,4,2.2,16,78,20,1.6,72,2.2,87
+Sucic,Croazia,CEN,23,28,6,7,4.4,30,78,52,4.4,64,4.6,86
+Pasalic,Croazia,CEN,30,36,7,8,5.2,32,74,50,4.2,66,4.4,86
+Sutalo,Croazia,DIF,24,26,1,2,0.8,8,74,14,1.0,70,1.6,85
+Cavani,Uruguay,ATT,38,52,26,8,20.1,95,74,36,3.2,52,3.6,80
+Suarez,Uruguay,ATT,38,50,22,12,17.4,88,72,40,3.4,51,3.8,79
+Valverde F.,Uruguay,CEN,26,44,10,8,7.2,42,84,60,5.8,68,5.8,88
+Nunez D.,Uruguay,ATT,26,38,18,8,13.8,72,86,38,4.4,55,4.6,82
+De Arrascaeta,Uruguay,CEN,31,40,8,11,6.1,36,78,58,5.4,64,5.2,86
+Muslera,Uruguay,POR,38,45,0,0,0.0,0,64,6,0.0,60,0.9,85
+Gimenez J.,Uruguay,DIF,30,40,3,2,1.4,10,74,14,1.2,72,1.8,85
+Caceres,Uruguay,DIF,38,44,1,2,0.8,8,68,12,0.9,68,1.4,83
+Bentancur,Uruguay,CEN,28,38,4,6,2.8,22,76,52,4.0,68,4.4,87
+Luis Diaz,Colombia,ALA,28,42,16,12,12.2,65,90,55,7.4,60,6.2,84
+Falcao,Colombia,ATT,39,44,18,6,14.2,72,72,32,3.2,50,3.4,79
+Cuadrado,Colombia,ALA,37,48,10,14,7.8,50,82,50,6.0,57,5.2,82
+Arias,Colombia,DIF,27,34,2,4,1.2,12,78,22,1.6,66,2.2,84
+Ospina,Colombia,POR,36,44,0,0,0.0,0,66,6,0.0,62,0.9,87
+Barrios,Colombia,CEN,30,36,3,5,2.2,18,74,48,3.8,68,4.0,86
+Munoz,Colombia,DIF,26,30,2,4,1.2,12,79,20,1.6,65,2.0,84
+Borja,Colombia,ATT,32,34,12,5,9.4,50,76,30,3.4,51,3.6,81
+Amrabat,Marocco,CEN,28,38,3,4,2.2,18,74,52,3.8,70,4.2,86
+Hakimi,Marocco,DIF,26,40,5,8,3.2,22,84,30,2.8,68,3.0,87
+Ziyech,Marocco,ALA,33,40,10,12,7.8,48,80,50,6.0,57,5.2,83
+En-Nesyri,Marocco,ATT,28,36,14,5,10.8,60,78,34,3.8,53,4.0,81
+Bounou,Marocco,POR,33,36,0,0,0.0,0,66,7,0.0,63,0.9,88
+Aguerd,Marocco,DIF,29,32,2,1,1.0,8,72,14,1.0,72,1.6,85
+Ounahi,Marocco,CEN,24,30,4,5,3.0,22,76,48,3.8,64,4.2,85
+Saiss,Marocco,DIF,34,34,2,2,1.0,10,70,14,1.0,70,1.6,84
+Mane,Senegal,ALA,33,48,20,12,15.4,78,88,50,6.4,58,5.6,82
+Gueye,Senegal,CEN,35,44,4,6,2.8,22,76,52,3.8,68,4.2,86
+Koulibaly,Senegal,DIF,33,46,4,2,2.0,12,74,14,1.2,74,1.8,86
+Diatta,Senegal,ALA,26,34,9,8,7.0,44,86,44,5.8,56,5.0,83
+Edouard Mendy,Senegal,POR,32,38,0,0,0.0,0,66,6,0.0,62,0.9,87
+Sarr,Senegal,ALA,26,32,10,8,7.8,48,87,46,6.0,56,5.2,83
+Diallo,Senegal,DIF,27,30,2,3,1.2,10,76,18,1.4,68,1.8,85
+Diao,Senegal,CEN,21,24,5,6,3.8,28,80,46,4.2,62,4.4,85
+Mitoma,Giappone,ALA,28,38,12,10,9.2,52,88,52,7.2,60,5.8,84
+Kubo,Giappone,ALA,24,34,10,11,7.8,48,84,56,7.0,58,6.0,86
+Endo,Giappone,CEN,32,44,4,6,2.8,22,74,54,3.8,70,4.2,88
+Maeda,Giappone,ATT,27,32,12,6,9.4,52,82,36,4.2,54,4.2,81
+Gonda,Giappone,POR,30,36,0,0,0.0,0,64,6,0.0,60,0.9,86
+Itakura,Giappone,DIF,28,32,2,2,1.0,8,74,14,1.0,72,1.6,86
+Kamada,Giappone,CEN,28,34,7,8,5.2,32,78,50,4.6,64,4.8,86
+Tomiyasu,Giappone,DIF,26,32,1,3,0.8,8,76,18,1.2,68,1.8,86
+Lozano,Messico,ALA,30,42,14,11,10.8,60,86,50,6.4,58,5.4,83
+Jimenez,Messico,ATT,34,44,18,8,14.2,72,76,34,3.6,52,3.8,80
+Guardado,Messico,CEN,39,50,6,10,4.4,30,72,58,4.4,66,4.6,86
+Ochoa,Messico,POR,39,50,0,0,0.0,0,66,7,0.0,63,0.9,87
+Alvarez E.,Messico,CEN,27,34,5,7,3.8,26,78,52,4.2,66,4.6,87
+Moreno C.,Messico,DIF,28,30,1,3,0.8,8,74,16,1.2,68,1.8,84
+Pulisic,USA,ALA,27,42,16,12,12.2,65,84,52,6.8,58,5.8,84
+Reyna,USA,CEN,22,32,8,10,6.2,38,80,52,5.8,62,5.4,85
+Turner,USA,POR,31,36,0,0,0.0,0,65,6,0.0,61,0.9,87
+McKennie,USA,CEN,27,36,5,6,3.6,26,76,50,4.0,66,4.4,85
+Dest,USA,DIF,25,30,2,4,1.2,12,78,22,1.6,64,2.0,84
+Weah T.,USA,ALA,25,30,8,7,6.2,40,84,44,5.4,56,4.8,83
+Hojlund,Danimarca,ATT,23,28,14,6,10.8,58,84,36,4.2,53,4.2,82
+Eriksen,Danimarca,CEN,33,52,8,14,5.8,35,76,68,6.0,66,5.8,88
+Maehle,Danimarca,DIF,28,38,3,7,2.0,16,80,26,2.2,66,2.6,85
+Schmeichel K.,Danimarca,POR,38,44,0,0,0.0,0,65,6,0.0,61,0.9,86
+Delaney,Danimarca,CEN,34,40,3,5,2.2,18,72,52,3.6,68,3.8,86
+Skov Olsen,Danimarca,ALA,28,32,9,8,7.0,44,84,46,5.8,58,5.2,83
+Christensen A.,Danimarca,DIF,29,36,2,2,1.0,8,73,14,1.0,72,1.6,86
+Leckie,Australia,ALA,34,40,10,8,7.8,44,86,42,5.8,56,5.2,80
+Irvine,Australia,CEN,32,44,4,6,2.8,22,74,48,3.6,66,4.0,84
+Duke,Australia,ATT,29,34,12,4,9.4,52,78,30,3.4,52,3.6,79
+Ryan,Australia,POR,33,42,0,0,0.0,0,64,6,0.0,60,0.9,86
+Behich,Australia,DIF,33,36,1,3,0.8,8,76,20,1.4,64,1.8,82
+Atkinson,Australia,DIF,24,24,1,2,0.6,6,77,16,1.2,66,1.6,83
+McGree,Australia,CEN,27,30,4,5,3.0,24,78,40,3.2,62,3.8,82
