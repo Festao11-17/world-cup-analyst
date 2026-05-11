@@ -1,3 +1,4 @@
+import os
 import streamlit as st
 import pandas as pd
 import plotly.graph_objects as go
@@ -67,7 +68,6 @@ st.markdown("---")
 # FEATURED MATCH
 st.subheader("🔥 Featured Match")
 
-# Confronto tra le prime due squadre per gol
 top2 = df_teams.nlargest(2, "Gol")
 t1 = top2.iloc[0]
 t2 = top2.iloc[1]
@@ -94,31 +94,19 @@ with col_right:
 stats = ["Gol", "xG", "Tiri", "Possesso", "PrecisionePassaggi"]
 
 fig = go.Figure()
-
 fig.add_trace(go.Scatterpolar(
-    r=[t1[s] for s in stats],
-    theta=stats,
-    fill='toself',
-    name=t1["Squadra"]
+    r=[t1[s] for s in stats], theta=stats,
+    fill='toself', name=t1["Squadra"]
 ))
-
 fig.add_trace(go.Scatterpolar(
-    r=[t2[s] for s in stats],
-    theta=stats,
-    fill='toself',
-    name=t2["Squadra"]
+    r=[t2[s] for s in stats], theta=stats,
+    fill='toself', name=t2["Squadra"]
 ))
-
 fig.update_layout(
-    polar=dict(
-        radialaxis=dict(
-            visible=True
-        )
-    ),
+    polar=dict(radialaxis=dict(visible=True)),
     showlegend=True,
     height=380
 )
-
 st.plotly_chart(fig, use_container_width=True)
 
 st.markdown("---")
@@ -129,26 +117,14 @@ st.subheader("🏆 Leaderboard Nazionali")
 col_lb, col_pl = st.columns(2)
 
 with col_lb:
-
     st.markdown("#### Ranking per Gol")
-
-    df_ranked = df_teams.sort_values(
-        "Gol",
-        ascending=False
-    ).reset_index(drop=True)
-
+    df_ranked = df_teams.sort_values("Gol", ascending=False).reset_index(drop=True)
     df_ranked.index += 1
 
-    medals = {
-        1: "🥇",
-        2: "🥈",
-        3: "🥉"
-    }
+    medals = {1: "🥇", 2: "🥈", 3: "🥉"}
 
     for i, row in df_ranked.iterrows():
-
         medal = medals.get(i, f"{i}.")
-
         st.markdown(
             f"{medal} **{row['Squadra']}** — "
             f"{row['Gol']} gol | "
@@ -157,22 +133,22 @@ with col_lb:
         )
 
 with col_pl:
-
     st.markdown("#### Top Marcatori")
-
-    top_scorers = df_players.sort_values(
-        "Gol",
-        ascending=False
-    ).head(5)
+    top_scorers = df_players.sort_values("Gol", ascending=False).head(5)
 
     for _, row in top_scorers.iterrows():
-
         player_image = f"assets/players/{row['Giocatore'].lower()}.png"
 
         col1, col2 = st.columns([1, 4])
 
         with col1:
-            st.image(player_image, width=80)
+            if os.path.exists(player_image):
+                st.image(player_image, width=80)
+            else:
+                st.markdown(
+                    "<div style='font-size:48px;text-align:center'>👤</div>",
+                    unsafe_allow_html=True
+                )
 
         with col2:
             st.markdown(f"""
@@ -183,13 +159,10 @@ with col_pl:
                 margin-bottom:10px;
                 border:1px solid #2d3748;
             ">
-
             <h4>{row['Giocatore']}</h4>
-
             🌍 {row['Squadra']} <br>
             ⚽ Gol: {row['Gol']} <br>
             🎯 Assist: {row['Assist']}
-
             </div>
             """, unsafe_allow_html=True)
 
@@ -201,29 +174,10 @@ st.header("Funzionalità Principali")
 col1, col2, col3, col4 = st.columns(4)
 
 with col1:
-    st.markdown("""
-    ### 🌍 Nazionali
-
-    Statistiche complete per ogni nazionale.
-    """)
-
+    st.markdown("### 🌍 Nazionali\nStatistiche complete per ogni nazionale.")
 with col2:
-    st.markdown("""
-    ### 📊 Confronto Squadre
-
-    Analizza e confronta le nazionali.
-    """)
-
+    st.markdown("### 📊 Confronto Squadre\nAnalizza e confronta le nazionali.")
 with col3:
-    st.markdown("""
-    ### 👤 Confronto Giocatori
-
-    Confronta performance e metriche.
-    """)
-
+    st.markdown("### 👤 Confronto Giocatori\nConfronta performance e metriche.")
 with col4:
-    st.markdown("""
-    ### 🔮 Match Prediction
-
-    Predizioni basate sui dati.
-    """)
+    st.markdown("### 🔮 Match Prediction\nPredizioni basate sui dati.")
