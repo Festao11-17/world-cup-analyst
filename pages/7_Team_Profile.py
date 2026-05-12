@@ -59,12 +59,14 @@ with col_flag:
 with col_info:
     medals = {1:"🥇", 2:"🥈", 3:"🥉"}
     rank_lbl = medals.get(int(team["Ranking"]), f"#{int(team['Ranking'])}")
-    max_g, min_g = df_teams["Gol"].max(), df_teams["Gol"].min()
-    rating = int(((team["Gol"] - min_g) / (max_g - min_g)) * 30 + 65)
+    overall = team["OverallRating"] if "OverallRating" in team else 0
     st.markdown(f"<h1>{selected}</h1>", unsafe_allow_html=True)
     st.markdown(
         f"<span class='wca-badge'>{rank_lbl} Ranking</span> "
-        f"<span class='wca-badge' style='margin-left:8px'>⭐ {rating}/100 Rating</span>",
+        f"<span class='wca-badge' style='margin-left:8px'>⭐ {overall} Overall</span>"
+        f"<span class='wca-badge' style='margin-left:8px'>⚔️ {team.get('AttackRating',0)} ATT</span>"
+        f"<span class='wca-badge' style='margin-left:8px'>🔄 {team.get('MidfieldRating',0)} MID</span>"
+        f"<span class='wca-badge' style='margin-left:8px'>🛡️ {team.get('DefenseRating',0)} DEF</span>",
         unsafe_allow_html=True
     )
 
@@ -146,9 +148,9 @@ if not players.empty:
     st.markdown("<span class='wca-section-label'>💪 Team Strength</span>", unsafe_allow_html=True)
     att = players[players["Ruolo"].isin(["ATT","ALA"])]
     mid = players[players["Ruolo"] == "CEN"]
-    att_s = int(min(100, att["Gol"].mean()*3 + att["xG"].mean()*2)) if not att.empty else 50
-    mid_s = int(min(100, mid["Assist"].mean()*4 + mid["Presenze"].mean()/2)) if not mid.empty else 50
-    def_s = int((team["Possesso"]*0.6 + team["PrecisionePassaggi"]*0.4)*0.9)
+    att_s = int(team.get("AttackRating", 70))
+    mid_s = int(team.get("MidfieldRating", 70))
+    def_s = int(team.get("DefenseRating", 70))
 
     for label, score, color in [
         ("⚔️ Attacco",     att_s, "#ff3b5c"),
@@ -168,12 +170,7 @@ if not players.empty:
 
     # PREDICTION
     st.markdown("<span class='wca-section-label'>🔮 Prediction Rating</span>", unsafe_allow_html=True)
-    for col_n in ["Gol","xG","Possesso","PrecisionePassaggi"]:
-        mn, mx = df_teams[col_n].min(), df_teams[col_n].max()
-        df_teams[f"_n_{col_n}"] = (df_teams[col_n]-mn)/(mx-mn) if mx!=mn else 0
-    pred_row = df_teams[df_teams["Squadra"]==selected].iloc[0]
-    score = round(pred_row["_n_Gol"]*35 + pred_row["_n_xG"]*25 +
-                  pred_row["_n_Possesso"]*20 + pred_row["_n_PrecisionePassaggi"]*20, 1)*100
+    score = float(team.get("OverallRating", 70))
 
     col_g, col_d = st.columns([1,2])
     with col_g:
