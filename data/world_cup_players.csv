@@ -79,18 +79,18 @@ Gundogan,Germania,CEN,34,44,8,10,5.8,35,74,55,4.8,68,5.0,88
 Schlotterbeck,Germania,DIF,28,34,2,2,1.0,8,73,14,1.2,72,1.8,86
 Brandt,Germania,CEN,29,36,6,8,4.4,30,77,50,4.2,66,4.6,86
 Fullkrug,Germania,ATT,32,30,12,4,9.8,52,74,30,3.2,50,3.6,80
-Donnarumma,Italia,POR,27,42,0,0,0.0,0,68,7,0.0,64,1.0,88
-Barella,Italia,CEN,28,46,8,10,5.8,35,78,62,5.4,70,5.8,88
-Chiesa,Italia,ALA,27,38,12,8,9.1,52,87,50,6.8,58,5.6,83
-Immobile,Italia,ATT,35,48,24,8,18.4,90,72,38,3.4,52,3.8,82
-Verratti,Italia,CEN,33,44,4,8,2.8,22,72,60,4.4,68,5.0,89
-Bonucci,Italia,DIF,38,48,3,2,1.4,10,68,14,1.0,72,1.6,85
-Bastoni,Italia,DIF,26,36,2,4,1.2,10,74,20,1.4,74,2.0,87
-Tonali,Italia,CEN,25,34,5,6,3.8,28,76,52,4.2,68,4.8,87
-Raspadori,Italia,ATT,25,30,10,5,7.8,45,80,34,4.0,53,4.0,82
-Di Lorenzo,Italia,DIF,32,40,3,5,1.8,16,75,26,2.0,66,2.4,86
-Retegui,Italia,ATT,26,28,12,4,9.4,50,76,30,3.2,51,3.6,81
-Calafiori,Italia,DIF,23,28,2,3,1.0,10,76,18,1.4,70,1.8,86
+Donnarumma,Norvegia,POR,27,42,0,0,0.0,0,68,7,0.0,64,1.0,88
+Barella,Norvegia,CEN,28,46,8,10,5.8,35,78,62,5.4,70,5.8,88
+Chiesa,Norvegia,ALA,27,38,12,8,9.1,52,87,50,6.8,58,5.6,83
+Immobile,Norvegia,ATT,35,48,24,8,18.4,90,72,38,3.4,52,3.8,82
+Verratti,Norvegia,CEN,33,44,4,8,2.8,22,72,60,4.4,68,5.0,89
+Bonucci,Norvegia,DIF,38,48,3,2,1.4,10,68,14,1.0,72,1.6,85
+Bastoni,Norvegia,DIF,26,36,2,4,1.2,10,74,20,1.4,74,2.0,87
+Tonali,Norvegia,CEN,25,34,5,6,3.8,28,76,52,4.2,68,4.8,87
+Raspadori,Norvegia,ATT,25,30,10,5,7.8,45,80,34,4.0,53,4.0,82
+Di Lorenzo,Norvegia,DIF,32,40,3,5,1.8,16,75,26,2.0,66,2.4,86
+Retegui,Norvegia,ATT,26,28,12,4,9.4,50,76,30,3.2,51,3.6,81
+Calafiori,Norvegia,DIF,23,28,2,3,1.0,10,76,18,1.4,70,1.8,86
 Van Dijk,Olanda,DIF,33,50,5,2,2.4,14,72,16,1.2,76,2.0,87
 Depay,Olanda,ATT,31,44,18,10,13.8,72,82,42,4.8,54,4.4,82
 Gakpo,Olanda,ALA,26,38,14,11,10.8,60,88,52,6.8,60,5.8,84
@@ -174,13 +174,13 @@ Turner,USA,POR,31,36,0,0,0.0,0,65,6,0.0,61,0.9,87
 McKennie,USA,CEN,27,36,5,6,3.6,26,76,50,4.0,66,4.4,85
 Dest,USA,DIF,25,30,2,4,1.2,12,78,22,1.6,64,2.0,84
 Weah T.,USA,ALA,25,30,8,7,6.2,40,84,44,5.4,56,4.8,83
-Hojlund,Danimarca,ATT,23,28,14,6,10.8,58,84,36,4.2,53,4.2,82
-Eriksen,Danimarca,CEN,33,52,8,14,5.8,35,76,68,6.0,66,5.8,88
-Maehle,Danimarca,DIF,28,38,3,7,2.0,16,80,26,2.2,66,2.6,85
-Schmeichel K.,Danimarca,POR,38,44,0,0,0.0,0,65,6,0.0,61,0.9,86
-Delaney,Danimarca,CEN,34,40,3,5,2.2,18,72,52,3.6,68,3.8,86
-Skov Olsen,Danimarca,ALA,28,32,9,8,7.0,44,84,46,5.8,58,5.2,83
-Christensen A.,Danimarca,DIF,29,36,2,2,1.0,8,73,14,1.0,72,1.6,86
+Hojlund,Svizzera,ATT,23,28,14,6,10.8,58,84,36,4.2,53,4.2,82
+Eriksen,Svizzera,CEN,33,52,8,14,5.8,35,76,68,6.0,66,5.8,88
+Maehle,Svizzera,DIF,28,38,3,7,2.0,16,80,26,2.2,66,2.6,85
+Schmeichel K.,Svizzera,POR,38,44,0,0,0.0,0,65,6,0.0,61,0.9,86
+Delaney,Svizzera,CEN,34,40,3,5,2.2,18,72,52,3.6,68,3.8,86
+Skov Olsen,Svizzera,ALA,28,32,9,8,7.0,44,84,46,5.8,58,5.2,83
+Christensen A.,Svizzera,DIF,29,36,2,2,1.0,8,73,14,1.0,72,1.6,86
 Leckie,Australia,ALA,34,40,10,8,7.8,44,86,42,5.8,56,5.2,80
 Irvine,Australia,CEN,32,44,4,6,2.8,22,74,48,3.6,66,4.0,84
 Duke,Australia,ATT,29,34,12,4,9.4,52,78,30,3.4,52,3.6,79

@@ -1,167 +1,91 @@
+import os
 import streamlit as st
 import pandas as pd
 import plotly.graph_objects as go
 
-st.title("📊 Confronto Nazionali")
+with open("assets/style.css") as f:
+    st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
-# DATI
+FLAG_MAP = {
+    "Brasile":      "Girone_C/brasile",
+    "Francia":      "Girone_I/francia",
+    "Argentina":    "Girone_J/argentina",
+    "Inghilterra":  "Girone_L/inghilterra",
+    "Spagna":       "Girone_H/spagna",
+    "Portogallo":   "Girone_K/portogallo",
+    "Germania":     "Girone_E/germania",
+    "Olanda":       "Girone_F/olanda",
+    "Belgio":       "Girone_G/belgio",
+    "Croazia":      "Girone_L/croazia",
+    "Uruguay":      "Girone_H/uruguay",
+    "Colombia":     "Girone_K/colombia",
+    "Marocco":      "Girone_C/marocco",
+    "Senegal":      "Girone_I/senegal",
+    "Giappone":     "Girone_F/giappone",
+    "Messico":      "Girone_A/messico",
+    "USA":          "Girone_D/stati_uniti",
+    "Australia":    "Girone_D/australia",
+    "Norvegia":     "Girone_I/norvegia",
+    "Svizzera":     "Girone_B/svizzera",
+}
+def flag_path(s): return f"assets/flags/{FLAG_MAP.get(s, s.lower())}.png"
+
+st.markdown("<h1>📊 TEAM COMPARISON</h1>", unsafe_allow_html=True)
+
 df = pd.read_csv("data/team_stats.csv")
-
-# LISTA SQUADRE
 teams = df["Squadra"].tolist()
 
-# SELECT
-team1 = st.selectbox(
-    "Seleziona Nazionale 1",
-    teams
-)
-
-team2 = st.selectbox(
-    "Seleziona Nazionale 2",
-    teams,
-    index=1
-)
-
-# DATI SQUADRE
-team1_data = df[df["Squadra"] == team1].iloc[0]
-team2_data = df[df["Squadra"] == team2].iloc[0]
-
-team1_flag = f"assets/flags/{team1.lower()}.png"
-team2_flag = f"assets/flags/{team2.lower()}.png"
-
-st.markdown("---")
-
-# METRICHE
 col1, col2 = st.columns(2)
+with col1: team1 = st.selectbox("Squadra 1", teams, index=0)
+with col2: team2 = st.selectbox("Squadra 2", teams, index=1)
 
-with col1:
-
-    st.image(team1_flag, width=100)
-
-    st.subheader(team1)
-
-    st.metric("Gol", team1_data["Gol"])
-    st.metric("xG", team1_data["xG"])
-    st.metric("Possesso", f"{team1_data['Possesso']}%")
-
-with col2:
-
-    st.image(team2_flag, width=100)
-
-    st.subheader(team2)
-
-    st.metric("Gol", team2_data["Gol"])
-    st.metric("xG", team2_data["xG"])
-    st.metric("Possesso", f"{team2_data['Possesso']}%")
+t1 = df[df["Squadra"]==team1].iloc[0]
+t2 = df[df["Squadra"]==team2].iloc[0]
 
 st.markdown("---")
 
-# STATS
-stats = [
-    "Gol",
-    "xG",
-    "Tiri",
-    "Possesso",
-    "PrecisionePassaggi"
-]
+col_l, col_c, col_r = st.columns([3,1,3])
+with col_l:
+    fp = flag_path(team1)
+    if os.path.exists(fp): st.image(fp, width=60)
+    st.markdown(f"### {team1}")
+    c1,c2,c3 = st.columns(3)
+    c1.metric("Gol", t1["Gol"])
+    c2.metric("xG", t1["xG"])
+    c3.metric("Possesso", f"{t1['Possesso']}%")
 
-team1_values = [team1_data[stat] for stat in stats]
-team2_values = [team2_data[stat] for stat in stats]
+with col_c:
+    st.markdown(
+        "<div style='text-align:center;padding-top:40px'>"
+        "<div style='font-family:Bebas Neue,sans-serif;font-size:2.5rem;color:#6b7a99;letter-spacing:3px'>VS</div>"
+        "</div>", unsafe_allow_html=True
+    )
 
-# PREDICTION SCORE
+with col_r:
+    fp2 = flag_path(team2)
+    if os.path.exists(fp2): st.image(fp2, width=60)
+    st.markdown(f"### {team2}")
+    c1,c2,c3 = st.columns(3)
+    c1.metric("Gol", t2["Gol"])
+    c2.metric("xG", t2["xG"])
+    c3.metric("Possesso", f"{t2['Possesso']}%")
 
-team1_score = (
-    team1_data["Gol"] * 0.4 +
-    team1_data["xG"] * 0.3 +
-    team1_data["Possesso"] * 0.2 +
-    team1_data["PrecisionePassaggi"] * 0.1
-)
+st.markdown("---")
 
-team2_score = (
-    team2_data["Gol"] * 0.4 +
-    team2_data["xG"] * 0.3 +
-    team2_data["Possesso"] * 0.2 +
-    team2_data["PrecisionePassaggi"] * 0.1
-)
-
-total = team1_score + team2_score
-
-team1_probability = round((team1_score / total) * 100)
-team2_probability = round((team2_score / total) * 100)
-
-# RADAR
+stats = ["Gol","xG","Tiri","Possesso","PrecisionePassaggi"]
 fig = go.Figure()
-
-fig.add_trace(go.Scatterpolar(
-    r=team1_values,
-    theta=stats,
-    fill='toself',
-    name=team1
-))
-
-fig.add_trace(go.Scatterpolar(
-    r=team2_values,
-    theta=stats,
-    fill='toself',
-    name=team2
-))
-
+for team, data, color in [(team1, t1, "#00d4ff"), (team2, t2, "#ff3b5c")]:
+    fig.add_trace(go.Scatterpolar(
+        r=[data[s] for s in stats], theta=stats,
+        fill='toself', name=team, line=dict(color=color, width=2)
+    ))
 fig.update_layout(
-    polar=dict(
-        radialaxis=dict(
-            visible=True
-        )
-    ),
-    showlegend=True
+    paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)",
+    polar=dict(bgcolor="rgba(26,32,53,0.6)",
+               radialaxis=dict(visible=True, gridcolor="#1f2d45", color="#6b7a99"),
+               angularaxis=dict(gridcolor="#1f2d45", color="#6b7a99")),
+    legend=dict(bgcolor="rgba(0,0,0,0)", font=dict(color="#e8edf5")),
+    height=420, showlegend=True
 )
-
-st.markdown("---")
-
-st.subheader("🔮 Match Prediction")
-
-st.markdown(f"""
-<div style="
-    background-color:#1c1f26;
-    border-radius:15px;
-    overflow:hidden;
-    height:35px;
-    display:flex;
-    margin-bottom:20px;
-">
-
-<div style="
-    width:{team1_probability}%;
-    background:#3b82f6;
-    text-align:center;
-    color:white;
-    line-height:35px;
-    font-weight:bold;
-">
-{team1_probability}%
-</div>
-
-<div style="
-    width:{team2_probability}%;
-    background:#ef4444;
-    text-align:center;
-    color:white;
-    line-height:35px;
-    font-weight:bold;
-">
-{team2_probability}%
-</div>
-
-</div>
-""", unsafe_allow_html=True)
-
-col_pred1, col_pred2 = st.columns(2)
-
-with col_pred1:
-    st.metric(team1, f"{team1_probability}%")
-
-with col_pred2:
-    st.metric(team2, f"{team2_probability}%")
-
-st.subheader("📈 Confronto Statistiche")
-
+st.markdown("<span class='wca-section-label'>📈 Confronto Radar</span>", unsafe_allow_html=True)
 st.plotly_chart(fig, use_container_width=True)

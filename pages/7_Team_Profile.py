@@ -4,211 +4,209 @@ import pandas as pd
 import plotly.graph_objects as go
 import plotly.express as px
 
-st.title("🏳️ Team Profile")
+with open("assets/style.css") as f:
+    st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
-# CARICAMENTO DATI
-df_teams = pd.read_csv("data/team_stats.csv")
+FLAG_MAP = {
+    "Brasile":      "Girone_C/brasile",
+    "Francia":      "Girone_I/francia",
+    "Argentina":    "Girone_J/argentina",
+    "Inghilterra":  "Girone_L/inghilterra",
+    "Spagna":       "Girone_H/spagna",
+    "Portogallo":   "Girone_K/portogallo",
+    "Germania":     "Girone_E/germania",
+    "Olanda":       "Girone_F/olanda",
+    "Belgio":       "Girone_G/belgio",
+    "Croazia":      "Girone_L/croazia",
+    "Uruguay":      "Girone_H/uruguay",
+    "Colombia":     "Girone_K/colombia",
+    "Marocco":      "Girone_C/marocco",
+    "Senegal":      "Girone_I/senegal",
+    "Giappone":     "Girone_F/giappone",
+    "Messico":      "Girone_A/messico",
+    "USA":          "Girone_D/stati_uniti",
+    "Australia":    "Girone_D/australia",
+    "Norvegia":     "Girone_I/norvegia",
+    "Svizzera":     "Girone_B/svizzera",
+}
+def flag_path(s): return f"assets/flags/{FLAG_MAP.get(s, s.lower())}.png"
+
+st.markdown("<h1>🏳️ TEAM PROFILE</h1>", unsafe_allow_html=True)
+
+df_teams  = pd.read_csv("data/team_stats.csv")
 df_players = pd.read_csv("data/world_cup_players.csv")
 
-# RANKING (basato su Gol)
-df_teams_ranked = df_teams.sort_values("Gol", ascending=False).reset_index(drop=True)
-df_teams_ranked["Ranking"] = df_teams_ranked.index + 1
+df_ranked = df_teams.sort_values("Gol", ascending=False).reset_index(drop=True)
+df_ranked["Ranking"] = df_ranked.index + 1
 
-teams = df_teams_ranked["Squadra"].tolist()
-selected_team = st.selectbox("Seleziona una Nazionale", teams)
+teams = df_ranked["Squadra"].tolist()
+selected = st.selectbox("Seleziona Nazionale", teams)
 
-team = df_teams_ranked[df_teams_ranked["Squadra"] == selected_team].iloc[0]
-players = df_players[df_players["Squadra"] == selected_team]
+team    = df_ranked[df_ranked["Squadra"] == selected].iloc[0]
+players = df_players[df_players["Squadra"] == selected]
 
 st.markdown("---")
 
-# ── HEADER ─────────────────────────────────────────────────────────────────
-col_flag, col_info = st.columns([1, 4])
-
+# HEADER
+col_flag, col_info = st.columns([1, 5])
 with col_flag:
-    flag_image = f"assets/flags/{selected_team.lower()}.png"
-    if os.path.exists(flag_image):
-        st.image(flag_image, width=120)
+    fp = flag_path(selected)
+    if os.path.exists(fp):
+        st.image(fp, width=110)
     else:
-        st.markdown("<div style='font-size:80px;text-align:center'>🏳️</div>", unsafe_allow_html=True)
+        st.markdown("<div style='font-size:80px'>🏳️</div>", unsafe_allow_html=True)
 
 with col_info:
-    medals = {1: "🥇", 2: "🥈", 3: "🥉"}
-    rank_label = medals.get(int(team["Ranking"]), f"#{int(team['Ranking'])}")
-
-    # Rating generale (0-100) basato su Gol normalizzati
-    max_gol = df_teams["Gol"].max()
-    min_gol = df_teams["Gol"].min()
-    rating = int(((team["Gol"] - min_gol) / (max_gol - min_gol)) * 40 + 60)  # scala 60-100
-
-    st.markdown(f"## {selected_team}")
-    st.markdown(f"**Ranking:** {rank_label} &nbsp;&nbsp; **Rating Generale:** ⭐ {rating}/100")
-
-st.markdown("---")
-
-# ── TEAM STATS ─────────────────────────────────────────────────────────────
-st.subheader("📊 Team Stats")
-
-c1, c2, c3, c4, c5 = st.columns(5)
-c1.metric("⚽ Gol/Partita",     team["Gol"])
-c2.metric("📐 xG",              team["xG"])
-c3.metric("🔵 Possesso",        f"{team['Possesso']}%")
-c4.metric("✅ Prec. Passaggi",  f"{team['PrecisionePassaggi']}%")
-c5.metric("🎯 Tiri",            team["Tiri"])
+    medals = {1:"🥇", 2:"🥈", 3:"🥉"}
+    rank_lbl = medals.get(int(team["Ranking"]), f"#{int(team['Ranking'])}")
+    max_g, min_g = df_teams["Gol"].max(), df_teams["Gol"].min()
+    rating = int(((team["Gol"] - min_g) / (max_g - min_g)) * 30 + 65)
+    st.markdown(f"<h1>{selected}</h1>", unsafe_allow_html=True)
+    st.markdown(
+        f"<span class='wca-badge'>{rank_lbl} Ranking</span> "
+        f"<span class='wca-badge' style='margin-left:8px'>⭐ {rating}/100 Rating</span>",
+        unsafe_allow_html=True
+    )
 
 st.markdown("---")
 
-# ── RADAR CHART ────────────────────────────────────────────────────────────
-st.subheader("📈 Stile di Gioco — Radar")
+# TEAM STATS
+st.markdown("<span class='wca-section-label'>📊 Team Stats</span>", unsafe_allow_html=True)
+c1,c2,c3,c4,c5 = st.columns(5)
+c1.metric("⚽ Gol/Match",  team["Gol"])
+c2.metric("📐 xG",         team["xG"])
+c3.metric("🔵 Possesso",   f"{team['Possesso']}%")
+c4.metric("✅ Precisione", f"{team['PrecisionePassaggi']}%")
+c5.metric("🎯 Tiri",       team["Tiri"])
 
-stats = ["Gol", "xG", "Tiri", "Possesso", "PrecisionePassaggi"]
-team_values = [team[s] for s in stats]
-avg_values  = [df_teams[s].mean() for s in stats]
+st.markdown("---")
 
-fig_radar = go.Figure()
-fig_radar.add_trace(go.Scatterpolar(
-    r=team_values, theta=stats,
-    fill='toself', name=selected_team, line_color='#1f77b4'
-))
-fig_radar.add_trace(go.Scatterpolar(
-    r=avg_values, theta=stats,
-    fill='toself', name='Media Mondiale',
-    line_color='#aaa', opacity=0.5
-))
-fig_radar.update_layout(
-    polar=dict(radialaxis=dict(visible=True)),
-    showlegend=True, height=420
+# RADAR
+st.markdown("<span class='wca-section-label'>📈 Stile di Gioco</span>", unsafe_allow_html=True)
+stats = ["Gol","xG","Tiri","Possesso","PrecisionePassaggi"]
+avg   = [df_teams[s].mean() for s in stats]
+vals  = [team[s] for s in stats]
+
+fig = go.Figure()
+for r, name, color in [(vals, selected, "#00d4ff"), (avg, "Media Mondiale", "#6b7a99")]:
+    fig.add_trace(go.Scatterpolar(
+        r=r, theta=stats, fill='toself', name=name,
+        line=dict(color=color, width=2)
+    ))
+fig.update_layout(
+    paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)",
+    polar=dict(bgcolor="rgba(26,32,53,0.6)",
+               radialaxis=dict(visible=True, gridcolor="#1f2d45", color="#6b7a99"),
+               angularaxis=dict(gridcolor="#1f2d45", color="#6b7a99")),
+    legend=dict(bgcolor="rgba(0,0,0,0)", font=dict(color="#e8edf5")),
+    height=400, showlegend=True
 )
-st.plotly_chart(fig_radar, use_container_width=True)
+st.plotly_chart(fig, use_container_width=True)
 
 st.markdown("---")
 
-# ── TOP PLAYERS ────────────────────────────────────────────────────────────
-st.subheader("⭐ Top Players")
-
+# TOP PLAYERS
 if not players.empty:
-    top_scorer  = players.loc[players["Gol"].idxmax()]
-    top_assist  = players.loc[players["Assist"].idxmax()]
-    youngest    = players.loc[players["Età"].idxmin()]
-    fastest     = players.loc[players["Velocita"].idxmax()]
+    st.markdown("<span class='wca-section-label'>⭐ Top Players</span>", unsafe_allow_html=True)
+    top_sc = players.loc[players["Gol"].idxmax()]
+    top_as = players.loc[players["Assist"].idxmax()]
+    youngest= players.loc[players["Età"].idxmin()]
+    fastest = players.loc[players["Velocita"].idxmax()]
 
-    c1, c2, c3, c4 = st.columns(4)
-
-    def player_card(col, label, emoji, player_row):
+    for col, label, emoji, p in zip(
+        st.columns(4),
+        ["Miglior Marcatore","Miglior Assistman","Più Giovane","Più Veloce"],
+        ["⚽","🎯","🌱","⚡"],
+        [top_sc, top_as, youngest, fastest]
+    ):
         with col:
-            img_path = f"assets/players/{player_row['Giocatore'].lower()}.png"
-            if os.path.exists(img_path):
-                st.image(img_path, width=100)
-            else:
-                st.markdown(f"<div style='font-size:50px;text-align:center'>{emoji}</div>", unsafe_allow_html=True)
-            st.markdown(f"""
-            <div style="
-                background-color:#1c1f26;
-                padding:12px;
-                border-radius:12px;
-                border:1px solid #2d3748;
-                text-align:center;
-            ">
-            <b>{label}</b><br>
-            {player_row['Giocatore']}<br>
-            <small>{player_row['Ruolo']} • {player_row['Età']} anni</small>
-            </div>
-            """, unsafe_allow_html=True)
-
-    player_card(c1, "⚽ Miglior Marcatore", "⚽", top_scorer)
-    player_card(c2, "🎯 Miglior Assistman", "🎯", top_assist)
-    player_card(c3, "🌱 Più Giovane",       "🌱", youngest)
-    player_card(c4, "⚡ Più Veloce",        "⚡", fastest)
+            st.markdown(
+                f"<div class='wca-card' style='text-align:center'>"
+                f"<div style='font-size:2rem'>{emoji}</div>"
+                f"<span class='wca-badge' style='margin:8px 0;display:inline-block'>{label}</span>"
+                f"<div style='font-weight:700;font-size:15px;margin-top:8px'>{p['Giocatore']}</div>"
+                f"<div style='color:#6b7a99;font-size:12px'>{p['Ruolo']} · {p['Età']} anni</div>"
+                f"</div>",
+                unsafe_allow_html=True
+            )
 
     st.markdown("---")
 
-    # Tabella completa rosa
-    st.subheader("👥 Rosa Completa")
+    # ROSA
+    st.markdown("<span class='wca-section-label'>👥 Rosa Completa</span>", unsafe_allow_html=True)
+    show_cols = ["Giocatore","Ruolo","Età","Presenze","Gol","Assist","xG","KeyPasses","Dribbling","Velocita"]
     st.dataframe(
-        players[["Giocatore","Ruolo","Età","Presenze","Gol","Assist","xG","Velocita"]]
-            .sort_values("Gol", ascending=False)
-            .reset_index(drop=True),
-        use_container_width=True,
-        hide_index=True
+        players[show_cols].sort_values("Gol", ascending=False).reset_index(drop=True),
+        use_container_width=True, hide_index=True
     )
 
-else:
-    st.info("Nessun giocatore disponibile per questa nazionale.")
+    st.markdown("---")
 
-st.markdown("---")
+    # TEAM STRENGTH
+    st.markdown("<span class='wca-section-label'>💪 Team Strength</span>", unsafe_allow_html=True)
+    att = players[players["Ruolo"].isin(["ATT","ALA"])]
+    mid = players[players["Ruolo"] == "CEN"]
+    att_s = int(min(100, att["Gol"].mean()*3 + att["xG"].mean()*2)) if not att.empty else 50
+    mid_s = int(min(100, mid["Assist"].mean()*4 + mid["Presenze"].mean()/2)) if not mid.empty else 50
+    def_s = int((team["Possesso"]*0.6 + team["PrecisionePassaggi"]*0.4)*0.9)
 
-# ── TEAM STRENGTH ──────────────────────────────────────────────────────────
-st.subheader("💪 Team Strength")
+    for label, score, color in [
+        ("⚔️ Attacco",     att_s, "#ff3b5c"),
+        ("🔄 Centrocampo", mid_s, "#00d4ff"),
+        ("🛡️ Difesa",      def_s, "#00e5a0"),
+    ]:
+        st.markdown(
+            f"<div style='display:flex;justify-content:space-between;margin-bottom:4px'>"
+            f"<span style='font-size:13px;font-weight:600'>{label}</span>"
+            f"<span style='color:#6b7a99;font-size:12px'>{score}/100</span></div>"
+            f"<div class='wca-bar-wrap'>"
+            f"<div class='wca-bar' style='width:{score}%;background:{color}'></div></div>",
+            unsafe_allow_html=True
+        )
 
-if not players.empty:
-    att_players = players[players["Ruolo"].isin(["ATT", "ALA"])]
-    mid_players = players[players["Ruolo"] == "CEN"]
+    st.markdown("---")
 
-    # Attacco: media gol + xG degli attaccanti
-    att_score = int(min(100, (att_players["Gol"].mean() * 3 + att_players["xG"].mean() * 2))) if not att_players.empty else 50
-    # Centrocampo: media assist + presenze dei centrocampisti
-    mid_score = int(min(100, (mid_players["Assist"].mean() * 4 + mid_players["Presenze"].mean() / 2))) if not mid_players.empty else 50
-    # Difesa: stimata da possesso + precisione passaggi della squadra
-    def_score = int((team["Possesso"] * 0.6 + team["PrecisionePassaggi"] * 0.4) * 0.9)
+    # PREDICTION
+    st.markdown("<span class='wca-section-label'>🔮 Prediction Rating</span>", unsafe_allow_html=True)
+    for col_n in ["Gol","xG","Possesso","PrecisionePassaggi"]:
+        mn, mx = df_teams[col_n].min(), df_teams[col_n].max()
+        df_teams[f"_n_{col_n}"] = (df_teams[col_n]-mn)/(mx-mn) if mx!=mn else 0
+    pred_row = df_teams[df_teams["Squadra"]==selected].iloc[0]
+    score = round(pred_row["_n_Gol"]*35 + pred_row["_n_xG"]*25 +
+                  pred_row["_n_Possesso"]*20 + pred_row["_n_PrecisionePassaggi"]*20, 1)*100
 
-    def strength_bar(label, score, color):
-        st.markdown(f"**{label}** &nbsp; `{score}/100`")
-        bar_html = f"""
-        <div style="background:#2d3748;border-radius:8px;height:22px;margin-bottom:14px;">
-          <div style="width:{score}%;background:{color};height:22px;border-radius:8px;"></div>
-        </div>
-        """
-        st.markdown(bar_html, unsafe_allow_html=True)
-
-    strength_bar("⚔️ Attacco",      att_score, "#e74c3c")
-    strength_bar("🔄 Centrocampo",  mid_score, "#3498db")
-    strength_bar("🛡️ Difesa",       def_score, "#2ecc71")
-
-st.markdown("---")
-
-# ── PREDICTION RATING ──────────────────────────────────────────────────────
-st.subheader("🔮 Prediction Rating")
-
-if not players.empty:
-    # Score composito
-    norm_gol  = (team["Gol"]  - df_teams["Gol"].min())  / (df_teams["Gol"].max()  - df_teams["Gol"].min())
-    norm_xg   = (team["xG"]   - df_teams["xG"].min())   / (df_teams["xG"].max()   - df_teams["xG"].min())
-    norm_poss = (team["Possesso"] - df_teams["Possesso"].min()) / (df_teams["Possesso"].max() - df_teams["Possesso"].min())
-    norm_pass = (team["PrecisionePassaggi"] - df_teams["PrecisionePassaggi"].min()) / (df_teams["PrecisionePassaggi"].max() - df_teams["PrecisionePassaggi"].min())
-
-    prediction = round((norm_gol * 35 + norm_xg * 25 + norm_poss * 20 + norm_pass * 20) * 100, 1)
-
-    col_pred, col_desc = st.columns([1, 2])
-
-    with col_pred:
-        fig_gauge = go.Figure(go.Indicator(
-            mode="gauge+number",
-            value=prediction,
-            title={"text": "Win Probability Score"},
+    col_g, col_d = st.columns([1,2])
+    with col_g:
+        gauge = go.Figure(go.Indicator(
+            mode="gauge+number", value=score,
+            title={"text":"Win Score","font":{"color":"#6b7a99","size":13}},
+            number={"font":{"color":"#e8edf5","size":40}},
             gauge={
-                "axis": {"range": [0, 100]},
-                "bar": {"color": "#1f77b4"},
-                "steps": [
-                    {"range": [0,  40], "color": "#e74c3c"},
-                    {"range": [40, 70], "color": "#f39c12"},
-                    {"range": [70,100], "color": "#2ecc71"},
-                ],
+                "axis":{"range":[0,100],"tickcolor":"#6b7a99"},
+                "bar":{"color":"#00d4ff"},
+                "bgcolor":"rgba(0,0,0,0)",
+                "bordercolor":"#1f2d45",
+                "steps":[
+                    {"range":[0,40],"color":"rgba(255,59,92,0.2)"},
+                    {"range":[40,70],"color":"rgba(255,180,0,0.2)"},
+                    {"range":[70,100],"color":"rgba(0,229,160,0.2)"},
+                ]
             }
         ))
-        fig_gauge.update_layout(height=280, margin=dict(t=40, b=20))
-        st.plotly_chart(fig_gauge, use_container_width=True)
+        gauge.update_layout(
+            paper_bgcolor="rgba(0,0,0,0)", height=260,
+            font={"color":"#e8edf5"},
+            margin=dict(t=40,b=10)
+        )
+        st.plotly_chart(gauge, use_container_width=True)
 
-    with col_desc:
-        if prediction >= 70:
-            label = "🟢 Favorita"
-            desc  = "Questa nazionale ha statistiche superiori alla media mondiale. Alta probabilità di arrivare in fondo al torneo."
-        elif prediction >= 45:
-            label = "🟡 Competitiva"
-            desc  = "Nazionale solida con buone chance di passare i gironi e arrivare agli ottavi o quarti."
+    with col_d:
+        if score >= 70:
+            badge, desc = "🟢 FAVORITA", "Statistiche superiori alla media. Alta probabilità di arrivare in fondo al torneo."
+        elif score >= 45:
+            badge, desc = "🟡 COMPETITIVA", "Nazionale solida con buone chance di superare i gironi e arrivare ai quarti."
         else:
-            label = "🔴 Outsider"
-            desc  = "Statistiche sotto la media. Potrebbe sorprendere, ma dovrà migliorare per competere con le big."
-
-        st.markdown(f"### {label}")
-        st.markdown(desc)
-        st.markdown(f"**Score:** `{prediction}/100`")
+            badge, desc = "🔴 OUTSIDER", "Statistiche sotto media. Può sorprendere, ma serve un salto di qualità."
+        st.markdown(f"<br><span class='wca-badge'>{badge}</span>", unsafe_allow_html=True)
+        st.markdown(f"<p style='margin-top:12px;color:#6b7a99'>{desc}</p>", unsafe_allow_html=True)
+        st.markdown(f"**Score:** `{score}/100`")

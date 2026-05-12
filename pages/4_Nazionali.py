@@ -2,62 +2,83 @@ import os
 import streamlit as st
 import pandas as pd
 
-st.title("🌍 Nazionali")
+with open("assets/style.css") as f:
+    st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
-# CARICAMENTO DATI
+FLAG_MAP = {
+    "Brasile":      "Girone_C/brasile",
+    "Francia":      "Girone_I/francia",
+    "Argentina":    "Girone_J/argentina",
+    "Inghilterra":  "Girone_L/inghilterra",
+    "Spagna":       "Girone_H/spagna",
+    "Portogallo":   "Girone_K/portogallo",
+    "Germania":     "Girone_E/germania",
+    "Olanda":       "Girone_F/olanda",
+    "Belgio":       "Girone_G/belgio",
+    "Croazia":      "Girone_L/croazia",
+    "Uruguay":      "Girone_H/uruguay",
+    "Colombia":     "Girone_K/colombia",
+    "Marocco":      "Girone_C/marocco",
+    "Senegal":      "Girone_I/senegal",
+    "Giappone":     "Girone_F/giappone",
+    "Messico":      "Girone_A/messico",
+    "USA":          "Girone_D/stati_uniti",
+    "Australia":    "Girone_D/australia",
+    "Norvegia":     "Girone_I/norvegia",
+    "Svizzera":     "Girone_B/svizzera",
+}
+def flag_path(s): return f"assets/flags/{FLAG_MAP.get(s, s.lower())}.png"
+
+st.markdown("<h1>🌍 NAZIONALI</h1>", unsafe_allow_html=True)
+
 df = pd.read_csv("data/world_cup_players.csv")
 
-# FILTRO SQUADRA
-teams = ["Tutte"] + sorted(df["Squadra"].unique().tolist())
-selected_team = st.selectbox("Seleziona Squadra", teams)
+col1, col2, col3 = st.columns(3)
+with col1:
+    teams = ["Tutte"] + sorted(df["Squadra"].unique().tolist())
+    selected_team = st.selectbox("Squadra", teams)
+with col2:
+    roles = ["Tutti"] + sorted(df["Ruolo"].unique().tolist())
+    selected_role = st.selectbox("Ruolo", roles)
+with col3:
+    search = st.text_input("🔍 Cerca giocatore")
 
-# FILTRO RUOLO
-roles = ["Tutti"] + sorted(df["Ruolo"].unique().tolist())
-selected_role = st.selectbox("Seleziona Ruolo", roles)
-
-# SEARCH BAR
-search_player = st.text_input("Cerca Giocatore")
-
-# FILTRAGGIO
-filtered_df = df.copy()
+filtered = df.copy()
 if selected_team != "Tutte":
-    filtered_df = filtered_df[filtered_df["Squadra"] == selected_team]
+    filtered = filtered[filtered["Squadra"] == selected_team]
 if selected_role != "Tutti":
-    filtered_df = filtered_df[filtered_df["Ruolo"] == selected_role]
-if search_player:
-    filtered_df = filtered_df[
-        filtered_df["Giocatore"].str.contains(search_player, case=False)
-    ]
+    filtered = filtered[filtered["Ruolo"] == selected_role]
+if search:
+    filtered = filtered[filtered["Giocatore"].str.contains(search, case=False)]
 
 st.markdown("---")
+st.markdown(
+    f"<span class='wca-section-label'>{len(filtered)} giocatori trovati</span>",
+    unsafe_allow_html=True
+)
 
-# TABELLA GIOCATORI
-for _, row in filtered_df.iterrows():
-    flag_image = f"assets/flags/{row['Squadra'].lower()}.png"
-    col1, col2 = st.columns([1, 5])
-
-    with col1:
-        if os.path.exists(flag_image):
-            st.image(flag_image, width=60)
-        else:
-            st.markdown("🏳️", unsafe_allow_html=False)
-
-    with col2:
-        st.markdown(f"""
-        <div style="
-            background-color:#1c1f26;
-            padding:20px;
-            border-radius:15px;
-            margin-bottom:15px;
-            border:1px solid #2d3748;
-        ">
-        <h3>{row['Giocatore']}</h3>
-        <p>
-        🌍 {row['Squadra']} <br>
-        ⚽ {row['Ruolo']} <br>
-        🎂 {row['Età']} anni <br>
-        🥅 Gol: {row['Gol']} <br>
-        🎯 Assist: {row['Assist']}
-        </p>
-        </div>
-        """, unsafe_allow_html=True)
+for _, row in filtered.iterrows():
+    fp = flag_path(row["Squadra"])
+    col_flag, col_card = st.columns([1, 8])
+    with col_flag:
+        if os.path.exists(fp):
+            st.image(fp, width=40)
+    with col_card:
+        role_colors = {"ATT":"wca-badge-red","ALA":"wca-badge-red","CEN":"wca-badge","DIF":"wca-badge","POR":"wca-badge"}
+        rc = role_colors.get(row["Ruolo"], "wca-badge")
+        st.markdown(
+            f"<div class='wca-card'>"
+            f"<div style='display:flex;align-items:center;gap:12px;flex-wrap:wrap'>"
+            f"<span style='font-weight:700;font-size:16px'>{row['Giocatore']}</span>"
+            f"<span class='{rc}'>{row['Ruolo']}</span>"
+            f"<span style='color:#6b7a99;font-size:12px'>{row['Squadra']} · {row['Età']} anni</span>"
+            f"</div>"
+            f"<div class='wca-stat-row'>"
+            f"<div class='wca-stat'>⚽ Gol <span>{int(row['Gol'])}</span></div>"
+            f"<div class='wca-stat'>🎯 Assist <span>{int(row['Assist'])}</span></div>"
+            f"<div class='wca-stat'>📐 xG <span>{row['xG']}</span></div>"
+            f"<div class='wca-stat'>⚡ Vel. <span>{int(row['Velocita'])}</span></div>"
+            f"<div class='wca-stat'>🔑 Key <span>{int(row['KeyPasses'])}</span></div>"
+            f"</div></div>",
+            unsafe_allow_html=True
+        )
