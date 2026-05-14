@@ -70,7 +70,7 @@ with col_opt3:
 
 if st.button("🚀 Avvia Update", disabled=not api_key):
     with st.spinner("Aggiornamento in corso..."):
-        cmd = ["python", "update_data.py", "--api-key", api_key, "--season", str(season)]
+        cmd = ["python3", "update_data.py", "--api-key", api_key, "--season", str(season)]
         if dry_run: cmd.append("--dry-run")
         if teams_only: cmd.append("--teams-only")
 
