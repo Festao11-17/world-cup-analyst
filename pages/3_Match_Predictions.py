@@ -7,15 +7,28 @@ with open("assets/style.css") as f:
     st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
 FLAG_MAP = {
-    "Brasile":"Girone_C/brasile","Francia":"Girone_I/francia","Argentina":"Girone_J/argentina",
-    "Inghilterra":"Girone_L/inghilterra","Spagna":"Girone_H/spagna","Portogallo":"Girone_K/portogallo",
-    "Germania":"Girone_E/germania","Olanda":"Girone_F/olanda","Belgio":"Girone_G/belgio",
-    "Croazia":"Girone_L/croazia","Uruguay":"Girone_H/uruguay","Colombia":"Girone_K/colombia",
-    "Marocco":"Girone_C/marocco","Senegal":"Girone_I/senegal","Giappone":"Girone_F/giappone",
-    "Messico":"Girone_A/messico","USA":"Girone_D/stati_uniti","Australia":"Girone_D/australia",
-    "Norvegia":"Girone_I/norvegia","Svizzera":"Girone_B/svizzera",
+    "Brasile":      "Girone_C/Brasile",
+    "Francia":      "Girone_I/Francia",
+    "Argentina":    "Girone_J/Argentina",
+    "Inghilterra":  "Girone_L/Inghilterra",
+    "Spagna":       "Girone_H/Spagna",
+    "Portogallo":   "Girone_K/Portogallo",
+    "Germania":     "Girone_E/Germania",
+    "Olanda":       "Girone_F/Olanda",
+    "Belgio":       "Girone_G/Belgio",
+    "Croazia":      "Girone_L/Croazia",
+    "Uruguay":      "Girone_H/Uruguay",
+    "Colombia":     "Girone_K/Colombia",
+    "Marocco":      "Girone_C/Marocco",
+    "Senegal":      "Girone_I/Senegal",
+    "Giappone":     "Girone_F/Giappone",
+    "Messico":      "Girone_A/Messico",
+    "USA":          "Girone_D/Stati_Uniti",
+    "Australia":    "Girone_D/Australia",
+    "Norvegia":     "Girone_I/Norvegia",
+    "Svizzera":     "Girone_B/Svizzera",
 }
-def flag_path(s): return f"assets/flags/{FLAG_MAP.get(s, s.lower())}.png"
+def flag_path(s): return f"assets/flags/{FLAG_MAP.get(s, s)}.png"
 
 st.markdown("<h1>🔮 MATCH PREDICTION</h1>", unsafe_allow_html=True)
 st.markdown("<p style='color:#6b7a99;margin-bottom:24px'>Predizioni basate su Power Rating, xG e statistiche avanzate.</p>", unsafe_allow_html=True)
@@ -191,6 +204,76 @@ st.plotly_chart(fig, use_container_width=True)
 
 st.markdown("---")
 
+
+# ── MATCH INSIGHTS ──────────────────────────────────────────────────────────
+st.markdown("<span class='wca-section-label'>💡 Match Insights</span>", unsafe_allow_html=True)
+
+insights = []
+
+# Attacco
+att_diff = t1["AttackRating"] - t2["AttackRating"]
+if att_diff >= 8:
+    insights.append(("⚔️", f"{team1} ha un attacco nettamente superiore ({t1['AttackRating']} vs {t2['AttackRating']}).", "cyan"))
+elif att_diff <= -8:
+    insights.append(("⚔️", f"{team2} ha un attacco nettamente superiore ({t2['AttackRating']} vs {t1['AttackRating']}).", "red"))
+else:
+    insights.append(("⚔️", f"Attacchi molto equilibrati ({t1['AttackRating']} vs {t2['AttackRating']}).", "muted"))
+
+# Centrocampo
+mid_diff = t1["MidfieldRating"] - t2["MidfieldRating"]
+if mid_diff >= 8:
+    insights.append(("🔄", f"{team1} domina il centrocampo ({t1['MidfieldRating']} vs {t2['MidfieldRating']}).", "cyan"))
+elif mid_diff <= -8:
+    insights.append(("🔄", f"{team2} domina il centrocampo ({t2['MidfieldRating']} vs {t1['MidfieldRating']}).", "red"))
+else:
+    insights.append(("🔄", f"Centrocampo equilibrato ({t1['MidfieldRating']} vs {t2['MidfieldRating']}).", "muted"))
+
+# Difesa
+def_diff = t1["DefenseRating"] - t2["DefenseRating"]
+if def_diff >= 8:
+    insights.append(("🛡️", f"{team1} ha una difesa più solida ({t1['DefenseRating']} vs {t2['DefenseRating']}).", "cyan"))
+elif def_diff <= -8:
+    insights.append(("🛡️", f"{team2} ha una difesa più solida ({t2['DefenseRating']} vs {t1['DefenseRating']}).", "red"))
+else:
+    insights.append(("🛡️", f"Difese simili per solidità ({t1['DefenseRating']} vs {t2['DefenseRating']}).", "muted"))
+
+# xG
+xg_diff = t1["xG"] - t2["xG"]
+if xg_diff >= 0.3:
+    insights.append(("📐", f"{team1} crea occasioni di maggior qualità (xG {t1['xG']} vs {t2['xG']}).", "cyan"))
+elif xg_diff <= -0.3:
+    insights.append(("📐", f"{team2} crea occasioni di maggior qualità (xG {t2['xG']} vs {t1['xG']}).", "red"))
+else:
+    insights.append(("📐", f"xG molto simile — partita che si decide nei dettagli.", "muted"))
+
+# Possesso
+pos_diff = t1["Possesso"] - t2["Possesso"]
+if pos_diff >= 5:
+    insights.append(("🔵", f"{team1} tende a controllare il pallone ({t1['Possesso']}% vs {t2['Possesso']}%).", "cyan"))
+elif pos_diff <= -5:
+    insights.append(("🔵", f"{team2} tende a controllare il pallone ({t2['Possesso']}% vs {t1['Possesso']}%).", "red"))
+
+# Overall gap
+overall_diff = abs(t1["OverallRating"] - t2["OverallRating"])
+if overall_diff < 3:
+    insights.append(("⚡", "Gap minimo tra le due squadre — pronostico apertissimo.", "muted"))
+elif overall_diff >= 12:
+    stronger = team1 if t1["OverallRating"] > t2["OverallRating"] else team2
+    insights.append(("⚡", f"{stronger} è la favorita su tutti i fronti.", "cyan" if stronger == team1 else "red"))
+
+color_map = {"cyan": "#00d4ff", "red": "#ff3b5c", "muted": "#6b7a99"}
+
+for emoji, text, color_key in insights:
+    color = color_map[color_key]
+    st.markdown(
+        f"<div class='wca-card' style='padding:12px 18px;margin-bottom:8px;border-left:3px solid {color}'>"
+        f"<span style='margin-right:10px'>{emoji}</span>"
+        f"<span style='color:{color};font-size:14px'>{text}</span>"
+        f"</div>",
+        unsafe_allow_html=True
+    )
+
+st.markdown("---")
 # ── VERDETTO ────────────────────────────────────────────────────────────────
 st.markdown("<span class='wca-section-label'>🏆 Verdetto</span>", unsafe_allow_html=True)
 

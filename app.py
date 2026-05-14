@@ -14,30 +14,28 @@ with open("assets/style.css") as f:
 
 # Mapping squadra → file bandiera
 FLAG_MAP = {
-    "Brasile":      "Girone_C/brasile",
-    "Francia":      "Girone_I/francia",
-    "Argentina":    "Girone_J/argentina",
-    "Inghilterra":  "Girone_L/inghilterra",
-    "Spagna":       "Girone_H/spagna",
-    "Portogallo":   "Girone_K/portogallo",
-    "Germania":     "Girone_E/germania",
-    "Olanda":       "Girone_F/olanda",
-    "Belgio":       "Girone_G/belgio",
-    "Croazia":      "Girone_L/croazia",
-    "Uruguay":      "Girone_H/uruguay",
-    "Colombia":     "Girone_K/colombia",
-    "Marocco":      "Girone_C/marocco",
-    "Senegal":      "Girone_I/senegal",
-    "Giappone":     "Girone_F/giappone",
-    "Messico":      "Girone_A/messico",
-    "USA":          "Girone_D/stati_uniti",
-    "Australia":    "Girone_D/australia",
-    "Norvegia":     "Girone_I/norvegia",
-    "Svizzera":     "Girone_B/svizzera",
+    "Brasile":      "Girone_C/Brasile",
+    "Francia":      "Girone_I/Francia",
+    "Argentina":    "Girone_J/Argentina",
+    "Inghilterra":  "Girone_L/Inghilterra",
+    "Spagna":       "Girone_H/Spagna",
+    "Portogallo":   "Girone_K/Portogallo",
+    "Germania":     "Girone_E/Germania",
+    "Olanda":       "Girone_F/Olanda",
+    "Belgio":       "Girone_G/Belgio",
+    "Croazia":      "Girone_L/Croazia",
+    "Uruguay":      "Girone_H/Uruguay",
+    "Colombia":     "Girone_K/Colombia",
+    "Marocco":      "Girone_C/Marocco",
+    "Senegal":      "Girone_I/Senegal",
+    "Giappone":     "Girone_F/Giappone",
+    "Messico":      "Girone_A/Messico",
+    "USA":          "Girone_D/Stati_Uniti",
+    "Australia":    "Girone_D/Australia",
+    "Norvegia":     "Girone_I/Norvegia",
+    "Svizzera":     "Girone_B/Svizzera",
 }
-
-def flag_path(squadra):
-    return f"assets/flags/{FLAG_MAP.get(squadra, squadra.lower())}.png"
+def flag_path(s): return f"assets/flags/{FLAG_MAP.get(s, s)}.png"
 
 def flag_img(squadra, width=32):
     p = flag_path(squadra)
