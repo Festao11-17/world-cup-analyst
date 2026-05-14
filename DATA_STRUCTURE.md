@@ -59,27 +59,3 @@ python update_data.py --api-key TUA_KEY --teams-only
 # Dry run — testa senza sovrascrivere
 python update_data.py --api-key TUA_KEY --dry-run
 ```
-
-### Via pagina Admin nell'app
-1. Vai su `⚙️ Admin — Update Data`
-2. Inserisci la password admin
-3. Inserisci la API key
-4. Clicca **Avvia Update**
-
-### Upload manuale CSV
-Nella pagina Admin puoi caricare CSV aggiornati manualmente.
-I Power Rating vengono ricalcolati automaticamente al salvataggio.
-
-## Secrets (Streamlit Cloud)
-
-Vai su **Manage app → Settings → Secrets** e aggiungi:
-
-```toml
-FOOTBALL_API_KEY = "la_tua_api_key"
-ADMIN_PASSWORD   = "scegli_password_sicura"
-```
-
-## Note Importanti
-
-- I file PNG delle bandiere hanno la **prima lettera maiuscola** (es. `Brasile.png`)
-- Il FLAG_MAP nei file Python usa lo stesso formato esatto
