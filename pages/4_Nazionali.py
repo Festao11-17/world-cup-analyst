@@ -2,37 +2,105 @@ import os
 import streamlit as st
 import pandas as pd
 
+st.set_page_config(
+    page_title="Nazionali · World Cup Analyst",
+    page_icon="assets/logo.png",   # ← favicon aggiornata
+    layout="wide"
+)
+
 with open("assets/style.css") as f:
     st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
+# ══════════════════════════════════════════════════════════════════
+#  FLAG_MAP COMPLETO — 48 SQUADRE FIFA WORLD CUP 2026
+# ══════════════════════════════════════════════════════════════════
 FLAG_MAP = {
-    "Brasile":      "Girone_C/Brasile",
-    "Francia":      "Girone_I/Francia",
-    "Argentina":    "Girone_J/Argentina",
-    "Inghilterra":  "Girone_L/Inghilterra",
-    "Spagna":       "Girone_H/Spagna",
-    "Portogallo":   "Girone_K/Portogallo",
-    "Germania":     "Girone_E/Germania",
-    "Olanda":       "Girone_F/Olanda",
-    "Belgio":       "Girone_G/Belgio",
-    "Croazia":      "Girone_L/Croazia",
-    "Uruguay":      "Girone_H/Uruguay",
-    "Colombia":     "Girone_K/Colombia",
-    "Marocco":      "Girone_C/Marocco",
-    "Senegal":      "Girone_I/Senegal",
-    "Giappone":     "Girone_F/Giappone",
-    "Messico":      "Girone_A/Messico",
-    "USA":          "Girone_D/Stati_Uniti",
-    "Australia":    "Girone_D/Australia",
-    "Norvegia":     "Girone_I/Norvegia",
-    "Svizzera":     "Girone_B/Svizzera",
+    # Girone A
+    "Cechia":           "Girone_A/Cechia",
+    "Corea del Sud":    "Girone_A/Corea_del_Sud",
+    "Messico":          "Girone_A/Messico",
+    "Sudafrica":        "Girone_A/Sudafrica",
+    # Girone B
+    "Bosnia":           "Girone_B/Bosnia_ed_Erzegovina",
+    "Canada":           "Girone_B/Canada",
+    "Qatar":            "Girone_B/Qatar",
+    "Svizzera":         "Girone_B/Svizzera",
+    # Girone C
+    "Brasile":          "Girone_C/Brasile",
+    "Haiti":            "Girone_C/Haiti",
+    "Marocco":          "Girone_C/Marocco",
+    "Scozia":           "Girone_C/Scozia",
+    # Girone D
+    "Australia":        "Girone_D/Australia",
+    "Paraguay":         "Girone_D/Paraguay",
+    "USA":              "Girone_D/Stati_Uniti",
+    "Turchia":          "Girone_D/Turchia",
+    # Girone E
+    "Costa d'Avorio":   "Girone_E/Costa_d'Avorio",
+    "Curacao":          "Girone_E/Curacao",
+    "Ecuador":          "Girone_E/Ecuador",
+    "Germania":         "Girone_E/Germania",
+    # Girone F
+    "Giappone":         "Girone_F/Giappone",
+    "Olanda":           "Girone_F/Olanda",
+    "Svezia":           "Girone_F/Svezia",
+    "Tunisia":          "Girone_F/Tunisia",
+    # Girone G
+    "Belgio":           "Girone_G/Belgio",
+    "Egitto":           "Girone_G/Egitto",
+    "Iran":             "Girone_G/Iran",
+    "Nuova Zelanda":    "Girone_G/Nuova_Zelanda",
+    # Girone H
+    "Arabia Saudita":   "Girone_H/Arabia_Saudita",
+    "Capo Verde":       "Girone_H/Capo_Verde",
+    "Spagna":           "Girone_H/Spagna",
+    "Uruguay":          "Girone_H/Uruguay",
+    # Girone I
+    "Francia":          "Girone_I/Francia",
+    "Iraq":             "Girone_I/Iraq",
+    "Norvegia":         "Girone_I/Norvegia",
+    "Senegal":          "Girone_I/Senegal",
+    # Girone J
+    "Algeria":          "Girone_J/Algeria",
+    "Argentina":        "Girone_J/Argentina",
+    "Austria":          "Girone_J/Austria",
+    "Giordania":        "Girone_J/Giordania",
+    # Girone K
+    "Colombia":         "Girone_K/Colombia",
+    "Portogallo":       "Girone_K/Portogallo",
+    "Rep. del Congo":   "Girone_K/Repubblica_del_Congo",
+    "Uzbekistan":       "Girone_K/Uzbekistan",
+    # Girone L
+    "Croazia":          "Girone_L/Croazia",
+    "Ghana":            "Girone_L/Ghana",
+    "Inghilterra":      "Girone_L/Inghilterra",
+    "Panama":           "Girone_L/Panama",
 }
+
 def flag_path(s): return f"assets/flags/{FLAG_MAP.get(s, s)}.png"
 
+# ── SIDEBAR ───────────────────────────────────────────────────────────────────
+with st.sidebar:
+    if os.path.exists("assets/logo.png"):
+        st.image("assets/logo.png", width=100)
+    st.markdown("### WORLD CUP\nANALYST")
+    st.markdown("---")
+    st.markdown(
+        "<span class='wca-badge'>FIFA WORLD CUP 2026</span>",
+        unsafe_allow_html=True
+    )
+
+# ── HEADER ────────────────────────────────────────────────────────────────────
 st.markdown("<h1>🌍 NAZIONALI</h1>", unsafe_allow_html=True)
+st.markdown(
+    "<p style='color:#6b7a99;margin-top:-8px;margin-bottom:16px'>"
+    "48 nazionali qualificate · FIFA World Cup 2026</p>",
+    unsafe_allow_html=True
+)
 
 df = pd.read_csv("data/world_cup_players.csv")
 
+# ── FILTRI ────────────────────────────────────────────────────────────────────
 col1, col2, col3 = st.columns(3)
 with col1:
     teams = ["Tutte"] + sorted(df["Squadra"].unique().tolist())
@@ -57,6 +125,7 @@ st.markdown(
     unsafe_allow_html=True
 )
 
+# ── LISTA GIOCATORI ───────────────────────────────────────────────────────────
 for _, row in filtered.iterrows():
     fp = flag_path(row["Squadra"])
     col_flag, col_card = st.columns([1, 8])
@@ -64,7 +133,11 @@ for _, row in filtered.iterrows():
         if os.path.exists(fp):
             st.image(fp, width=40)
     with col_card:
-        role_colors = {"ATT":"wca-badge-red","ALA":"wca-badge-red","CEN":"wca-badge","DIF":"wca-badge","POR":"wca-badge"}
+        role_colors = {
+            "ATT": "wca-badge-red", "ALA": "wca-badge-red",
+            "CEN": "wca-badge",     "DIF": "wca-badge",
+            "POR": "wca-badge"
+        }
         rc = role_colors.get(row["Ruolo"], "wca-badge")
         st.markdown(
             f"<div class='wca-card'>"
