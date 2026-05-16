@@ -6,71 +6,34 @@ import plotly.graph_objects as go
 with open("assets/style.css") as f:
     st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
-# ── FLAG MAP COMPLETO 48 SQUADRE ─────────────────────────────────────────────
 FLAG_MAP = {
-    "Messico":               "Girone_A/Messico",
-    "Cechia":                "Girone_A/Cechia",
-    "Corea_del_Sud":         "Girone_A/Corea_del_Sud",
-    "Sudafrica":             "Girone_A/Sudafrica",
-    "Svizzera":              "Girone_B/Svizzera",
-    "Canada":                "Girone_B/Canada",
-    "Bosnia_ed_Erzegovina":  "Girone_B/Bosnia_ed_Erzegovina",
-    "Qatar":                 "Girone_B/Qatar",
-    "Brasile":               "Girone_C/Brasile",
-    "Marocco":               "Girone_C/Marocco",
-    "Haiti":                 "Girone_C/Haiti",
-    "Scozia":                "Girone_C/Scozia",
-    "Australia":             "Girone_D/Australia",
-    "Stati_Uniti":           "Girone_D/Stati_Uniti",
-    "Paraguay":              "Girone_D/Paraguay",
-    "Turchia":               "Girone_D/Turchia",
-    "Germania":              "Girone_E/Germania",
-    "Ecuador":               "Girone_E/Ecuador",
-    "Costa_d'Avorio":        "Girone_E/Costa_d'Avorio",
-    "Curacao":               "Girone_E/Curacao",
-    "Giappone":              "Girone_F/Giappone",
-    "Olanda":                "Girone_F/Olanda",
-    "Svezia":                "Girone_F/Svezia",
-    "Tunisia":               "Girone_F/Tunisia",
-    "Belgio":                "Girone_G/Belgio",
-    "Egitto":                "Girone_G/Egitto",
-    "Iran":                  "Girone_G/Iran",
-    "Nuova_Zelanda":         "Girone_G/Nuova_Zelanda",
-    "Spagna":                "Girone_H/Spagna",
-    "Uruguay":               "Girone_H/Uruguay",
-    "Arabia_Saudita":        "Girone_H/Arabia_Saudita",
-    "Capo_Verde":            "Girone_H/Capo_Verde",
-    "Francia":               "Girone_I/Francia",
-    "Senegal":               "Girone_I/Senegal",
-    "Norvegia":              "Girone_I/Norvegia",
-    "Iraq":                  "Girone_I/Iraq",
-    "Argentina":             "Girone_J/Argentina",
-    "Algeria":               "Girone_J/Algeria",
-    "Austria":               "Girone_J/Austria",
-    "Giordania":             "Girone_J/Giordania",
-    "Portogallo":            "Girone_K/Portogallo",
-    "Colombia":              "Girone_K/Colombia",
-    "Repubblica_del_Congo":  "Girone_K/Repubblica_del_Congo",
-    "Uzbekistan":            "Girone_K/Uzbekistan",
-    "Inghilterra":           "Girone_L/Inghilterra",
-    "Croazia":               "Girone_L/Croazia",
-    "Ghana":                 "Girone_L/Ghana",
-    "Panama":                "Girone_L/Panama",
+    "Messico":"Girone_A/Messico","Cechia":"Girone_A/Cechia","Corea del Sud":"Girone_A/Corea_del_Sud","Sudafrica":"Girone_A/Sudafrica",
+    "Svizzera":"Girone_B/Svizzera","Canada":"Girone_B/Canada","Bosnia":"Girone_B/Bosnia_ed_Erzegovina","Qatar":"Girone_B/Qatar",
+    "Brasile":"Girone_C/Brasile","Marocco":"Girone_C/Marocco","Haiti":"Girone_C/Haiti","Scozia":"Girone_C/Scozia",
+    "Australia":"Girone_D/Australia","Stati Uniti":"Girone_D/Stati_Uniti","Paraguay":"Girone_D/Paraguay","Turchia":"Girone_D/Turchia",
+    "Germania":"Girone_E/Germania","Ecuador":"Girone_E/Ecuador","Costa d'Avorio":"Girone_E/Costa_d'Avorio","Curacao":"Girone_E/Curacao",
+    "Giappone":"Girone_F/Giappone","Olanda":"Girone_F/Olanda","Svezia":"Girone_F/Svezia","Tunisia":"Girone_F/Tunisia",
+    "Belgio":"Girone_G/Belgio","Egitto":"Girone_G/Egitto","Iran":"Girone_G/Iran","Nuova Zelanda":"Girone_G/Nuova_Zelanda",
+    "Spagna":"Girone_H/Spagna","Uruguay":"Girone_H/Uruguay","Arabia Saudita":"Girone_H/Arabia_Saudita","Capo Verde":"Girone_H/Capo_Verde",
+    "Francia":"Girone_I/Francia","Senegal":"Girone_I/Senegal","Norvegia":"Girone_I/Norvegia","Iraq":"Girone_I/Iraq",
+    "Argentina":"Girone_J/Argentina","Algeria":"Girone_J/Algeria","Austria":"Girone_J/Austria","Giordania":"Girone_J/Giordania",
+    "Portogallo":"Girone_K/Portogallo","Colombia":"Girone_K/Colombia","Rep. del Congo":"Girone_K/Repubblica_del_Congo","Uzbekistan":"Girone_K/Uzbekistan",
+    "Inghilterra":"Girone_L/Inghilterra","Croazia":"Girone_L/Croazia","Ghana":"Girone_L/Ghana","Panama":"Girone_L/Panama",
 }
 
 GIRONI = {
-    "A": ["Messico",    "Cechia",               "Corea_del_Sud",        "Sudafrica"],
-    "B": ["Svizzera",   "Canada",               "Bosnia_ed_Erzegovina", "Qatar"],
-    "C": ["Brasile",    "Marocco",              "Haiti",                "Scozia"],
-    "D": ["Australia",  "Stati_Uniti",          "Paraguay",             "Turchia"],
-    "E": ["Germania",   "Ecuador",              "Costa_d'Avorio",       "Curacao"],
-    "F": ["Giappone",   "Olanda",               "Svezia",               "Tunisia"],
-    "G": ["Belgio",     "Egitto",               "Iran",                 "Nuova_Zelanda"],
-    "H": ["Spagna",     "Uruguay",              "Arabia_Saudita",       "Capo_Verde"],
-    "I": ["Francia",    "Senegal",              "Norvegia",             "Iraq"],
-    "J": ["Argentina",  "Algeria",              "Austria",              "Giordania"],
-    "K": ["Portogallo", "Colombia",             "Repubblica_del_Congo", "Uzbekistan"],
-    "L": ["Inghilterra","Croazia",              "Ghana",                "Panama"],
+    "A": ["Messico",     "Cechia",       "Corea del Sud",  "Sudafrica"],
+    "B": ["Svizzera",    "Canada",       "Bosnia",         "Qatar"],
+    "C": ["Brasile",     "Marocco",      "Haiti",          "Scozia"],
+    "D": ["Australia",   "Stati Uniti",  "Paraguay",       "Turchia"],
+    "E": ["Germania",    "Ecuador",      "Costa d'Avorio", "Curacao"],
+    "F": ["Giappone",    "Olanda",       "Svezia",         "Tunisia"],
+    "G": ["Belgio",      "Egitto",       "Iran",           "Nuova Zelanda"],
+    "H": ["Spagna",      "Uruguay",      "Arabia Saudita", "Capo Verde"],
+    "I": ["Francia",     "Senegal",      "Norvegia",       "Iraq"],
+    "J": ["Argentina",   "Algeria",      "Austria",        "Giordania"],
+    "K": ["Portogallo",  "Colombia",     "Rep. del Congo", "Uzbekistan"],
+    "L": ["Inghilterra", "Croazia",      "Ghana",          "Panama"],
 }
 
 def flag_path(s): return f"assets/flags/{FLAG_MAP.get(s, s)}.png"
@@ -78,11 +41,9 @@ def flag_img(s):
     p = flag_path(s)
     return p if os.path.exists(p) else None
 
-# ── DATI ─────────────────────────────────────────────────────────────────────
 df = pd.read_csv("data/team_stats.csv")
 ratings = {r["Squadra"]: r for _, r in df.iterrows()}
 
-# ── SIMULAZIONE ───────────────────────────────────────────────────────────────
 def win_prob(t1, t2):
     r1, r2 = ratings.get(t1, {}), ratings.get(t2, {})
     s1 = float(r1.get("OverallRating",70))*0.45 + float(r1.get("AttackRating",70))*0.30 + float(r1.get("DefenseRating",70))*0.25
@@ -101,7 +62,6 @@ def predict_score(t1, t2):
     return g1, g2
 
 def simulate_group(teams):
-    """Simula il girone, restituisce classifica."""
     pts = {t: 0 for t in teams}
     gf  = {t: 0 for t in teams}
     ga  = {t: 0 for t in teams}
@@ -116,7 +76,6 @@ def simulate_group(teams):
             gf[t1] += g1; ga[t1] += g2
             gf[t2] += g2; ga[t2] += g1
             matches.append((t1, t2, g1, g2))
-    # Classifica: punti → differenza reti → gol fatti
     standing = sorted(teams, key=lambda t: (pts[t], gf[t]-ga[t], gf[t]), reverse=True)
     return standing, pts, gf, ga, matches
 
@@ -151,22 +110,19 @@ st.markdown("<p style='color:#6b7a99'>Simula il Mondiale 2026 completo: fase a g
 run_sim = st.button("▶️ Simula Mondiale 2026", use_container_width=True)
 
 if run_sim:
+    random.seed(2026)
 
-    # ════════════════════════════════════════════════════
-    # FASE A GIRONI
-    # ════════════════════════════════════════════════════
+    # ── FASE A GIRONI ─────────────────────────────────────────────────────────
     st.markdown("---")
     st.markdown("<h2>📋 FASE A GIRONI</h2>", unsafe_allow_html=True)
 
-    qualificate = []   # prime 2 di ogni girone
-    terze = []         # terze classificate (le migliori 8 passano)
+    qualificate = []
+    terze = []
 
     for girone_name, teams in GIRONI.items():
         st.markdown(f"<span class='wca-section-label'>Girone {girone_name}</span>", unsafe_allow_html=True)
-
         standing, pts, gf, ga, matches = simulate_group(teams)
 
-        # Classifica girone
         col_class, col_matches = st.columns([2, 3])
 
         with col_class:
@@ -186,8 +142,8 @@ if run_sim:
                         f"display:flex;justify-content:space-between;align-items:center'>"
                         f"<span style='font-weight:700;font-size:13px'>{rank+1}. {t}</span>"
                         f"<span style='color:#6b7a99;font-size:11px'>"
-                        f"<b style='color:#00d4ff'>{pts[t]}pt</b> &nbsp; "
-                        f"{gf[t]}:{ga[t]} &nbsp; {diff_str}"
+                        f"<b style='color:#00d4ff'>{pts[t]}pt</b> &nbsp;"
+                        f"{gf[t]}:{ga[t]} &nbsp;{diff_str}"
                         f"</span></div>",
                         unsafe_allow_html=True
                     )
@@ -196,53 +152,38 @@ if run_sim:
             match_cols = st.columns(3)
             for idx, (t1, t2, g1, g2) in enumerate(matches):
                 p1, p2 = win_prob(t1, t2)
-                winner = t1 if g1 > g2 else (t2 if g2 > g1 else "X")
+                winner = t1 if g1 > g2 else (t2 if g2 > g1 else t1)
                 show_match_card(match_cols[idx % 3], t1, t2, g1, g2, p1, p2, winner)
 
-        # Qualificate
         qualificate.append(standing[0])
         qualificate.append(standing[1])
         terze.append((standing[2], pts[standing[2]], gf[standing[2]] - ga[standing[2]]))
 
-        st.markdown("")
-
-    # Migliori 8 terze
     terze_sorted = sorted(terze, key=lambda x: (x[1], x[2]), reverse=True)[:8]
-    terze_pass = [t[0] for t in terze_sorted]
-    qualificate += terze_pass
+    qualificate += [t[0] for t in terze_sorted]
 
     st.markdown("---")
-    st.markdown(
-        f"<span class='wca-section-label'>✅ {len(qualificate)} squadre qualificate agli ottavi</span>",
-        unsafe_allow_html=True
-    )
-    # Mostra qualificate in griglia
+    st.markdown(f"<span class='wca-section-label'>✅ {len(qualificate)} squadre qualificate agli ottavi</span>", unsafe_allow_html=True)
     q_cols = st.columns(8)
     for i, t in enumerate(qualificate):
         with q_cols[i % 8]:
             fp = flag_img(t)
             if fp: st.image(fp, width=36)
-            st.markdown(f"<div style='font-size:11px;text-align:center;color:#e8edf5'>{t}</div>", unsafe_allow_html=True)
+            st.markdown(f"<div style='font-size:10px;text-align:center;color:#e8edf5'>{t}</div>", unsafe_allow_html=True)
 
-    # ════════════════════════════════════════════════════
-    # FASE KNOCKOUT
-    # ════════════════════════════════════════════════════
+    # ── FASE KNOCKOUT ─────────────────────────────────────────────────────────
     random.shuffle(qualificate)
     current_round = [(qualificate[i], qualificate[i+1]) for i in range(0, len(qualificate), 2)]
-
     round_names = ["Ottavi di Finale", "Quarti di Finale", "Semifinale", "Finale"]
     champion = None
 
     for round_name in round_names:
-        if not current_round:
-            break
-
+        if not current_round: break
         st.markdown("---")
         st.markdown(f"<h2>{round_name.upper()}</h2>", unsafe_allow_html=True)
 
         winners = []
         round_data = []
-
         for t1, t2 in current_round:
             p1, p2 = win_prob(t1, t2)
             winner = simulate_match(t1, t2)
@@ -258,19 +199,14 @@ if run_sim:
             for col, m in zip(cols, row_m):
                 show_match_card(col, m["t1"], m["t2"], m["g1"], m["g2"], m["p1"], m["p2"], m["winner"])
 
-        next_round = [(winners[i], winners[i+1]) for i in range(0, len(winners)-1, 2)]
-        current_round = next_round
-
+        current_round = [(winners[i], winners[i+1]) for i in range(0, len(winners)-1, 2)]
         if round_name == "Finale":
             champion = winners[0]
 
-    # ════════════════════════════════════════════════════
-    # CAMPIONE
-    # ════════════════════════════════════════════════════
+    # ── CAMPIONE ──────────────────────────────────────────────────────────────
     if champion:
         st.markdown("---")
         st.markdown("<span class='wca-section-label'>🏆 Campione del Mondo</span>", unsafe_allow_html=True)
-
         fp_champ = flag_img(champion)
         col_c, col_info = st.columns([1, 3])
         with col_c:
@@ -288,7 +224,7 @@ if run_sim:
                 unsafe_allow_html=True
             )
 
-        # ── WIN PROBABILITY MONTE CARLO ──────────────────────────────────────
+        # ── MONTE CARLO ───────────────────────────────────────────────────────
         st.markdown("---")
         st.markdown("<span class='wca-section-label'>📊 Win Probability Torneo — Monte Carlo</span>", unsafe_allow_html=True)
         st.markdown("<p style='color:#6b7a99;font-size:13px'>300 simulazioni complete del torneo.</p>", unsafe_allow_html=True)
@@ -296,7 +232,8 @@ if run_sim:
         @st.cache_data
         def monte_carlo(n=300):
             wins = {t: 0 for t in FLAG_MAP.keys()}
-            for _ in range(n):
+            for seed_i in range(n):
+                random.seed(seed_i)
                 q = []
                 for g_teams in GIRONI.values():
                     s, *_ = simulate_group(g_teams)
@@ -347,17 +284,14 @@ if run_sim:
                 )
 
 else:
-    # Preview gironi
     st.markdown("---")
     st.markdown("<span class='wca-section-label'>📋 Gironi Ufficiali — FIFA World Cup 2026</span>", unsafe_allow_html=True)
-
     girone_cols = st.columns(4)
     for idx, (name, teams) in enumerate(GIRONI.items()):
         with girone_cols[idx % 4]:
             st.markdown(
                 f"<div class='wca-card' style='padding:14px;margin-bottom:12px'>"
-                f"<div style='font-family:Bebas Neue,sans-serif;font-size:1.3rem;"
-                f"letter-spacing:2px;margin-bottom:10px;color:#00d4ff'>GIRONE {name}</div>",
+                f"<div style='font-family:Bebas Neue,sans-serif;font-size:1.3rem;letter-spacing:2px;margin-bottom:10px;color:#00d4ff'>GIRONE {name}</div>",
                 unsafe_allow_html=True
             )
             for t in teams:
@@ -367,11 +301,7 @@ else:
                 with cc1:
                     if fp: st.image(fp, width=24)
                 with cc2:
-                    st.markdown(
-                        f"<div style='font-size:12px;padding:2px 0'>"
-                        f"{t} <span style='color:#6b7a99;font-size:11px'>· {rating}</span></div>",
-                        unsafe_allow_html=True
-                    )
+                    st.markdown(f"<div style='font-size:12px;padding:2px 0'>{t} <span style='color:#6b7a99;font-size:11px'>· {rating}</span></div>", unsafe_allow_html=True)
             st.markdown("</div>", unsafe_allow_html=True)
 
     st.markdown(
