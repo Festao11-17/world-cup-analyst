@@ -20,43 +20,54 @@ FLAG_MAP = {
     "Portogallo":"Girone_K/Portogallo","Colombia":"Girone_K/Colombia","Rep. del Congo":"Girone_K/Repubblica_del_Congo","Uzbekistan":"Girone_K/Uzbekistan",
     "Inghilterra":"Girone_L/Inghilterra","Croazia":"Girone_L/Croazia","Ghana":"Girone_L/Ghana","Panama":"Girone_L/Panama",
 }
+
+GIRONI = {
+    "A": ["Messico",     "Cechia",       "Corea del Sud",  "Sudafrica"],
+    "B": ["Svizzera",    "Canada",       "Bosnia",         "Qatar"],
+    "C": ["Brasile",     "Marocco",      "Haiti",          "Scozia"],
+    "D": ["Australia",   "Stati Uniti",  "Paraguay",       "Turchia"],
+    "E": ["Germania",    "Ecuador",      "Costa d'Avorio", "Curacao"],
+    "F": ["Giappone",    "Olanda",       "Svezia",         "Tunisia"],
+    "G": ["Belgio",      "Egitto",       "Iran",           "Nuova Zelanda"],
+    "H": ["Spagna",      "Uruguay",      "Arabia Saudita", "Capo Verde"],
+    "I": ["Francia",     "Senegal",      "Norvegia",       "Iraq"],
+    "J": ["Argentina",   "Algeria",      "Austria",        "Giordania"],
+    "K": ["Portogallo",  "Colombia",     "Rep. del Congo", "Uzbekistan"],
+    "L": ["Inghilterra", "Croazia",      "Ghana",          "Panama"],
+}
+
 def flag_path(s): return f"assets/flags/{FLAG_MAP.get(s, s)}.png"
 
 st.markdown("<h1>📊 TEAM COMPARISON</h1>", unsafe_allow_html=True)
 
 df = pd.read_csv("data/team_stats.csv")
-teams = sorted(df["Squadra"].tolist())
+gironi_list = [f"Girone {k}" for k in GIRONI.keys()]
 
-# ── SOLO RICERCA ──────────────────────────────────────────────────────────────
 col1, col2 = st.columns(2)
+
 with col1:
-    search1 = st.text_input("🔍 Squadra 1", placeholder="Scrivi per cercare... es. Brasile")
-    results1 = [t for t in teams if search1.lower() in t.lower()] if search1 else []
-    if not search1:
-        st.caption("Inizia a scrivere per cercare una squadra")
-        st.stop()
-    if not results1:
-        st.warning("Nessuna squadra trovata.")
-        st.stop()
-    team1 = results1[0] if len(results1) == 1 else st.selectbox("Seleziona", results1, key="s1")
+    girone1 = st.selectbox("Girone Squadra 1", gironi_list, key="g1")
+    squadre1 = GIRONI[girone1.replace("Girone ", "")]
+    team1 = st.selectbox("Squadra 1", squadre1, key="t1")
 
 with col2:
-    search2 = st.text_input("🔍 Squadra 2", placeholder="Scrivi per cercare... es. Francia")
-    results2 = [t for t in teams if search2.lower() in t.lower()] if search2 else []
-    if not search2:
-        st.caption("Inizia a scrivere per cercare una squadra")
-        st.stop()
-    if not results2:
-        st.warning("Nessuna squadra trovata.")
-        st.stop()
-    team2 = results2[0] if len(results2) == 1 else st.selectbox("Seleziona", results2, key="s2")
+    girone2 = st.selectbox("Girone Squadra 2", gironi_list, key="g2")
+    squadre2 = GIRONI[girone2.replace("Girone ", "")]
+    team2 = st.selectbox("Squadra 2", squadre2, key="t2")
 
 if team1 == team2:
     st.warning("Seleziona due squadre diverse.")
     st.stop()
 
-t1 = df[df["Squadra"] == team1].iloc[0]
-t2 = df[df["Squadra"] == team2].iloc[0]
+t1_row = df[df["Squadra"] == team1]
+t2_row = df[df["Squadra"] == team2]
+
+if t1_row.empty or t2_row.empty:
+    st.error("Dati non trovati per una delle squadre selezionate.")
+    st.stop()
+
+t1 = t1_row.iloc[0]
+t2 = t2_row.iloc[0]
 
 st.markdown("---")
 
@@ -66,6 +77,7 @@ with col_l:
     fp = flag_path(team1)
     if os.path.exists(fp): st.image(fp, width=70)
     st.markdown(f"### {team1}")
+    st.markdown(f"<span class='wca-badge'>Girone {girone1.replace('Girone ', '')}</span>", unsafe_allow_html=True)
     c1,c2,c3 = st.columns(3)
     c1.metric("Gol", t1["Gol"]); c2.metric("xG", t1["xG"]); c3.metric("Possesso", f"{t1['Possesso']}%")
 
@@ -76,6 +88,7 @@ with col_r:
     fp2 = flag_path(team2)
     if os.path.exists(fp2): st.image(fp2, width=70)
     st.markdown(f"### {team2}")
+    st.markdown(f"<span class='wca-badge'>Girone {girone2.replace('Girone ', '')}</span>", unsafe_allow_html=True)
     c1,c2,c3 = st.columns(3)
     c1.metric("Gol", t2["Gol"]); c2.metric("xG", t2["xG"]); c3.metric("Possesso", f"{t2['Possesso']}%")
 
