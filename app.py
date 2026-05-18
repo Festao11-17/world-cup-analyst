@@ -4,7 +4,7 @@ import pandas as pd
 import plotly.graph_objects as go
 
 st.set_page_config(
-    page_title="World Cup Analyst",
+    page_title="Home",
     page_icon="assets/logo.png",
     layout="wide"
 )
@@ -77,7 +77,8 @@ st.markdown("---")
 # ── FEATURED MATCH ───────────────────────────────────────────────────────────
 st.markdown("<span class='wca-section-label'>🔥 Featured Match</span>", unsafe_allow_html=True)
 
-top2 = df_teams.nlargest(2, "OverallRating")
+sort_col = "OverallRating" if "OverallRating" in df_teams.columns else "Gol"
+top2 = df_teams.nlargest(2, sort_col)
 t1, t2 = top2.iloc[0], top2.iloc[1]
 stats = ["Gol","xG","Tiri","Possesso","PrecisionePassaggi"]
 
@@ -137,7 +138,8 @@ medals = {0:"🥇", 1:"🥈", 2:"🥉"}
 
 with col_lb:
     st.markdown("#### Top Nazionali per Overall")
-    df_ranked = df_teams.sort_values("OverallRating", ascending=False).head(10).reset_index(drop=True)
+    sort_col2 = "OverallRating" if "OverallRating" in df_teams.columns else "Gol"
+    df_ranked = df_teams.sort_values(sort_col2, ascending=False).head(10).reset_index(drop=True)
     for i, row in df_ranked.iterrows():
         medal = medals.get(i, f"{i+1}.")
         fp = flag_path(row["Squadra"])
