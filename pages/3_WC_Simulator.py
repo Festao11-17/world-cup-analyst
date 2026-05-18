@@ -115,13 +115,41 @@ def show_match_card(col, t1, t2, g1, g2, winner, penalties=False):
             unsafe_allow_html=True
         )
 
+
+@st.cache_data(show_spinner=False)
+def run_monte_carlo(n, _seed_key=0):
+    wins = {t: 0 for t in ratings.keys()}
+    for seed_i in range(n):
+        random.seed(seed_i * 37 + 13 + _seed_key)
+        q = []
+        for g_teams in GIRONI.values():
+            s, *_ = simulate_group(g_teams)
+            q.append(s[0]); q.append(s[1])
+        random.shuffle(q)
+        curr = [(q[i], q[i+1]) for i in range(0, len(q), 2)]
+        for _ in range(4):
+            w = []
+            for a, b in curr:
+                winner, _ = simulate_match(a, b, knockout=True)
+                w.append(winner)
+            curr = [(w[i], w[i+1]) for i in range(0, len(w)-1, 2)]
+        if curr:
+            winner_f, _ = simulate_match(curr[0][0], curr[0][1], knockout=True)
+            wins[winner_f] += 1
+    total = sum(wins.values())
+    return {t: round(v/total*100, 1) for t, v in wins.items() if v > 0}
+
 # ── UI ────────────────────────────────────────────────────────────────────────
 st.markdown("<h1>🌍 WORLD CUP SIMULATOR</h1>", unsafe_allow_html=True)
 st.markdown("<p style='color:#6b7a99'>Simula il Mondiale 2026 completo: fase a gironi → ottavi → quarti → semifinali → finale.</p>", unsafe_allow_html=True)
 
+if "sim_count" not in st.session_state:
+    st.session_state.sim_count = 0
+
 run_sim = st.button("▶️ Simula Mondiale 2026", use_container_width=True)
 
 if run_sim:
+    st.session_state.sim_count += 1
     random.seed(2026)
 
     # ── FASE A GIRONI ─────────────────────────────────────────────────────────
@@ -251,30 +279,7 @@ if run_sim:
         st.markdown("<span class='wca-section-label'>📊 Win Probability — Monte Carlo</span>", unsafe_allow_html=True)
         st.markdown("<p style='color:#6b7a99;font-size:13px'>500 simulazioni del torneo con seed variabile per risultati statisticamente robusti.</p>", unsafe_allow_html=True)
 
-        @st.cache_data
-        def monte_carlo(n=500):
-            wins = {t: 0 for t in FLAG_MAP.keys()}
-            for seed_i in range(n):
-                random.seed(seed_i * 37 + 13)
-                q = []
-                for g_teams in GIRONI.values():
-                    s, *_ = simulate_group(g_teams)
-                    q.append(s[0]); q.append(s[1])
-                random.shuffle(q)
-                curr = [(q[i], q[i+1]) for i in range(0, len(q), 2)]
-                for _ in range(4):
-                    w = []
-                    for a, b in curr:
-                        winner, _ = simulate_match(a, b, knockout=True)
-                        w.append(winner)
-                    curr = [(w[i], w[i+1]) for i in range(0, len(w)-1, 2)]
-                if curr:
-                    winner_f, _ = simulate_match(curr[0][0], curr[0][1], knockout=True)
-                    wins[winner_f] += 1
-            total = sum(wins.values())
-            return {t: round(v/total*100, 1) for t, v in wins.items() if v > 0}
-
-        probs = monte_carlo()
+        probs = run_monte_carlo(500, _seed_key=st.session_state.sim_count)
         prob_df = (pd.DataFrame(list(probs.items()), columns=["Squadra","Probabilità"])
                    .sort_values("Probabilità", ascending=False).head(12).reset_index(drop=True))
 
