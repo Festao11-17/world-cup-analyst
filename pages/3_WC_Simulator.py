@@ -126,10 +126,18 @@ def monte_carlo_sim(n, base_seed):
     for i in range(n):
         random.seed(base_seed + i * 31 + 7)
         q = []
+        terze_mc = []
         for g_teams in GIRONI.values():
             s = sg(g_teams)
             q.append(s[0]); q.append(s[1])
+            # Raccogli terze con punti simulati (stima semplice)
+            terze_mc.append(s[2])
+        # Aggiungi 8 terze casuali per arrivare a 32
+        random.shuffle(terze_mc)
+        q += terze_mc[:8]
         random.shuffle(q)
+        # Assicura 32 squadre (potatura o padding)
+        q = q[:32]
         curr = [(q[k], q[k+1]) for k in range(0, len(q), 2)]
         for _ in range(4):
             w = [sm(a,b) for a,b in curr]
