@@ -57,21 +57,36 @@ def win_prob(t1, t2):
     p1 = s1 / (s1 + s2)
     return round(p1*100, 1), round((1-p1)*100, 1)
 
-def simulate_match(t1, t2, knockout=False):
+def decide_winner(t1, t2):
     p1, _ = win_prob(t1, t2)
     result = p1 + random.gauss(0, 8)
-    if not knockout:
-        return (t1 if result > 50 else t2), False
-    if 47 < result < 53:
-        return (t1 if random.random() > 0.5 else t2), True
-    return (t1 if result > 50 else t2), False
+    return t1 if result > 50 else t2
 
-def predict_score(t1, t2):
-    g1 = int(round(max(0, get_score(t1,"xG",1.0) * (get_score(t1,"AttackRating")/78) * random.uniform(0.5, 1.3))))
-    g2 = int(round(max(0, get_score(t2,"xG",1.0) * (get_score(t2,"AttackRating")/78) * random.uniform(0.5, 1.3))))
+def predict_score(t1, t2, winner, draw=False):
+    g1 = int(round(max(0, get_score(t1,"xG",1.0) * (get_score(t1,"AttackRating",70)/78) * random.uniform(0.5, 1.3))))
+    g2 = int(round(max(0, get_score(t2,"xG",1.0) * (get_score(t2,"AttackRating",70)/78) * random.uniform(0.5, 1.3))))
+    if draw:
+        eq = min(g1, g2)
+        return eq, eq
+    # Forza coerenza: il vincitore deve avere più gol
+    if winner == t1 and g1 <= g2:
+        g1 = g2 + 1
+    elif winner == t2 and g2 <= g1:
+        g2 = g1 + 1
     return g1, g2
 
-def simulate_group(teams, seed_offset=0):
+def simulate_match_ko(t1, t2):
+    p1, _ = win_prob(t1, t2)
+    result = p1 + random.gauss(0, 8)
+    if 47 < result < 53:
+        winner = t1 if random.random() > 0.5 else t2
+        g1, g2 = predict_score(t1, t2, winner=None, draw=True)
+        return winner, g1, g2, True
+    winner = t1 if result > 50 else t2
+    g1, g2 = predict_score(t1, t2, winner=winner, draw=False)
+    return winner, g1, g2, False
+
+def simulate_group(teams):
     pts = {t: 0 for t in teams}
     gf  = {t: 0 for t in teams}
     ga  = {t: 0 for t in teams}
@@ -79,10 +94,18 @@ def simulate_group(teams, seed_offset=0):
     for i in range(len(teams)):
         for j in range(i+1, len(teams)):
             t1, t2 = teams[i], teams[j]
-            g1, g2 = predict_score(t1, t2)
-            if g1 > g2:   pts[t1] += 3
-            elif g2 > g1: pts[t2] += 3
-            else:         pts[t1] += 1; pts[t2] += 1
+            p1, p2 = win_prob(t1, t2)
+            draw_chance = max(0, 0.28 - abs(p1 - p2) * 0.004)
+            is_draw = random.random() < draw_chance
+            if is_draw:
+                g1, g2 = predict_score(t1, t2, winner=None, draw=True)
+                pts[t1] += 1
+                pts[t2] += 1
+            else:
+                winner = decide_winner(t1, t2)
+                g1, g2 = predict_score(t1, t2, winner=winner, draw=False)
+                if winner == t1: pts[t1] += 3
+                else:            pts[t2] += 3
             gf[t1]+=g1; ga[t1]+=g2; gf[t2]+=g2; ga[t2]+=g1
             matches.append((t1, t2, g1, g2))
     standing = sorted(teams, key=lambda t: (pts[t], gf[t]-ga[t], gf[t]), reverse=True)
