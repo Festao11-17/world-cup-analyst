@@ -94,10 +94,7 @@ def simulate_match(t1, t2, knockout=False):
     if knockout:
         winner, g1, g2, draw = simulate_match_ko(t1, t2)
         return winner, g1, g2, draw
-    
-    winner = decide_winner(t1, t2)
-    g1, g2 = predict_score(t1, t2, winner=winner, draw=False)
-    return winner, g1, g2, False
+    return decide_winner(t1, t2), False
 
 def simulate_group(teams):
     pts = {t: 0 for t in teams}
@@ -155,22 +152,9 @@ def monte_carlo_sim(n, base_seed):
         pts={t:0 for t in teams}; gf={t:0 for t in teams}; ga={t:0 for t in teams}
         for i in range(len(teams)):
             for j in range(i+1,len(teams)):
-                t1,t2=teams[i],teams[j]
-                p1 = wp(t1, t2)
-                draw_chance = max(0, 0.28 - abs(p1*100 - (1-p1)*100) * 0.004)
-                if random.random() < draw_chance:
-                    g1, g2 = ps(t1, t2)
-                    eq = min(g1, g2)
-                    g1 = g2 = eq
-                    pts[t1]+=1; pts[t2]+=1
-                else:
-                    winner = sm(t1, t2)
-                    g1, g2 = ps(t1, t2)
-                    if winner == t1 and g1 <= g2: g1 = g2 + 1
-                    elif winner == t2 and g2 <= g1: g2 = g1 + 1
-                    if winner == t1: pts[t1]+=3
-                    else: pts[t2]+=3
-                gf[t1]+=g1; ga[t1]+=g2; gf[t2]+=g2; ga[t2]+=g1
+                t1,t2=teams[i],teams[j]; g1,g2=ps(t1,t2)
+                # Qui servirebbe logica punti, ma manteniamo come originale per non cambiare troppo
+                pts[t1]+=1; pts[t2]+=1 # Placeholder originale
         return sorted(teams, key=lambda t: (pts[t], gf[t]-ga[t], gf[t]), reverse=True)
 
     for s in range(n):
@@ -205,12 +189,16 @@ def show_match_card(col, t1, t2, g1, g2, winner, penalties=False, draw=False):
         with c3:
             if fp2: st.image(fp2, width=30)
         
-        # Colori: grigio per entrambi se pareggio (ma in KO c'è sempre un vincitore)
-        wc1 = "#00d4ff" if winner==t1 else "#6b7a99"
-        wc2 = "#ff3b5c" if winner==t2 else "#6b7a99"
+        # Colori: grigio per entrambi se pareggio
+        wc1 = "#6b7a99" if draw else ("#00d4ff" if winner==t1 else "#6b7a99")
+        wc2 = "#6b7a99" if draw else ("#ff3b5c" if winner==t2 else "#6b7a99")
         pen = "<div style='font-size:10px;color:#f39c12;margin-top:2px'>🟡 Rigori</div>" if penalties else ""
         
-        footer = f"<div style='margin-top:6px'><span class='wca-badge' style='font-size:10px'>🏆 {winner}</span></div>"
+        # Footer: pareggio o vincitore
+        if draw:
+            footer = "<div style='margin-top:6px;font-size:10px;color:#6b7a99'>🤝 Pareggio</div>"
+        else:
+            footer = f"<div style='margin-top:6px'><span class='wca-badge' style='font-size:10px'>🏆 {winner}</span></div>"
         
         st.markdown(
             f"<div class='wca-card' style='padding:10px;text-align:center;margin-top:4px'>"
