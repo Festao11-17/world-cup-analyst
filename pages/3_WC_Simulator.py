@@ -22,18 +22,18 @@ FLAG_MAP = {
 }
 
 GIRONI = {
-    "A": ["Messico",     "Cechia",       "Corea del Sud",  "Sudafrica"],
-    "B": ["Svizzera",    "Canada",       "Bosnia",         "Qatar"],
-    "C": ["Brasile",     "Marocco",      "Haiti",          "Scozia"],
-    "D": ["Australia",   "Stati Uniti",  "Paraguay",       "Turchia"],
-    "E": ["Germania",    "Ecuador",      "Costa d'Avorio", "Curacao"],
-    "F": ["Giappone",    "Olanda",       "Svezia",         "Tunisia"],
-    "G": ["Belgio",      "Egitto",       "Iran",           "Nuova Zelanda"],
-    "H": ["Spagna",      "Uruguay",      "Arabia Saudita", "Capo Verde"],
-    "I": ["Francia",     "Senegal",      "Norvegia",       "Iraq"],
-    "J": ["Argentina",   "Algeria",      "Austria",        "Giordania"],
-    "K": ["Portogallo",  "Colombia",     "Rep. del Congo", "Uzbekistan"],
-    "L": ["Inghilterra", "Croazia",      "Ghana",          "Panama"],
+    "A": ["Messico", "Cechia", "Corea del Sud", "Sudafrica"],
+    "B": ["Svizzera", "Canada", "Bosnia", "Qatar"],
+    "C": ["Brasile", "Marocco", "Haiti", "Scozia"],
+    "D": ["Australia", "Stati Uniti", "Paraguay", "Turchia"],
+    "E": ["Germania", "Ecuador", "Costa d'Avorio", "Curacao"],
+    "F": ["Giappone", "Olanda", "Svezia", "Tunisia"],
+    "G": ["Belgio", "Egitto", "Iran", "Nuova Zelanda"],
+    "H": ["Spagna", "Uruguay", "Arabia Saudita", "Capo Verde"],
+    "I": ["Francia", "Senegal", "Norvegia", "Iraq"],
+    "J": ["Argentina", "Algeria", "Austria", "Giordania"],
+    "K": ["Portogallo", "Colombia", "Rep. del Congo", "Uzbekistan"],
+    "L": ["Inghilterra", "Croazia", "Ghana", "Panama"],
 }
 
 def flag_path(s): return f"assets/flags/{FLAG_MAP.get(s, s)}.png"
@@ -65,9 +65,11 @@ def decide_winner(t1, t2):
 def predict_score(t1, t2, winner, draw=False):
     g1 = int(round(max(0, get_score(t1,"xG",1.0) * (get_score(t1,"AttackRating",70)/78) * random.uniform(0.5, 1.3))))
     g2 = int(round(max(0, get_score(t2,"xG",1.0) * (get_score(t2,"AttackRating",70)/78) * random.uniform(0.5, 1.3))))
+    
     if draw:
         eq = min(g1, g2)
         return eq, eq
+    
     # Forza coerenza: il vincitore deve avere più gol
     if winner == t1 and g1 <= g2:
         g1 = g2 + 1
@@ -78,26 +80,29 @@ def predict_score(t1, t2, winner, draw=False):
 def simulate_match_ko(t1, t2):
     p1, _ = win_prob(t1, t2)
     result = p1 + random.gauss(0, 8)
+    
     if 47 < result < 53:
         winner = t1 if random.random() > 0.5 else t2
         g1, g2 = predict_score(t1, t2, winner=None, draw=True)
         return winner, g1, g2, True
+    
     winner = t1 if result > 50 else t2
     g1, g2 = predict_score(t1, t2, winner=winner, draw=False)
     return winner, g1, g2, False
 
-
 def simulate_match(t1, t2, knockout=False):
     if knockout:
-        winner, _, _, draw = simulate_match_ko(t1, t2)
-        return winner, draw
-    return decide_winner(t1, t2), False
-
+        winner, g1, g2, draw = simulate_match_ko(t1, t2)
+        return winner, g1, g2, draw
+    
+    winner = decide_winner(t1, t2)
+    g1, g2 = predict_score(t1, t2, winner=winner, draw=False)
+    return winner, g1, g2, False
 
 def simulate_group(teams):
     pts = {t: 0 for t in teams}
-    gf  = {t: 0 for t in teams}
-    ga  = {t: 0 for t in teams}
+    gf = {t: 0 for t in teams}
+    ga = {t: 0 for t in teams}
     matches = []
     for i in range(len(teams)):
         for j in range(i+1, len(teams)):
@@ -105,6 +110,7 @@ def simulate_group(teams):
             p1, p2 = win_prob(t1, t2)
             draw_chance = max(0, 0.28 - abs(p1 - p2) * 0.004)
             is_draw = random.random() < draw_chance
+            
             if is_draw:
                 g1, g2 = predict_score(t1, t2, winner=None, draw=True)
                 pts[t1] += 1
@@ -113,9 +119,11 @@ def simulate_group(teams):
                 winner = decide_winner(t1, t2)
                 g1, g2 = predict_score(t1, t2, winner=winner, draw=False)
                 if winner == t1: pts[t1] += 3
-                else:            pts[t2] += 3
+                else: pts[t2] += 3
+            
             gf[t1]+=g1; ga[t1]+=g2; gf[t2]+=g2; ga[t2]+=g1
             matches.append((t1, t2, g1, g2))
+    
     standing = sorted(teams, key=lambda t: (pts[t], gf[t]-ga[t], gf[t]), reverse=True)
     return standing, pts, gf, ga, matches
 
@@ -123,61 +131,68 @@ def monte_carlo_sim(n, base_seed):
     """Simulazione Monte Carlo completamente autonoma, nessuna dipendenza esterna."""
     wins = {t: 0 for t in sum(GIRONI.values(), [])}
     rat = {r["Squadra"]: r for _, r in pd.read_csv("data/team_stats.csv").iterrows()}
-
+    
     def gs(t, col, d=70):
         try: return float(rat.get(t,{}).get(col, d))
         except: return d
-
+    
     def wp(t1, t2):
         s1 = gs(t1,"OverallRating")*0.45+gs(t1,"AttackRating")*0.30+gs(t1,"DefenseRating")*0.25
         s2 = gs(t2,"OverallRating")*0.45+gs(t2,"AttackRating")*0.30+gs(t2,"DefenseRating")*0.25
         return s1/(s1+s2)
-
+    
     def sm(t1, t2):
         p = wp(t1, t2)*100 + random.gauss(0, 8)
         if 47 < p < 53: return t1 if random.random()>0.5 else t2
         return t1 if p > 50 else t2
-
+    
     def ps(t1, t2):
         g1 = int(round(max(0, gs(t1,"xG",1.0)*(gs(t1,"AttackRating")/78)*random.uniform(0.5,1.3))))
         g2 = int(round(max(0, gs(t2,"xG",1.0)*(gs(t2,"AttackRating")/78)*random.uniform(0.5,1.3))))
         return g1, g2
-
+    
     def sg(teams):
         pts={t:0 for t in teams}; gf={t:0 for t in teams}; ga={t:0 for t in teams}
         for i in range(len(teams)):
             for j in range(i+1,len(teams)):
-                t1,t2=teams[i],teams[j]; g1,g2=ps(t1,t2)
-                if g1>g2: pts[t1]+=3
-                elif g2>g1: pts[t2]+=3
-                else: pts[t1]+=1;pts[t2]+=1
-                gf[t1]+=g1;ga[t1]+=g2;gf[t2]+=g2;ga[t2]+=g1
-        return sorted(teams,key=lambda t:(pts[t],gf[t]-ga[t],gf[t]),reverse=True)
+                t1,t2=teams[i],teams[j]
+                p1 = wp(t1, t2)
+                draw_chance = max(0, 0.28 - abs(p1*100 - (1-p1)*100) * 0.004)
+                if random.random() < draw_chance:
+                    g1, g2 = ps(t1, t2)
+                    eq = min(g1, g2)
+                    g1 = g2 = eq
+                    pts[t1]+=1; pts[t2]+=1
+                else:
+                    winner = sm(t1, t2)
+                    g1, g2 = ps(t1, t2)
+                    if winner == t1 and g1 <= g2: g1 = g2 + 1
+                    elif winner == t2 and g2 <= g1: g2 = g1 + 1
+                    if winner == t1: pts[t1]+=3
+                    else: pts[t2]+=3
+                gf[t1]+=g1; ga[t1]+=g2; gf[t2]+=g2; ga[t2]+=g1
+        return sorted(teams, key=lambda t: (pts[t], gf[t]-ga[t], gf[t]), reverse=True)
 
-    for i in range(n):
-        random.seed(base_seed + i * 31 + 7)
-        q = []
-        terze_mc = []
-        for g_teams in GIRONI.values():
-            s = sg(g_teams)
-            q.append(s[0]); q.append(s[1])
-            # Raccogli terze con punti simulati (stima semplice)
-            terze_mc.append(s[2])
-        # Aggiungi 8 terze casuali per arrivare a 32
-        random.shuffle(terze_mc)
-        q += terze_mc[:8]
-        random.shuffle(q)
-        # Assicura 32 squadre (potatura o padding)
-        q = q[:32]
-        curr = [(q[k], q[k+1]) for k in range(0, len(q), 2)]
-        for _ in range(4):
-            w = [sm(a,b) for a,b in curr]
-            curr = [(w[k],w[k+1]) for k in range(0,len(w)-1,2)]
-        if curr:
-            wins[sm(curr[0][0],curr[0][1])] += 1
-
-    total = max(sum(wins.values()), 1)
-    return {t: round(v/total*100,1) for t,v in wins.items() if v>0}
+    for s in range(n):
+        random.seed(base_seed + s)
+        qual = []
+        for gteams in GIRONI.values():
+            stnd = sg(gteams)
+            qual.extend(stnd[:2])
+        
+        # Knockout
+        random.shuffle(qual)
+        curr = [(qual[i], qual[i+1]) for i in range(0, len(qual), 2)]
+        while len(curr) > 0:
+            wns = []
+            for t1, t2 in curr:
+                wns.append(sm(t1, t2))
+            if len(wns) == 1:
+                wins[wns[0]] += 1
+                break
+            curr = [(wns[i], wns[i+1]) for i in range(0, len(wns), 2)]
+            
+    return {t: round((v/n)*100, 1) for t, v in wins.items() if v > 0}
 
 def show_match_card(col, t1, t2, g1, g2, winner, penalties=False, draw=False):
     with col:
@@ -189,15 +204,14 @@ def show_match_card(col, t1, t2, g1, g2, winner, penalties=False, draw=False):
             st.markdown("<div style='text-align:center;color:#6b7a99;font-size:10px;padding-top:6px'>VS</div>", unsafe_allow_html=True)
         with c3:
             if fp2: st.image(fp2, width=30)
-        # Colori: grigio per entrambi se pareggio
-        wc1 = "#6b7a99" if draw else ("#00d4ff" if winner==t1 else "#6b7a99")
-        wc2 = "#6b7a99" if draw else ("#ff3b5c" if winner==t2 else "#6b7a99")
+        
+        # Colori: grigio per entrambi se pareggio (ma in KO c'è sempre un vincitore)
+        wc1 = "#00d4ff" if winner==t1 else "#6b7a99"
+        wc2 = "#ff3b5c" if winner==t2 else "#6b7a99"
         pen = "<div style='font-size:10px;color:#f39c12;margin-top:2px'>🟡 Rigori</div>" if penalties else ""
-        # Footer: pareggio o vincitore
-        if draw:
-            footer = "<div style='margin-top:6px;font-size:10px;color:#6b7a99'>🤝 Pareggio</div>"
-        else:
-            footer = f"<div style='margin-top:6px'><span class='wca-badge' style='font-size:10px'>🏆 {winner}</span></div>"
+        
+        footer = f"<div style='margin-top:6px'><span class='wca-badge' style='font-size:10px'>🏆 {winner}</span></div>"
+        
         st.markdown(
             f"<div class='wca-card' style='padding:10px;text-align:center;margin-top:4px'>"
             f"<div style='display:flex;justify-content:space-between;align-items:center'>"
@@ -208,75 +222,30 @@ def show_match_card(col, t1, t2, g1, g2, winner, penalties=False, draw=False):
             f"</div>", unsafe_allow_html=True
         )
 
-# ── UI ────────────────────────────────────────────────────────────────────────
-st.markdown("<h1>🌍 WORLD CUP SIMULATOR</h1>", unsafe_allow_html=True)
-st.markdown("<p style='color:#6b7a99'>Simula il Mondiale 2026 completo: fase a gironi → ottavi → quarti → semifinali → finale.</p>", unsafe_allow_html=True)
+# ── UI STREAMLIT ─────────────────────────────────────────────────────────────
+st.set_page_config(page_title="WC Simulator", layout="wide")
 
-if "sim_count" not in st.session_state:
-    st.session_state.sim_count = 0
+st.markdown("<h1 style='text-align: center; color: #00d4ff;'>SIMULATORE MONDIALE 2026</h1>", unsafe_allow_html=True)
 
-run_sim = st.button("▶️ Simula Mondiale 2026", use_container_width=True)
-
-if run_sim:
-    st.session_state.sim_count += 1
-    # Seed diverso ad ogni click
-    sim_seed = st.session_state.sim_count * 17 + 2026
-
+sim_seed = st.sidebar.number_input("Seed Simulazione", value=42)
+if st.sidebar.button("Simula Torneo"):
     random.seed(sim_seed)
-
-    # ── FASE A GIRONI ─────────────────────────────────────────────────────────
-    st.markdown("---")
-    st.markdown("<h2>📋 FASE A GIRONI</h2>", unsafe_allow_html=True)
-
+    
+    # ── FASE A GIRONI ────────────────────────────────────────────────────────
+    st.markdown("<span class='wca-section-label'>📅 Fase a Gironi</span>", unsafe_allow_html=True)
     qualificate = []
-    terze = []
-    all_results = {}
-
-    for gname, teams in GIRONI.items():
+    g_cols = st.columns(3)
+    for i, (name, teams) in enumerate(GIRONI.items()):
         standing, pts, gf, ga, matches = simulate_group(teams)
-        all_results[gname] = (standing, pts, gf, ga, matches)
-        qualificate.append(standing[0])
-        qualificate.append(standing[1])
-        terze.append((standing[2], pts[standing[2]], gf[standing[2]]-ga[standing[2]]))
+        qualificate.extend(standing[:2])
+        with g_cols[i % 3]:
+            st.markdown(f"### Girone {name}")
+            for t in standing:
+                st.write(f"{t}: {pts[t]} pt ({gf[t]}-{ga[t]})")
 
-    terze_sorted = sorted(terze, key=lambda x:(x[1],x[2]), reverse=True)[:8]
-    qualificate += [t[0] for t in terze_sorted]
-
-    sel_g = st.selectbox("📂 Seleziona Girone per i risultati", [f"Girone {k}" for k in GIRONI.keys()])
-    gkey = sel_g.replace("Girone ","")
-    standing, pts, gf, ga, matches = all_results[gkey]
-
-    col_class, col_matches = st.columns([2,3])
-    with col_class:
-        st.markdown(f"<span class='wca-section-label'>Classifica {sel_g}</span>", unsafe_allow_html=True)
-        for rank, t in enumerate(standing):
-            fp = flag_img(t)
-            diff = gf[t]-ga[t]
-            diff_str = f"+{diff}" if diff>0 else str(diff)
-            bg = "#1a2035" if rank<2 else "#111827"
-            border = "#00d4ff" if rank==0 else ("#00e5a0" if rank==1 else "#1f2d45")
-            passed = "✅" if rank<2 else ""
-            cf, ci = st.columns([1,5])
-            with cf:
-                if fp: st.image(fp, width=28)
-            with ci:
-                st.markdown(
-                    f"<div style='background:{bg};border-left:3px solid {border};padding:6px 12px;border-radius:6px;margin-bottom:4px;display:flex;justify-content:space-between;align-items:center'>"
-                    f"<span style='font-weight:700;font-size:13px'>{rank+1}. {t} {passed}</span>"
-                    f"<span style='color:#6b7a99;font-size:11px'><b style='color:#00d4ff'>{pts[t]}pt</b> &nbsp;{gf[t]}:{ga[t]} &nbsp;{diff_str}</span>"
-                    f"</div>", unsafe_allow_html=True
-                )
-
-    with col_matches:
-        st.markdown(f"<span class='wca-section-label'>Risultati {sel_g}</span>", unsafe_allow_html=True)
-        mc = st.columns(3)
-        for idx,(t1,t2,g1,g2) in enumerate(matches):
-            is_draw = (g1 == g2)
-            winner = t1 if g1>g2 else (t2 if g2>g1 else t1)
-            show_match_card(mc[idx%3], t1, t2, g1, g2, winner, draw=is_draw)
-
+    # ── QUALIFICATE ──────────────────────────────────────────────────────────
     st.markdown("---")
-    st.markdown(f"<span class='wca-section-label'>✅ {len(qualificate)} squadre qualificate agli ottavi</span>", unsafe_allow_html=True)
+    st.markdown("<span class='wca-section-label'>✅ Squadre Qualificate</span>", unsafe_allow_html=True)
     qc = st.columns(8)
     for i,t in enumerate(qualificate):
         with qc[i%8]:
@@ -296,22 +265,20 @@ if run_sim:
         st.markdown("---")
         st.markdown(f"<h2>{rname.upper()}</h2>", unsafe_allow_html=True)
         winners=[]; round_data=[]
+        
         for t1,t2 in current_round:
-            winner, penalties = simulate_match(t1, t2, knockout=True)
-            g1,g2 = predict_score(t1,t2)
-            if penalties: g1=g2=min(g1,g2,1)
-            elif winner==t2: g1,g2=g2,g1
+            winner, g1, g2, penalties = simulate_match(t1, t2, knockout=True)
             winners.append(winner)
             round_data.append({"t1":t1,"t2":t2,"winner":winner,"g1":g1,"g2":g2,"pen":penalties})
-
+        
         cols_n = min(len(round_data),4)
         for rs in range(0,len(round_data),cols_n):
             rm = round_data[rs:rs+cols_n]
             cols = st.columns(len(rm))
             for col,m in zip(cols,rm):
                 show_match_card(col,m["t1"],m["t2"],m["g1"],m["g2"],m["winner"],m["pen"])
-
-        current_round=[(winners[i],winners[i+1]) for i in range(0,len(winners)-1,2)]
+        
+        current_round=[(winners[i],winners[i+1]) for i in range(0, len(winners)-1, 2)]
         if rname=="Finale": champion=winners[0]
 
     # ── CAMPIONE ──────────────────────────────────────────────────────────────
@@ -334,17 +301,15 @@ if run_sim:
                 f"</div>", unsafe_allow_html=True
             )
 
-        # ── MONTE CARLO ───────────────────────────────────────────────────────
-        st.markdown("---")
-        st.markdown("<span class='wca-section-label'>📊 Win Probability — Monte Carlo</span>", unsafe_allow_html=True)
-        st.markdown("<p style='color:#6b7a99;font-size:13px'>500 simulazioni indipendenti del torneo.</p>", unsafe_allow_html=True)
-
-        with st.spinner("Calcolo probabilità..."):
-            probs = monte_carlo_sim(500, base_seed=sim_seed)
-
+    # ── MONTE CARLO ───────────────────────────────────────────────────────
+    st.markdown("---")
+    st.markdown("<span class='wca-section-label'>📊 Win Probability — Monte Carlo</span>", unsafe_allow_html=True)
+    st.markdown("<p style='color:#6b7a99;font-size:13px'>500 simulazioni indipendenti del torneo.</p>", unsafe_allow_html=True)
+    with st.spinner("Calcolo probabilità..."):
+        probs = monte_carlo_sim(500, base_seed=sim_seed)
         prob_df = (pd.DataFrame(list(probs.items()), columns=["Squadra","Probabilità"])
                    .sort_values("Probabilità", ascending=False).head(12).reset_index(drop=True))
-
+        
         if prob_df.empty:
             st.warning("Nessun dato disponibile per il grafico.")
         else:
@@ -381,7 +346,6 @@ if run_sim:
                         f"<div style='font-size:10px;color:#6b7a99;text-transform:uppercase;letter-spacing:1px'>vittoria torneo</div>"
                         f"</div>", unsafe_allow_html=True
                     )
-
 else:
     st.markdown("---")
     st.markdown("<span class='wca-section-label'>📋 Gironi Ufficiali — FIFA World Cup 2026</span>", unsafe_allow_html=True)
@@ -397,4 +361,3 @@ else:
                 with c2:
                     st.markdown(f"<div style='font-size:12px;padding:2px 0'>{t} <span style='color:#6b7a99;font-size:11px'>· {rating}</span></div>", unsafe_allow_html=True)
             st.markdown("</div>", unsafe_allow_html=True)
-    st.markdown("<div style='text-align:center;padding:32px;color:#6b7a99'><div style='font-size:3rem'>▶️</div><div style='font-size:16px;margin-top:8px'>Premi il bottone per simulare il Mondiale 2026</div></div>", unsafe_allow_html=True)
