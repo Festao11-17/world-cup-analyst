@@ -86,6 +86,14 @@ def simulate_match_ko(t1, t2):
     g1, g2 = predict_score(t1, t2, winner=winner, draw=False)
     return winner, g1, g2, False
 
+
+def simulate_match(t1, t2, knockout=False):
+    if knockout:
+        winner, _, _, draw = simulate_match_ko(t1, t2)
+        return winner, draw
+    return decide_winner(t1, t2), False
+
+
 def simulate_group(teams):
     pts = {t: 0 for t in teams}
     gf  = {t: 0 for t in teams}
