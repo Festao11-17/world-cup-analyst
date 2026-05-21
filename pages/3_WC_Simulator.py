@@ -148,7 +148,7 @@ def monte_carlo_sim(n, base_seed):
     total = max(sum(wins.values()), 1)
     return {t: round(v/total*100,1) for t,v in wins.items() if v>0}
 
-def show_match_card(col, t1, t2, g1, g2, winner, penalties=False):
+def show_match_card(col, t1, t2, g1, g2, winner, penalties=False, draw=False):
     with col:
         fp1, fp2 = flag_img(t1), flag_img(t2)
         c1,c2,c3 = st.columns([2,1,2])
@@ -158,17 +158,22 @@ def show_match_card(col, t1, t2, g1, g2, winner, penalties=False):
             st.markdown("<div style='text-align:center;color:#6b7a99;font-size:10px;padding-top:6px'>VS</div>", unsafe_allow_html=True)
         with c3:
             if fp2: st.image(fp2, width=30)
-        wc1 = "#00d4ff" if winner==t1 else "#6b7a99"
-        wc2 = "#ff3b5c" if winner==t2 else "#6b7a99"
+        # Colori: grigio per entrambi se pareggio
+        wc1 = "#6b7a99" if draw else ("#00d4ff" if winner==t1 else "#6b7a99")
+        wc2 = "#6b7a99" if draw else ("#ff3b5c" if winner==t2 else "#6b7a99")
         pen = "<div style='font-size:10px;color:#f39c12;margin-top:2px'>🟡 Rigori</div>" if penalties else ""
+        # Footer: pareggio o vincitore
+        if draw:
+            footer = "<div style='margin-top:6px;font-size:10px;color:#6b7a99'>🤝 Pareggio</div>"
+        else:
+            footer = f"<div style='margin-top:6px'><span class='wca-badge' style='font-size:10px'>🏆 {winner}</span></div>"
         st.markdown(
             f"<div class='wca-card' style='padding:10px;text-align:center;margin-top:4px'>"
             f"<div style='display:flex;justify-content:space-between;align-items:center'>"
             f"<span style='font-weight:700;font-size:12px;color:{wc1}'>{t1}</span>"
             f"<span style='font-family:Bebas Neue,sans-serif;font-size:1.5rem;letter-spacing:2px'>{g1}-{g2}</span>"
             f"<span style='font-weight:700;font-size:12px;color:{wc2}'>{t2}</span>"
-            f"</div>{pen}"
-            f"<div style='margin-top:6px'><span class='wca-badge' style='font-size:10px'>🏆 {winner}</span></div>"
+            f"</div>{pen}{footer}"
             f"</div>", unsafe_allow_html=True
         )
 
@@ -235,8 +240,9 @@ if run_sim:
         st.markdown(f"<span class='wca-section-label'>Risultati {sel_g}</span>", unsafe_allow_html=True)
         mc = st.columns(3)
         for idx,(t1,t2,g1,g2) in enumerate(matches):
+            is_draw = (g1 == g2)
             winner = t1 if g1>g2 else (t2 if g2>g1 else t1)
-            show_match_card(mc[idx%3], t1, t2, g1, g2, winner)
+            show_match_card(mc[idx%3], t1, t2, g1, g2, winner, draw=is_draw)
 
     st.markdown("---")
     st.markdown(f"<span class='wca-section-label'>✅ {len(qualificate)} squadre qualificate agli ottavi</span>", unsafe_allow_html=True)
