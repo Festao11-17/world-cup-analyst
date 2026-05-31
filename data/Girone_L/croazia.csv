@@ -1,0 +1,27 @@
+Giocatore,Squadra,Ruolo,Età,Presenze,Gol,Assist,xG,Tiri,Velocita,KeyPasses,Dribbling,DuelliVinti,DistanzaPercorsa,PassAccuracy,Parate
+Dominik Livakovic,Croazia,POR,30,42,0,0,0.0,0,66,4,0.0,60,5.2,85,86
+Dominik Kotarski,Croazia,POR,27,22,0,0,0.0,0,64,3,0.0,57,5.1,83,54
+Ivor Pandur,Croazia,POR,24,16,0,0,0.0,0,63,3,0.0,55,5.0,81,38
+Josko Gvardiol,Croazia,DIF,23,28,4,4,2.4,18,82,20,1.4,72,10.4,86,0
+Duje Caleta-Car,Croazia,DIF,29,30,2,1,0.9,7,74,14,0.9,70,9.6,85,0
+Josip Sutalo,Croazia,DIF,24,28,2,2,1.0,8,76,14,0.9,70,9.8,85,0
+Josip Stanisic,Croazia,DIF,25,28,2,5,1.2,10,80,20,1.4,66,10.4,85,0
+Marin Pongracic,Croazia,DIF,28,26,1,1,0.7,6,74,12,0.8,68,9.6,84,0
+Martin Erlic,Croazia,DIF,27,24,1,1,0.7,6,74,12,0.8,68,9.5,84,0
+Luka Vuskovic,Croazia,DIF,20,28,2,2,0.9,8,78,14,0.9,68,10.0,84,0
+Luka Modric,Croazia,CEN,40,34,6,10,4.8,38,72,58,5.2,68,9.8,90,0
+Mateo Kovacic,Croazia,CEN,31,22,4,6,3.2,24,78,48,4.2,68,10.6,88,0
+Mario Pasalic,Croazia,CEN,30,32,10,10,8.0,56,78,52,5.0,66,10.6,85,0
+Nikola Vlasic,Croazia,CEN,28,30,8,7,6.4,46,80,50,4.8,65,10.6,84,0
+Luka Sucic,Croazia,CEN,23,32,6,8,5.0,34,82,48,4.6,63,10.8,85,0
+Martin Baturina,Croazia,CEN,22,28,6,8,5.0,34,82,46,4.8,62,10.8,85,0
+Kristijan Jakic,Croazia,CEN,28,26,3,4,2.4,18,76,42,3.4,64,10.6,85,0
+Petar Sucic,Croazia,CEN,21,28,5,8,4.0,28,80,44,4.2,62,10.8,86,0
+Nikola Moro,Croazia,CEN,28,26,4,5,3.2,22,76,40,3.4,62,10.4,84,0
+Toni Fruk,Croazia,CEN,25,20,3,4,2.4,18,78,36,3.0,60,10.2,82,0
+Ivan Perisic,Croazia,ALA,37,30,8,8,6.4,46,82,44,6.2,58,10.4,83,0
+Andrej Kramaric,Croazia,ATT,34,36,15,8,12.4,72,76,36,4.4,58,9.6,82,0
+Ante Budimir,Croazia,ATT,34,28,10,4,8.0,52,74,26,3.4,55,9.4,79,0
+Marco Pasalic,Croazia,ATT,28,22,7,4,5.6,36,80,28,3.8,53,9.8,79,0
+Petar Musa,Croazia,ATT,26,24,12,4,9.6,58,82,26,3.4,54,9.8,79,0
+Igor Matanovic,Croazia,ATT,23,28,10,4,8.0,52,78,24,3.2,53,9.6,79,0

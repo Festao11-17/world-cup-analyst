@@ -1,0 +1,27 @@
+Giocatore,Squadra,Ruolo,Età,Presenze,Gol,Assist,xG,Tiri,Velocita,KeyPasses,Dribbling,DuelliVinti,DistanzaPercorsa,PassAccuracy,Parate
+Yahia Fofana,Costa d'Avorio,POR,29,42,0,0,0.0,0,66,5,0.0,60,5.3,84,72
+Alban Lafont,Costa d'Avorio,POR,27,28,0,0,0.0,0,65,4,0.0,58,5.2,83,58
+Mohamed Koné,Costa d'Avorio,POR,24,18,0,0,0.0,0,63,3,0.0,55,5.1,81,36
+Ghislain Konan,Costa d'Avorio,DIF,29,36,2,6,1.4,10,82,22,1.6,65,10.6,84,0
+Clément Akpa,Costa d'Avorio,DIF,24,22,1,3,0.8,7,80,16,1.2,63,10.4,83,0
+Wilfried Singo,Costa d'Avorio,DIF,24,30,2,5,1.2,10,84,20,1.4,66,10.8,84,0
+Guéla Doué,Costa d'Avorio,DIF,22,26,2,4,1.1,9,82,18,1.4,64,10.6,84,0
+Evan Ndicka,Costa d'Avorio,DIF,25,32,2,2,1.0,8,76,16,1.0,72,9.8,86,0
+Emmanuel Agbadou,Costa d'Avorio,DIF,27,28,2,1,0.9,7,74,14,0.9,71,9.6,85,0
+Ousmane Diomandé,Costa d'Avorio,DIF,22,28,3,1,1.4,10,78,16,1.0,72,9.8,86,0
+Odilon Kossounou,Costa d'Avorio,DIF,24,30,2,1,1.0,8,76,14,0.9,71,9.6,85,0
+Franck Kessié,Costa d'Avorio,CEN,29,34,4,5,3.2,24,78,48,3.8,68,10.4,85,0
+Seko Fofana,Costa d'Avorio,CEN,30,32,5,7,3.8,28,78,46,3.6,66,10.6,85,0
+Ibrahim Sangaré,Costa d'Avorio,CEN,28,29,2,2,1.6,14,76,44,3.4,70,10.8,86,0
+Christ Inao Oulaï,Costa d'Avorio,CEN,24,24,3,4,2.4,18,78,40,3.2,63,10.4,83,0
+Parfait Guiagon,Costa d'Avorio,CEN,26,22,2,4,1.8,14,78,36,3.0,62,10.2,82,0
+Jean-Mickaël Seri,Costa d'Avorio,CEN,33,28,2,4,1.6,14,72,38,2.8,63,10.0,83,0
+Simon Adingra,Costa d'Avorio,ALA,23,30,12,9,9.4,62,92,48,7.2,58,10.8,82,0
+Amad Diallo,Costa d'Avorio,ALA,23,29,2,2,2.0,18,90,38,6.4,58,10.6,82,0
+Nicolas Pépé,Costa d'Avorio,ALA,30,28,8,7,6.4,46,88,46,6.8,57,10.4,81,0
+Evann Guessand,Costa d'Avorio,ATT,25,28,10,5,8.2,52,82,32,4.2,54,9.8,80,0
+Yan Diomandé,Costa d'Avorio,ALA,21,28,14,8,11.2,68,90,52,7.4,60,10.8,82,0
+Elye Wahi,Costa d'Avorio,ATT,22,32,14,5,11.4,68,84,34,4.4,56,9.9,80,0
+Oumar Diakité,Costa d'Avorio,ATT,24,26,10,5,8.0,52,82,28,3.8,54,9.8,79,0
+Bazoumana Touré,Costa d'Avorio,ATT,24,24,7,4,5.6,38,84,28,3.8,53,9.8,79,0
+Ange-Yoan Bonny,Costa d'Avorio,ATT,22,28,9,5,7.2,46,82,30,4.0,54,9.9,80,0

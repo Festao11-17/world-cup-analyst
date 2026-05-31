@@ -1,0 +1,35 @@
+Giocatore,Squadra,Ruolo,Età,Presenze,Gol,Assist,xG,Tiri,Velocita,KeyPasses,Dribbling,DuelliVinti,DistanzaPercorsa,PassAccuracy,Parate
+Mert Gunok,Turchia,POR,36,28,0,0,0.0,0,63,4,0.0,57,5.1,84,68
+Altay Bayindir,Turchia,POR,27,22,0,0,0.0,0,65,4,0.0,58,5.2,84,54
+Berke Ozer Destanoglu,Turchia,POR,24,18,0,0,0.0,0,64,3,0.0,56,5.1,83,44
+Ugurcan Cakir,Turchia,POR,29,24,0,0,0.0,0,64,4,0.0,57,5.2,83,58
+Ilker Sengezer,Turchia,POR,26,12,0,0,0.0,0,62,3,0.0,54,5.0,81,28
+Ozan Kabak,Turchia,DIF,25,28,1,1,0.7,6,74,12,0.8,70,9.6,85,0
+Merih Demiral,Turchia,DIF,27,28,2,1,0.9,7,76,14,0.9,72,9.6,86,0
+Ferdi Kadioglu,Turchia,DIF,26,30,3,7,1.8,14,84,24,1.6,66,10.8,87,0
+Samet Akaydin,Turchia,DIF,28,24,1,1,0.7,6,74,12,0.8,70,9.6,84,0
+Zeki Celik,Turchia,DIF,28,28,2,4,1.2,10,80,20,1.4,64,10.4,84,0
+Abdulkerim Bardakci,Turchia,DIF,28,26,2,1,0.9,7,74,14,0.9,70,9.6,85,0
+Mert Muldur,Turchia,DIF,27,26,2,4,1.2,10,80,20,1.4,64,10.4,84,0
+Mert Eskihellaç,Turchia,DIF,22,18,0,2,0.5,5,76,12,0.7,62,10.0,82,0
+Ismail Yuksek,Turchia,DIF,26,26,1,3,0.8,8,78,18,1.2,64,10.4,84,0
+Caglar Soyuncu,Turchia,DIF,29,24,1,1,0.7,6,74,12,0.8,68,9.6,84,0
+Emirhan Elmalı,Turchia,DIF,21,18,0,2,0.5,5,76,12,0.7,62,10.2,83,0
+Umut Akçiçek,Turchia,DIF,22,18,1,2,0.7,6,78,14,0.9,62,10.2,83,0
+Atakan Karazor,Turchia,CEN,28,26,2,3,1.6,12,74,42,3.2,66,10.6,86,0
+Demir Ege Tiknaz,Turchia,CEN,22,22,3,4,2.4,18,78,38,3.2,61,10.4,83,0
+Hakan Calhanoglu,Turchia,CEN,32,28,4,8,3.2,28,76,54,4.8,68,10.6,90,0
+Kaan Ayhan,Turchia,CEN,30,26,2,3,1.6,12,72,42,3.2,65,10.4,85,0
+Orkun Kokcu,Turchia,CEN,25,28,5,6,4.0,28,80,50,4.8,65,10.8,87,0
+Salih Ozcan,Turchia,CEN,27,26,3,4,2.4,18,76,44,3.6,65,10.6,86,0
+Aral Simsir,Turchia,CEN,21,22,3,4,2.4,18,80,38,3.4,60,10.6,83,0
+Arda Guler,Turchia,ALA,20,28,6,8,5.0,38,88,58,7.4,62,10.8,86,0
+Baris Alper Yilmaz,Turchia,ALA,25,28,8,5,6.4,44,90,44,6.8,58,10.6,83,0
+Can Uzun,Turchia,ATT,21,28,10,5,8.2,52,82,32,4.2,55,9.8,80,0
+Deniz Gul,Turchia,ATT,21,28,5,3,4.0,28,78,26,3.4,54,9.6,79,0
+Irfan Can Kahveci,Turchia,ALA,30,24,6,5,5.0,34,84,36,5.2,56,10.4,82,0
+Kenan Yildiz,Turchia,ALA,20,28,8,6,6.4,48,88,52,7.2,60,10.8,85,0
+Kerem Akturkoglu,Turchia,ALA,26,28,7,5,5.6,42,90,44,7.0,58,10.6,83,0
+Oguz Aydin,Turchia,ALA,26,24,5,4,4.0,28,84,36,5.4,57,10.4,82,0
+Yusuf Sari,Turchia,ATT,22,22,5,3,4.0,28,80,24,3.2,52,9.6,78,0
+Yunus Akgun,Turchia,ALA,25,28,8,6,6.4,44,88,42,6.6,57,10.6,83,0

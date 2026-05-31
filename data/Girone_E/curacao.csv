@@ -1,0 +1,27 @@
+Giocatore,Squadra,Ruolo,Età,Presenze,Gol,Assist,xG,Tiri,Velocita,KeyPasses,Dribbling,DuelliVinti,DistanzaPercorsa,PassAccuracy,Parate
+Tyrick Bodak,Curacao,POR,28,18,0,0,0.0,0,63,3,0.0,54,5.1,79,44
+Trevor Doornbusch,Curacao,POR,28,12,0,0,0.0,0,62,3,0.0,53,5.0,78,28
+Eloy Room,Curacao,POR,35,10,0,0,0.0,0,62,4,0.0,55,5.1,80,30
+Riechedly Bazoer,Curacao,DIF,29,22,0,1,0.4,4,72,12,0.7,68,9.5,83,0
+Joshua Brenet,Curacao,DIF,32,26,1,3,0.8,7,76,16,1.0,62,10.0,81,0
+Roshon Van Eijma,Curacao,DIF,25,20,0,2,0.5,5,74,12,0.7,62,9.6,80,0
+Sherel Floranus,Curacao,DIF,26,22,1,3,0.8,7,78,14,0.9,62,10.0,81,0
+Deveron Fonville,Curacao,DIF,24,20,0,2,0.4,4,76,12,0.7,60,9.8,80,0
+Jurien Gaari,Curacao,DIF,28,22,1,1,0.6,5,72,12,0.7,64,9.6,80,0
+Armando Obispo,Curacao,DIF,25,24,1,1,0.7,6,76,14,0.8,68,9.8,83,0
+Shurandy Sambo,Curacao,DIF,24,22,1,2,0.7,6,78,14,0.9,62,10.0,81,0
+Juninho Bacuna,Curacao,CEN,30,24,4,5,3.2,22,76,38,3.0,62,10.4,81,0
+Leandro Bacuna,Curacao,CEN,34,58,5,7,3.8,28,72,42,3.2,63,10.2,82,0
+Livano Comenencia,Curacao,CEN,27,24,3,4,2.4,18,76,38,3.0,61,10.4,82,0
+Kevin Felida,Curacao,CEN,28,20,2,2,1.6,12,74,32,2.6,60,10.0,80,0
+Ar'Jany Martha,Curacao,CEN,29,22,2,2,1.6,12,74,32,2.6,59,10.0,79,0
+Tyrese Noslin,Curacao,ALA,26,18,2,2,1.6,12,82,28,2.8,56,10.2,79,0
+Godfried Roemeratoe,Curacao,CEN,27,20,2,3,1.8,14,74,34,2.6,60,10.0,80,0
+Jeremy Antonisse,Curacao,ATT,27,20,4,3,3.2,22,78,26,3.0,52,9.8,77,0
+Tahith Chong,Curacao,ALA,26,12,2,1,2.0,14,88,22,3.8,54,10.4,79,0
+Kenji Gorré,Curacao,ALA,31,24,6,4,5.0,34,82,30,4.0,54,10.2,78,0
+Sontje Hansen,Curacao,ALA,24,28,8,5,6.4,44,86,34,4.8,55,10.4,79,0
+Gervane Kastaneer,Curacao,ATT,30,28,7,3,5.6,38,80,26,3.2,53,9.8,77,0
+Brandley Kuwas,Curacao,ALA,31,22,4,3,3.2,22,82,28,3.6,53,10.0,78,0
+Jurgen Locadia,Curacao,ATT,32,22,4,4,3.4,24,78,24,3.0,53,9.6,77,0
+Jearl Margaritha,Curacao,ATT,26,20,5,3,4.0,28,80,24,3.2,52,9.8,77,0

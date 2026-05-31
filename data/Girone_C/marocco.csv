@@ -1,0 +1,27 @@
+Giocatore,Squadra,Ruolo,Età,Presenze,Gol,Assist,xG,Tiri,Velocita,KeyPasses,Dribbling,DuelliVinti,DistanzaPercorsa,PassAccuracy,Parate
+Yassine Bounou,Marocco,POR,35,28,0,0,0.0,0,65,4,0.0,58,5.2,85,74
+Munir Kajoui,Marocco,POR,28,18,0,0,0.0,0,63,3,0.0,55,5.1,82,44
+Ahmed Reda Tagnaouti,Marocco,POR,32,22,0,0,0.0,0,62,3,0.0,54,5.0,81,52
+Achraf Hakimi,Marocco,DIF,27,28,4,8,2.4,22,88,36,2.4,72,10.8,87,0
+Noussair Mazraoui,Marocco,DIF,28,28,2,6,1.4,12,82,22,1.6,66,10.6,86,0
+Anass Salah-Eddine,Marocco,DIF,24,26,1,3,0.8,8,80,16,1.0,64,10.4,84,0
+Youssef Belammari,Marocco,DIF,26,22,0,2,0.5,5,74,12,0.7,63,9.8,82,0
+Issa Diop,Marocco,DIF,29,28,2,1,0.9,7,74,14,0.9,72,9.6,85,0
+Chadi Riad,Marocco,DIF,22,24,1,1,0.7,6,74,12,0.8,68,9.6,84,0
+Zakaria El Ouahdi,Marocco,DIF,23,22,1,3,0.8,7,80,16,1.0,63,10.2,83,0
+Redouane Halhal,Marocco,DIF,27,22,0,2,0.5,5,76,12,0.7,62,9.8,82,0
+Nayef Aguerd,Marocco,DIF,29,28,2,1,1.0,8,74,14,0.9,74,9.6,87,0
+Neil El Aynaoui,Marocco,CEN,23,26,3,4,2.4,18,78,42,3.4,63,10.6,85,0
+Azzedine Ounahi,Marocco,CEN,25,26,2,4,1.6,14,78,44,3.6,62,10.6,84,0
+Ismael Saibari,Marocco,CEN,23,26,6,3,4.8,34,82,44,4.0,63,10.8,85,0
+Bilal El Khannouss,Marocco,CEN,21,28,4,5,3.2,26,82,48,5.0,63,10.8,85,0
+Samir El Mourabet,Marocco,CEN,27,24,2,3,1.6,12,76,38,3.0,61,10.4,83,0
+Sofyan Amrabat,Marocco,CEN,29,26,1,1,0.8,8,74,44,3.2,66,10.4,86,0
+Ayyoub Bouaddi,Marocco,CEN,20,24,4,5,3.2,22,80,42,3.8,61,10.6,84,0
+Brahim Diaz,Marocco,ALA,26,28,8,6,6.4,48,88,52,7.2,60,10.6,85,0
+Ayoub El Kaabi,Marocco,ATT,29,26,10,3,8.2,54,80,28,3.8,55,9.8,80,0
+Abde Ezzalzouli,Marocco,ALA,24,24,5,4,4.0,30,88,38,6.0,57,10.6,82,0
+Soufiane Rahimi,Marocco,ALA,28,24,8,5,6.4,44,86,38,5.8,56,10.4,82,0
+Yassine Gessime,Marocco,CEN,25,24,4,5,3.2,22,78,40,3.4,61,10.4,83,0
+Ayoube Amaimouni,Marocco,ALA,23,22,5,5,4.0,28,84,34,5.0,56,10.4,82,0
+Chemsdine Talbi,Marocco,ALA,22,24,7,5,5.6,38,86,38,5.6,57,10.6,82,0

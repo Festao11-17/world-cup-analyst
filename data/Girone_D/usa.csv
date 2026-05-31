@@ -1,0 +1,27 @@
+Giocatore,Squadra,Ruolo,Età,Presenze,Gol,Assist,xG,Tiri,Velocita,KeyPasses,Dribbling,DuelliVinti,DistanzaPercorsa,PassAccuracy,Parate
+Matt Freese,USA,POR,27,28,0,0,0.0,0,65,4,0.0,58,5.2,84,68
+Matt Turner,USA,POR,31,22,0,0,0.0,0,65,4,0.0,57,5.2,84,54
+Chris Brady,USA,POR,22,14,0,0,0.0,0,63,3,0.0,54,5.0,82,32
+Chris Richards,USA,DIF,25,22,1,1,0.6,5,74,12,0.8,68,9.6,84,0
+Tim Ream,USA,DIF,38,28,1,1,0.6,5,68,12,0.6,66,9.2,85,0
+Mark McKenzie,USA,DIF,27,24,1,1,0.7,6,72,12,0.7,68,9.4,83,0
+Auston Trusty,USA,DIF,27,26,1,1,0.7,6,72,12,0.7,68,9.4,83,0
+Miles Robinson,USA,DIF,28,18,1,1,0.6,5,72,12,0.7,68,9.4,83,0
+Antonee Robinson,USA,DIF,28,30,2,6,1.2,10,82,20,1.4,65,10.6,84,0
+Sergino Dest,USA,DIF,25,24,2,4,1.0,9,82,18,1.4,64,10.4,84,0
+Alex Freeman,USA,DIF,22,18,0,2,0.5,5,80,14,0.9,60,10.2,82,0
+Joe Scally,USA,DIF,23,28,1,3,0.8,7,78,16,1.0,63,10.2,84,0
+Max Arfsten,USA,DIF,24,14,0,1,0.4,4,76,12,0.7,60,9.8,82,0
+Tyler Adams,USA,CEN,26,22,1,2,0.8,8,76,46,3.4,67,10.8,88,0
+Weston McKennie,USA,CEN,27,28,5,6,4.0,30,78,48,4.2,67,10.8,86,0
+Cristian Roldan,USA,CEN,30,22,1,2,0.8,8,74,36,2.8,62,10.4,83,0
+Sebastian Berhalter,USA,CEN,24,14,1,2,0.8,8,76,32,2.6,58,10.4,82,0
+Christian Pulisic,USA,ALA,27,30,8,7,6.4,52,88,52,7.2,60,10.6,84,0
+Timothy Weah,USA,ALA,26,28,5,4,4.0,32,88,38,5.6,57,10.6,82,0
+Malik Tillman,USA,CEN,23,22,4,4,3.2,22,82,40,4.0,60,10.8,84,0
+Giovanni Reyna,USA,ALA,23,18,3,3,2.4,18,84,36,5.8,58,10.6,84,0
+Brenden Aaronson,USA,ALA,25,28,6,5,4.8,36,84,42,6.0,58,10.6,83,0
+Alejandro Zendejas,USA,ALA,28,14,3,2,2.4,16,84,28,4.2,54,10.4,81,0
+Folarin Balogun,USA,ATT,24,24,6,3,5.0,34,82,26,3.6,54,9.8,80,0
+Ricardo Pepi,USA,ATT,23,22,8,3,6.4,42,80,24,3.4,54,9.6,79,0
+Haji Wright,USA,ATT,27,20,5,2,4.0,28,76,22,3.0,52,9.4,78,0

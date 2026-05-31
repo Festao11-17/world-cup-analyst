@@ -36,20 +36,65 @@ GIRONI = {
     "L": ["Inghilterra", "Croazia",      "Ghana",          "Panama"],
 }
 
-def flag_path(s): return f"assets/flags/{FLAG_MAP.get(s, s)}.png"
+# Mappa squadra → CSV giocatori
+CSV_MAP = {
+    "Cechia":           "data/Girone_A/repubblica_ceca.csv",
+    "Corea del Sud":    "data/Girone_A/corea_del_sud.csv",
+    "Sudafrica":        "data/Girone_A/sud_africa.csv",
+    "Bosnia":           "data/Girone_B/bosnia.csv",
+    "Canada":           "data/Girone_B/canada.csv",
+    "Svizzera":         "data/Girone_B/svizzera.csv",
+    "Brasile":          "data/Girone_C/brasile.csv",
+    "Haiti":            "data/Girone_C/haiti.csv",
+    "Marocco":          "data/Girone_C/marocco.csv",
+    "Scozia":           "data/Girone_C/scozia.csv",
+    "Turchia":          "data/Girone_D/turchia.csv",
+    "Stati Uniti":      "data/Girone_D/usa.csv",
+    "Costa d'Avorio":   "data/Girone_E/costa_d'avorio.csv",
+    "Curacao":          "data/Girone_E/curacao.csv",
+    "Germania":         "data/Girone_E/germania.csv",
+    "Giappone":         "data/Girone_F/giappone.csv",
+    "Olanda":           "data/Girone_F/olanda.csv",
+    "Svezia":           "data/Girone_F/svezia.csv",
+    "Tunisia":          "data/Girone_F/tunisia.csv",
+    "Belgio":           "data/Girone_G/belgio.csv",
+    "Egitto":           "data/Girone_G/egitto.csv",
+    "Nuova Zelanda":    "data/Girone_G/nuova_zelanda.csv",
+    "Capo Verde":       "data/Girone_H/capo_verde.csv",
+    "Spagna":           "data/Girone_H/spagna.csv",
+    "Francia":          "data/Girone_I/francia.csv",
+    "Norvegia":         "data/Girone_I/norvegia.csv",
+    "Senegal":          "data/Girone_I/senegal.csv",
+    "Argentina":        "data/Girone_J/argentina.csv",
+    "Austria":          "data/Girone_J/austria.csv",
+    "Colombia":         "data/Girone_K/colombia.csv",
+    "Portogallo":       "data/Girone_K/portogallo.csv",
+    "Rep. del Congo":   "data/Girone_K/repubblica_del_congo.csv",
+    "Croazia":          "data/Girone_L/croazia.csv",
+    "Inghilterra":      "data/Girone_L/inghilterra.csv",
+    "Panama":           "data/Girone_L/panama.csv",
+}
 
-st.markdown("<h1>📊 TEAM COMPARISON</h1>", unsafe_allow_html=True)
+def flag_path(s): 
+    return f"assets/flags/{FLAG_MAP.get(s, s)}.png"
+
+def load_players(team):
+    path = CSV_MAP.get(team)
+    if path and os.path.exists(path):
+        return pd.read_csv(path)
+    return None
+
+# ── UI ────────────────────────────────────────────────────────────────────────
+st.markdown("<h1> TEAM COMPARISON</h1>", unsafe_allow_html=True)
 
 df = pd.read_csv("data/team_stats.csv")
 gironi_list = [f"Girone {k}" for k in GIRONI.keys()]
 
 col1, col2 = st.columns(2)
-
 with col1:
     girone1 = st.selectbox("Girone Squadra 1", gironi_list, key="g1")
     squadre1 = GIRONI[girone1.replace("Girone ", "")]
     team1 = st.selectbox("Squadra 1", squadre1, key="t1")
-
 with col2:
     girone2 = st.selectbox("Girone Squadra 2", gironi_list, key="g2")
     squadre2 = GIRONI[girone2.replace("Girone ", "")]
@@ -75,49 +120,65 @@ st.markdown("---")
 col_l, col_c, col_r = st.columns([3, 1, 3])
 with col_l:
     fp = flag_path(team1)
-    if os.path.exists(fp): st.image(fp, width=70)
+    if os.path.exists(fp): 
+        st.image(fp, width=70)
     st.markdown(f"### {team1}")
     st.markdown(f"<span class='wca-badge'>Girone {girone1.replace('Girone ', '')}</span>", unsafe_allow_html=True)
-    c1,c2,c3 = st.columns(3)
-    c1.metric("Gol", t1["Gol"]); c2.metric("xG", t1["xG"]); c3.metric("Possesso", f"{t1['Possesso']}%")
+    c1, c2, c3 = st.columns(3)
+    c1.metric("Gol", t1["Gol"])
+    c2.metric("xG", t1["xG"])
+    c3.metric("Possesso", f"{t1['Possesso']}%")
 
 with col_c:
-    st.markdown("<div style='text-align:center;padding-top:40px'><div style='font-family:Bebas Neue,sans-serif;font-size:2.5rem;color:#6b7a99;letter-spacing:3px'>VS</div></div>", unsafe_allow_html=True)
+    st.markdown(
+        "<div style='text-align:center;padding-top:40px'>"
+        "<div style='font-family:Bebas Neue,sans-serif;font-size:2.5rem;color:#6b7a99;letter-spacing:3px'>VS</div>"
+        "</div>",
+        unsafe_allow_html=True
+    )
 
 with col_r:
     fp2 = flag_path(team2)
-    if os.path.exists(fp2): st.image(fp2, width=70)
+    if os.path.exists(fp2): 
+        st.image(fp2, width=70)
     st.markdown(f"### {team2}")
     st.markdown(f"<span class='wca-badge'>Girone {girone2.replace('Girone ', '')}</span>", unsafe_allow_html=True)
-    c1,c2,c3 = st.columns(3)
-    c1.metric("Gol", t2["Gol"]); c2.metric("xG", t2["xG"]); c3.metric("Possesso", f"{t2['Possesso']}%")
+    c1, c2, c3 = st.columns(3)
+    c1.metric("Gol", t2["Gol"])
+    c2.metric("xG", t2["xG"])
+    c3.metric("Possesso", f"{t2['Possesso']}%")
 
 st.markdown("---")
 
-# ── STATS ─────────────────────────────────────────────────────────────────────
-st.markdown("<span class='wca-section-label'>📊 Statistiche a Confronto</span>", unsafe_allow_html=True)
+# ── STATS A CONFRONTO ─────────────────────────────────────────────────────────
+st.markdown("<span class='wca-section-label'> Statistiche a Confronto</span>", unsafe_allow_html=True)
 
-for label, k1, k2, suffix in [
-    ("⚽ Gol/Match",      t1["Gol"],               t2["Gol"],               ""),
-    ("📐 xG",             t1["xG"],                t2["xG"],                ""),
-    ("🎯 Tiri",           t1["Tiri"],              t2["Tiri"],              ""),
-    ("🔵 Possesso",       t1["Possesso"],          t2["Possesso"],          "%"),
-    ("✅ Prec. Passaggi", t1["PrecisionePassaggi"],t2["PrecisionePassaggi"],"%"),
-    ("⭐ Overall",        t1["OverallRating"],     t2["OverallRating"],     ""),
-    ("⚔️ Attacco",        t1["AttackRating"],      t2["AttackRating"],      ""),
-    ("🛡️ Difesa",         t1["DefenseRating"],     t2["DefenseRating"],     ""),
-]:
-    max_v = max(float(k1), float(k2), 0.01)
-    w1 = int(float(k1)/max_v*100)
-    w2 = int(float(k2)/max_v*100)
-    c1c = "#00d4ff" if float(k1) >= float(k2) else "#6b7a99"
-    c2c = "#ff3b5c" if float(k2) > float(k1) else "#6b7a99"
+stats_confronto = [
+    (" Gol/Match",       "Gol",                ""),
+    (" xG",              "xG",                 ""),
+    (" Tiri",            "Tiri",               ""),
+    (" Possesso",        "Possesso",           "%"),
+    (" Prec. Passaggi",  "PrecisionePassaggi", "%"),
+    (" Overall",         "OverallRating",      ""),
+    (" Attacco",         "AttackRating",       ""),
+    (" Centrocampo",     "MidfieldRating",     ""),
+    (" Difesa",          "DefenseRating",      ""),
+]
+
+for label, col, suffix in stats_confronto:
+    v1 = float(t1[col])
+    v2 = float(t2[col])
+    max_v = max(v1, v2, 0.01)
+    w1 = int(v1 / max_v * 100)
+    w2 = int(v2 / max_v * 100)
+    c1c = "#00d4ff" if v1 >= v2 else "#6b7a99"
+    c2c = "#ff3b5c" if v2 > v1 else "#6b7a99"
     st.markdown(
         f"<div style='margin-bottom:12px'>"
         f"<div style='display:flex;justify-content:space-between;margin-bottom:4px'>"
-        f"<span style='font-weight:700;color:{c1c}'>{k1}{suffix}</span>"
+        f"<span style='font-weight:700;color:{c1c}'>{v1}{suffix}</span>"
         f"<span style='font-size:12px;color:#6b7a99'>{label}</span>"
-        f"<span style='font-weight:700;color:{c2c}'>{k2}{suffix}</span>"
+        f"<span style='font-weight:700;color:{c2c}'>{v2}{suffix}</span>"
         f"</div>"
         f"<div style='display:flex;gap:4px'>"
         f"<div style='flex:1;background:#1f2d45;border-radius:4px;height:8px;display:flex;justify-content:flex-end'>"
@@ -131,14 +192,73 @@ for label, k1, k2, suffix in [
 st.markdown("---")
 
 # ── RADAR ─────────────────────────────────────────────────────────────────────
-st.markdown("<span class='wca-section-label'>📈 Radar</span>", unsafe_allow_html=True)
-stats = ["Gol","xG","Tiri","Possesso","PrecisionePassaggi"]
+st.markdown("<span class='wca-section-label'> Radar</span>", unsafe_allow_html=True)
+
+radar_stats = ["Gol", "xG", "Tiri", "Possesso", "PrecisionePassaggi"]
 fig = go.Figure()
 for team, data, color in [(team1, t1, "#00d4ff"), (team2, t2, "#ff3b5c")]:
-    fig.add_trace(go.Scatterpolar(r=[data[s] for s in stats], theta=stats, fill='toself', name=team, line=dict(color=color, width=2)))
+    fig.add_trace(go.Scatterpolar(
+        r=[data[s] for s in radar_stats],
+        theta=radar_stats,
+        fill='toself',
+        name=team,
+        line=dict(color=color, width=2)
+    ))
 fig.update_layout(
-    paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)",
-    polar=dict(bgcolor="rgba(26,32,53,0.6)", radialaxis=dict(visible=True, gridcolor="#1f2d45", color="#6b7a99"), angularaxis=dict(gridcolor="#1f2d45", color="#6b7a99")),
-    legend=dict(bgcolor="rgba(0,0,0,0)", font=dict(color="#e8edf5")), height=420, showlegend=True
+    paper_bgcolor="rgba(0,0,0,0)",
+    plot_bgcolor="rgba(0,0,0,0)",
+    polar=dict(
+        bgcolor="rgba(26,32,53,0.6)",
+        radialaxis=dict(visible=True, gridcolor="#1f2d45", color="#6b7a99"),
+        angularaxis=dict(gridcolor="#1f2d45", color="#6b7a99")
+    ),
+    legend=dict(bgcolor="rgba(0,0,0,0)", font=dict(color="#e8edf5")),
+    height=420,
+    showlegend=True
 )
 st.plotly_chart(fig, use_container_width=True)
+
+st.markdown("---")
+
+# ── ROSA SQUADRE ──────────────────────────────────────────────────────────────
+st.markdown("<span class='wca-section-label'> Rosa delle Squadre</span>", unsafe_allow_html=True)
+
+col_p1, col_p2 = st.columns(2)
+role_colors = {
+    "ATT": "wca-badge-red", "ALA": "wca-badge-red",
+    "CEN": "wca-badge",     "DIF": "wca-badge",
+    "POR": "wca-badge"
+}
+
+for col, team in [(col_p1, team1), (col_p2, team2)]:
+    with col:
+        fp_flag = flag_path(team)
+        if os.path.exists(fp_flag):
+            st.image(fp_flag, width=36)
+        st.markdown(f"**{team}**")
+        df_players = load_players(team)
+        if df_players is None:
+            st.info("Rosa non ancora disponibile.")
+        else:
+            for _, row in df_players.iterrows():
+                rc = role_colors.get(row.get("Ruolo", ""), "wca-badge")
+                parate_html = ""
+                if row.get("Ruolo") == "POR" and "Parate" in row and pd.notna(row["Parate"]):
+                    parate_html = f"<div class='wca-stat'> <span>{int(row['Parate'])}</span></div>"
+                st.markdown(
+                    f"<div class='wca-card' style='padding:10px 14px;margin-bottom:6px'>"
+                    f"<div style='display:flex;align-items:center;gap:10px;flex-wrap:wrap'>"
+                    f"<span style='font-weight:700;font-size:14px'>{row['Giocatore']}</span>"
+                    f"<span class='{rc}'>{row.get('Ruolo','')}</span>"
+                    f"<span style='color:#6b7a99;font-size:11px'>{row.get('Età','')} anni</span>"
+                    f"</div>"
+                    f"<div class='wca-card' style='padding:10px 14px;margin-bottom:6px'>" # Nota: Chiusura tag coerente con logica originaria
+                    f"<div class='wca-stat-row'>"
+                    f"<div class='wca-stat'> <span>{int(row.get('Gol',0))}</span></div>"
+                    f"<div class='wca-stat'> <span>{int(row.get('Assist',0))}</span></div>"
+                    f"<div class='wca-stat'> <span>{row.get('xG',0)}</span></div>"
+                    f"<div class='wca-stat'> <span>{int(row.get('Velocita',0))}</span></div>"
+                    f"{parate_html}"
+                    f"</div></div>",
+                    unsafe_allow_html=True
+                )

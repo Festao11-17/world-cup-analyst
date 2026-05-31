@@ -1,0 +1,27 @@
+Giocatore,Squadra,Ruolo,Età,Presenze,Gol,Assist,xG,Tiri,Velocita,KeyPasses,Dribbling,DuelliVinti,DistanzaPercorsa,PassAccuracy,Parate
+Ronwen Williams,Sudafrica,POR,35,42,0,0,0.0,0,64,4,0.0,58,5.2,83,86
+Ricardo Goss,Sudafrica,POR,28,18,0,0,0.0,0,63,3,0.0,55,5.1,81,44
+Chaine,Sudafrica,POR,26,12,0,0,0.0,0,62,3,0.0,53,5.0,79,28
+Khuliso Mudau,Sudafrica,DIF,28,28,1,3,0.8,7,80,18,1.2,64,10.4,83,0
+Siyabonga Ngezana,Sudafrica,DIF,30,28,1,1,0.6,5,72,12,0.7,70,9.4,84,0
+Innocent Okon,Sudafrica,DIF,24,22,0,1,0.4,4,74,12,0.7,62,9.6,82,0
+Ndamane,Sudafrica,DIF,24,20,1,2,0.7,6,78,14,0.9,62,10.0,82,0
+Aubrey Modiba,Sudafrica,DIF,30,28,1,3,0.8,7,78,18,1.2,64,10.4,83,0
+Kabini,Sudafrica,DIF,26,20,0,1,0.4,4,74,12,0.7,61,9.8,81,0
+Matuludi,Sudafrica,DIF,27,18,0,1,0.4,4,72,12,0.6,60,9.6,80,0
+Makhanya,Sudafrica,DIF,26,18,0,1,0.4,4,72,12,0.6,60,9.6,80,0
+Kamogelo Sebelebele,Sudafrica,DIF,23,22,1,2,0.7,6,78,14,0.8,62,10.0,82,0
+Cross,Sudafrica,DIF,25,16,0,1,0.4,4,74,12,0.7,60,9.8,81,0
+Nkosinathi Mbokazi,Sudafrica,DIF,28,24,1,1,0.6,5,72,12,0.7,66,9.4,83,0
+Teboho Mokoena,Sudafrica,CEN,28,34,4,5,3.0,22,78,46,3.6,68,10.6,85,0
+Thalente Mbatha,Sudafrica,CEN,27,28,3,4,2.4,18,76,40,3.2,64,10.4,83,0
+Sphephelo Sithole,Sudafrica,CEN,26,24,1,3,0.8,8,76,36,2.8,62,10.4,82,0
+Jayden Adams,Sudafrica,CEN,24,24,2,3,1.6,12,78,38,3.0,62,10.4,83,0
+Oswin Appollis,Sudafrica,ALA,25,28,6,6,5.0,34,88,38,6.0,57,10.6,82,0
+Iqraam Rayners,Sudafrica,ATT,30,28,8,3,6.4,42,78,26,3.4,55,9.6,79,0
+Tshepang Moremi,Sudafrica,ALA,24,24,5,3,4.0,28,82,30,4.2,54,10.2,80,0
+Relebohile Mofokeng,Sudafrica,ALA,21,28,8,6,6.4,44,88,42,6.4,57,10.6,82,0
+Evidence Makgopa,Sudafrica,ATT,26,28,8,3,6.4,44,80,26,3.4,55,9.6,79,0
+Themba Zwane,Sudafrica,ALA,35,22,4,5,3.4,24,78,32,4.4,55,10.0,80,0
+Lyle Foster,Sudafrica,ATT,26,22,6,2,5.0,32,82,24,3.4,54,9.6,79,0
+Thapelo Maseko,Sudafrica,ALA,32,22,4,3,3.2,22,80,28,3.8,54,10.0,79,0

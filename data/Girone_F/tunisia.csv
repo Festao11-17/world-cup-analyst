@@ -1,0 +1,27 @@
+Giocatore,Squadra,Ruolo,Età,Presenze,Gol,Assist,xG,Tiri,Velocita,KeyPasses,Dribbling,DuelliVinti,DistanzaPercorsa,PassAccuracy,Parate
+Aymen Dahmen,Tunisia,POR,30,28,0,0,0.0,0,64,4,0.0,58,5.2,82,62
+Abdelmouhib Chamakh,Tunisia,POR,28,18,0,0,0.0,0,62,3,0.0,55,5.1,80,44
+Sabri Ben Hassen,Tunisia,POR,32,22,0,0,0.0,0,61,3,0.0,54,5.0,79,52
+Yan Valery,Tunisia,DIF,26,28,2,5,1.2,10,82,20,1.4,64,10.6,83,0
+Moutaz Neffati,Tunisia,DIF,27,24,1,2,0.7,6,76,14,0.9,64,9.8,82,0
+Dylan Bronn,Tunisia,DIF,29,30,2,1,0.9,7,74,14,0.8,70,9.6,84,0
+Montassar Talbi,Tunisia,DIF,26,28,2,2,1.0,8,74,14,0.9,70,9.6,84,0
+Omar Rekik,Tunisia,DIF,24,22,1,1,0.6,6,74,12,0.7,68,9.5,83,0
+Adem Arous,Tunisia,DIF,27,26,1,2,0.7,6,74,14,0.8,66,9.6,82,0
+Raed Chikhaoui,Tunisia,DIF,28,22,1,2,0.7,7,76,14,0.9,65,9.8,82,0
+Ali Abdi,Tunisia,DIF,30,26,2,5,1.2,10,80,20,1.4,64,10.4,83,0
+Mohamed Amine Ben Hamida,Tunisia,DIF,26,22,1,1,0.6,6,73,12,0.7,64,9.5,81,0
+Ellyes Skhiri,Tunisia,CEN,30,28,0,0,0.6,6,72,42,3.2,70,10.6,87,0
+Mohamed Hajj Mahmoud,Tunisia,CEN,27,24,3,4,2.4,18,76,40,3.2,63,10.4,83,0
+Rani Khedira,Tunisia,CEN,32,20,2,3,1.6,14,74,40,3.0,66,10.4,84,0
+Anis Ben Slimane,Tunisia,CEN,24,28,6,7,4.8,32,78,46,4.0,63,10.6,83,0
+Mortadha Ben Ouanes,Tunisia,CEN,28,24,3,4,2.4,18,76,38,3.0,62,10.2,82,0
+Ismael Gharbi,Tunisia,CEN,22,24,4,5,3.2,22,80,40,3.4,60,10.4,82,0
+Hannibal,Tunisia,CEN,23,22,1,3,1.2,12,80,40,3.8,63,10.8,83,0
+Khalil Ayari,Tunisia,ALA,21,18,4,4,3.2,22,86,30,4.2,55,10.4,80,0
+Elias Achouri,Tunisia,ALA,22,24,7,5,5.6,38,84,36,4.8,56,10.6,80,0
+Elias Saad,Tunisia,ATT,23,26,10,4,8.0,52,80,28,3.6,53,9.8,78,0
+Firas Chaouat,Tunisia,ATT,28,24,8,4,6.4,44,78,24,3.2,52,9.6,77,0
+Hazem Mastouri,Tunisia,ATT,28,28,10,4,8.2,52,80,26,3.4,53,9.8,78,0
+Rayan Elloumi,Tunisia,ATT,24,22,6,4,5.0,34,80,26,3.4,52,9.8,78,0
+Sebastian Tounekti,Tunisia,ALA,23,24,7,5,5.6,38,84,32,4.4,54,10.4,79,0

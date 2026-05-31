@@ -1,0 +1,27 @@
+Giocatore,Squadra,Ruolo,Età,Presenze,Gol,Assist,xG,Tiri,Velocita,KeyPasses,Dribbling,DuelliVinti,DistanzaPercorsa,PassAccuracy,Parate
+Alexander Schlager,Austria,POR,31,42,0,0,0.0,0,65,4,0.0,58,5.2,84,78
+Florian Wiegele,Austria,POR,27,14,0,0,0.0,0,63,3,0.0,55,5.1,82,34
+Patrick Pentz,Austria,POR,30,28,0,0,0.0,0,64,4,0.0,57,5.2,83,62
+David Affengruber,Austria,DIF,26,22,1,2,0.7,6,74,14,0.8,66,9.6,83,0
+Kevin Danso,Austria,DIF,26,28,2,1,0.9,7,76,14,0.9,72,9.6,84,0
+Stefan Posch,Austria,DIF,28,30,2,4,1.2,10,78,18,1.2,65,10.2,84,0
+David Alaba,Austria,DIF,33,34,3,4,1.6,12,76,18,1.2,72,9.8,87,0
+Philipp Lienhart,Austria,DIF,29,26,1,1,0.7,6,74,12,0.8,68,9.6,84,0
+Philipp Mwene,Austria,DIF,30,28,2,5,1.2,10,78,20,1.4,64,10.4,83,0
+Alexander Prass,Austria,DIF,24,26,2,5,1.4,10,80,20,1.4,65,10.4,84,0
+Marco Friedl,Austria,DIF,27,30,2,3,1.0,8,76,16,1.0,67,10.0,84,0
+Michael Svoboda,Austria,DIF,25,24,1,1,0.7,6,74,12,0.7,68,9.6,83,0
+Xaver Schlager,Austria,CEN,28,28,4,6,3.2,24,78,46,3.8,66,10.8,87,0
+Nicolas Seiwald,Austria,CEN,24,30,4,5,3.2,22,78,48,3.8,68,11.0,86,0
+Marcel Sabitzer,Austria,CEN,31,34,8,8,6.4,46,78,52,4.6,66,10.6,86,0
+Florian Grillitsch,Austria,CEN,30,28,3,4,2.4,18,74,42,3.2,64,10.4,84,0
+Carney Chukwuemeka,Austria,CEN,21,28,6,6,5.0,34,84,42,4.0,62,10.8,84,0
+Romano Schmid,Austria,CEN,26,28,6,7,5.0,34,80,44,3.8,63,10.6,84,0
+Christoph Baumgartner,Austria,CEN,25,32,9,10,7.2,52,82,54,5.0,64,10.8,85,0
+Konrad Laimer,Austria,CEN,28,32,5,7,4.2,30,84,48,4.2,68,11.2,86,0
+Patrick Wimmer,Austria,ALA,24,28,6,7,5.0,34,86,42,4.8,60,10.8,83,0
+Paul Wanner,Austria,CEN,20,28,5,7,4.0,28,82,42,4.0,60,10.8,85,0
+Alessandro Schopf,Austria,CEN,32,26,4,5,3.2,22,76,40,3.4,62,10.2,83,0
+Marko Arnautovic,Austria,ATT,37,34,14,4,11.2,62,76,28,3.6,56,9.2,78,0
+Michael Gregoritsch,Austria,ATT,31,28,7,4,5.6,40,78,26,3.4,54,9.6,79,0
+Sasa Kalajdzic,Austria,ATT,28,18,6,3,5.0,34,80,22,3.0,52,9.4,78,0

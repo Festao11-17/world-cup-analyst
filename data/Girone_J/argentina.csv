@@ -1,0 +1,26 @@
+Giocatore,Squadra,Ruolo,Età,Presenze,Gol,Assist,xG,Tiri,Velocita,KeyPasses,Dribbling,DuelliVinti,DistanzaPercorsa,PassAccuracy,Parate
+Emiliano Martinez,Argentina,POR,33,34,0,0,0.0,0,66,4,0.0,60,5.2,86,82
+Juan Musso,Argentina,POR,31,22,0,0,0.0,0,65,4,0.0,57,5.1,85,54
+Geronimo Rulli,Argentina,POR,33,18,0,0,0.0,0,64,3,0.0,56,5.1,84,44
+Leandro Balerdi,Argentina,DIF,26,30,2,2,1.0,8,74,14,0.9,70,9.6,86,0
+Nicolas Tagliafico,Argentina,DIF,33,28,1,4,0.8,7,76,18,1.2,66,10.2,86,0
+Gonzalo Montiel,Argentina,DIF,28,22,1,2,0.7,6,78,16,1.0,64,10.2,84,0
+Lisandro Martinez,Argentina,DIF,27,26,2,1,0.9,7,76,14,0.9,72,9.8,88,0
+Cristian Romero,Argentina,DIF,27,28,3,1,1.2,9,78,16,1.0,74,9.8,87,0
+Nicolas Otamendi,Argentina,DIF,38,22,2,1,0.9,7,70,14,0.8,72,9.2,87,0
+Facundo Medina,Argentina,DIF,25,24,1,1,0.7,6,74,12,0.8,68,9.6,85,0
+Nahuel Molina,Argentina,DIF,27,28,3,5,1.6,14,82,22,1.4,66,10.6,85,0
+Leandro Paredes,Argentina,CEN,31,22,2,3,1.6,14,74,44,3.4,66,10.4,87,0
+Rodrigo De Paul,Argentina,CEN,31,26,4,5,3.2,26,78,50,4.4,67,10.8,87,0
+Valentin Barco,Argentina,DIF,21,22,1,4,0.8,8,84,18,1.4,62,10.6,85,0
+Giovani Lo Celso,Argentina,CEN,29,22,3,4,2.4,18,78,44,4.0,64,10.6,86,0
+Exequiel Palacios,Argentina,CEN,26,26,3,4,2.4,18,78,46,3.8,65,10.8,86,0
+Alexis Mac Allister,Argentina,CEN,27,28,5,6,4.0,30,78,56,5.0,66,10.8,89,0
+Enzo Fernandez,Argentina,CEN,25,28,4,6,3.2,26,80,52,4.8,66,10.8,88,0
+Julian Alvarez,Argentina,ATT,25,30,14,6,11.2,72,86,40,5.6,58,10.0,84,0
+Lionel Messi,Argentina,ALA,38,18,4,4,4.2,36,82,48,7.8,60,9.2,87,0
+Nicolas Gonzalez,Argentina,ALA,27,28,8,5,6.4,44,84,40,5.8,58,10.4,83,0
+Thiago Almada,Argentina,CEN,24,26,6,6,5.0,34,82,48,5.4,62,10.8,85,0
+Giuliano Simeone,Argentina,ALA,22,24,7,5,5.6,38,86,38,5.8,57,10.6,83,0
+Nico Paz,Argentina,CEN,21,28,8,6,6.4,44,84,46,5.8,61,10.8,86,0
+Lautaro Martinez,Argentina,ATT,28,28,18,5,14.4,84,84,32,4.4,57,9.8,83,0

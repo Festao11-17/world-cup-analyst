@@ -1,0 +1,27 @@
+Giocatore,Squadra,Ruolo,Età,Presenze,Gol,Assist,xG,Tiri,Velocita,KeyPasses,Dribbling,DuelliVinti,DistanzaPercorsa,PassAccuracy,Parate
+Thibaut Courtois,Belgio,POR,34,30,0,0,0.0,0,66,4,0.0,60,5.3,86,88
+Senne Lammens,Belgio,POR,23,22,0,0,0.0,0,65,3,0.0,58,5.2,84,56
+Mike Penders,Belgio,POR,22,18,0,0,0.0,0,63,3,0.0,55,5.1,82,42
+Timothy Castagne,Belgio,DIF,30,28,2,5,1.2,10,80,20,1.4,65,10.4,84,0
+Zeno Debast,Belgio,DIF,22,30,2,2,1.0,8,76,14,0.9,70,9.8,85,0
+Maxim De Cuyper,Belgio,DIF,25,28,3,7,1.6,12,82,24,1.6,65,10.8,85,0
+Koni De Winter,Belgio,DIF,23,28,2,1,0.9,7,74,14,0.9,70,9.6,84,0
+Brandon Mechele,Belgio,DIF,33,30,2,1,0.9,7,72,14,0.8,70,9.4,84,0
+Thomas Meunier,Belgio,DIF,34,22,1,3,0.8,8,76,16,1.0,63,10.0,82,0
+Nathan Ngoy,Belgio,DIF,22,22,1,2,0.7,6,76,14,0.8,63,9.8,83,0
+Joaquin Seys,Belgio,DIF,21,20,1,3,0.8,7,78,16,1.0,62,10.0,83,0
+Arthur Theate,Belgio,DIF,25,28,2,2,1.0,8,76,14,0.9,71,9.8,85,0
+Kevin De Bruyne,Belgio,CEN,34,22,5,12,4.8,36,74,62,5.2,68,10.2,88,0
+Amadou Onana,Belgio,CEN,24,30,4,4,3.2,24,80,46,3.8,70,11.2,85,0
+Nicolas Raskin,Belgio,CEN,25,26,3,4,2.4,18,76,42,3.2,65,10.6,84,0
+Youri Tielemans,Belgio,CEN,28,30,6,8,4.8,34,76,48,4.0,66,10.6,86,0
+Hans Vanaken,Belgio,CEN,33,30,8,10,6.4,44,74,50,4.2,64,10.4,85,0
+Axel Witsel,Belgio,CEN,37,22,2,3,1.6,12,70,38,2.8,64,10.0,84,0
+Charles De Ketelaere,Belgio,ATT,25,34,14,10,11.2,68,84,52,7.2,60,10.4,83,0
+Jeremy Doku,Belgio,ALA,23,26,5,5,4.8,38,94,44,8.4,59,10.8,81,0
+Matias Fernandez-Pardo,Belgio,ALA,22,28,8,7,6.4,44,88,42,6.4,57,10.6,81,0
+Romelu Lukaku,Belgio,ATT,32,7,1,0,1.2,8,80,14,1.8,54,8.6,77,0
+Dodi Lukebakio,Belgio,ALA,28,28,12,8,9.6,58,88,42,6.8,57,10.6,81,0
+Diego Moreira,Belgio,ALA,21,24,6,6,5.0,34,88,36,5.8,55,10.4,80,0
+Alexis Saelemaekers,Belgio,ALA,26,30,8,9,6.4,46,86,44,6.4,58,10.4,82,0
+Leandro Trossard,Belgio,ALA,30,30,10,9,8.2,56,84,46,6.6,58,10.6,83,0

@@ -1,0 +1,27 @@
+Giocatore,Squadra,Ruolo,Età,Presenze,Gol,Assist,xG,Tiri,Velocita,KeyPasses,Dribbling,DuelliVinti,DistanzaPercorsa,PassAccuracy,Parate
+Camilo Vargas,Colombia,POR,36,28,0,0,0.0,0,63,4,0.0,56,5.1,82,64
+Alvaro Montero,Colombia,POR,30,22,0,0,0.0,0,64,3,0.0,56,5.1,81,54
+David Ospina,Colombia,POR,38,12,0,0,0.0,0,62,3,0.0,54,5.0,82,28
+Daniel Munoz,Colombia,DIF,28,28,2,5,1.2,10,82,20,1.4,65,10.6,85,0
+Davinson Sanchez,Colombia,DIF,29,26,2,1,0.9,7,74,14,0.9,72,9.6,85,0
+Jhon Lucumi,Colombia,DIF,26,28,2,1,0.9,7,74,14,0.9,70,9.6,85,0
+Yerry Mina,Colombia,DIF,31,22,2,1,0.9,7,74,14,0.9,70,9.4,84,0
+Willer Ditta,Colombia,DIF,29,22,1,1,0.6,5,72,12,0.7,66,9.4,83,0
+Santiago Arias,Colombia,DIF,34,18,1,2,0.7,6,76,14,0.9,62,10.0,82,0
+Johan Mojica,Colombia,DIF,32,24,1,4,0.8,7,78,18,1.2,63,10.2,83,0
+Deiver Machado,Colombia,DIF,33,22,1,3,0.7,7,76,16,1.0,62,10.0,82,0
+Jefferson Lerma,Colombia,CEN,30,28,3,4,2.4,18,74,46,3.6,68,10.6,86,0
+Richard Rios,Colombia,CEN,25,28,4,5,3.2,24,80,48,4.2,65,10.8,87,0
+Kevin Castano,Colombia,CEN,27,24,3,4,2.4,18,76,42,3.4,63,10.4,84,0
+Gustavo Puerta,Colombia,CEN,22,24,4,5,3.2,22,80,42,3.8,62,10.6,84,0
+Jhon Arias,Colombia,CEN,26,28,5,6,4.0,28,84,46,5.2,63,10.8,84,0
+Jorge Carrascal,Colombia,CEN,27,28,6,7,5.0,36,84,48,5.6,62,10.8,84,0
+Juan Fernando Quintero,Colombia,CEN,33,24,4,6,3.2,26,76,46,4.4,62,10.4,84,0
+James Rodriguez,Colombia,CEN,35,18,3,8,2.8,24,74,52,5.6,62,10.0,86,0
+Juan Camilo Portilla,Colombia,CEN,24,22,3,4,2.4,18,78,40,3.6,60,10.4,83,0
+Jamilton Campaz,Colombia,ALA,27,22,4,4,3.2,22,86,32,5.0,56,10.4,81,0
+Luis Diaz,Colombia,ALA,28,34,26,23,22.0,112,94,54,8.6,61,10.8,85,0
+Luis Suarez,Colombia,ATT,30,32,28,6,22.4,114,82,30,4.2,55,9.8,80,0
+Carlos Andres Gomez,Colombia,ATT,25,22,6,3,5.0,32,82,24,3.4,52,9.6,78,0
+Jhon Cordoba,Colombia,ATT,32,22,6,2,5.0,32,76,22,3.2,52,9.4,77,0
+Juan Camilo Hernandez,Colombia,ATT,25,28,10,6,8.2,52,82,32,4.6,56,9.8,80,0

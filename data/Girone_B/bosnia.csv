@@ -1,0 +1,27 @@
+Giocatore,Squadra,Ruolo,Età,Presenze,Gol,Assist,xG,Tiri,Velocita,KeyPasses,Dribbling,DuelliVinti,DistanzaPercorsa,PassAccuracy,Parate
+Nikola Vasilj,Bosnia,POR,30,27,0,0,0.0,0,65,5,0.0,60,5.4,82,78
+Martin Zlomislic,Bosnia,POR,28,24,0,0,0.0,0,62,3,0.0,56,5.2,80,52
+Osman Hadzikic,Bosnia,POR,29,18,0,0,0.0,0,60,3,0.0,54,5.1,78,38
+Amar Dedic,Bosnia,DIF,24,28,3,6,2.0,14,82,26,1.8,66,10.7,85,0
+Nikola Katic,Bosnia,DIF,28,22,1,1,0.7,6,74,12,0.9,70,9.5,83,0
+Stjepan Radeljic,Bosnia,DIF,26,24,1,2,0.6,5,75,14,0.8,68,9.6,82,0
+Nidal Celik,Bosnia,DIF,22,20,1,3,0.8,7,80,16,1.0,64,10.4,83,0
+Nihad Mujakic,Bosnia,DIF,25,18,0,2,0.4,4,76,12,0.7,65,9.8,81,0
+Tarik Muharemovic,Bosnia,DIF,24,26,2,1,0.9,8,74,14,0.8,70,9.6,84,0
+Sead Kolasinac,Bosnia,DIF,31,28,1,3,0.8,8,76,18,1.0,68,10.2,83,0
+Dennis Hadzikadunic,Bosnia,DIF,27,22,1,1,0.6,6,73,12,0.7,68,9.5,82,0
+Amir Hadziahmetovic,Bosnia,CEN,28,30,4,6,3.0,22,76,46,3.6,66,10.8,84,0
+Ivan Sunjic,Bosnia,CEN,29,24,2,3,1.6,14,72,38,2.8,68,10.4,83,0
+Benjamin Tahirovic,Bosnia,CEN,22,28,5,7,3.8,28,78,48,4.0,64,11.0,85,0
+Dzenis Burnic,Bosnia,CEN,27,26,3,4,2.2,18,76,40,3.2,62,10.6,82,0
+Armin Gigovic,Bosnia,CEN,23,28,4,5,3.0,24,80,44,3.6,63,10.8,83,0
+Ermin Mahmic,Bosnia,CEN,22,24,2,3,1.6,14,78,36,2.8,60,10.5,81,0
+Ivan Basic,Bosnia,CEN,29,22,3,4,2.4,18,74,38,3.0,62,10.4,82,0
+Amar Memic,Bosnia,CEN,26,24,2,3,1.8,14,73,36,2.6,61,10.2,82,0
+Kerim Alajbegovic,Bosnia,CEN,20,28,6,8,4.8,34,85,50,4.8,60,10.9,83,0
+Esmir Bajraktarevic,Bosnia,ALA,21,30,8,6,6.2,44,88,48,6.0,58,10.8,82,0
+Samed Bazdar,Bosnia,ATT,22,26,7,4,5.6,38,80,30,3.8,54,9.8,79,0
+Jovo Lukic,Bosnia,ATT,26,28,9,5,7.2,46,76,32,3.6,54,9.6,78,0
+Haris Tabakovic,Bosnia,ATT,29,30,11,5,8.8,54,76,30,3.8,55,9.7,79,0
+Ermedin Demirovic,Bosnia,ATT,28,24,12,2,7.3,29,84,12,0.9,57,9.9,72,0
+Edin Dzeko,Bosnia,ATT,40,22,6,3,5.0,36,68,22,2.2,52,8.6,76,0
