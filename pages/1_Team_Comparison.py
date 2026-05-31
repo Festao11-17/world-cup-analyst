@@ -36,7 +36,6 @@ GIRONI = {
     "L": ["Inghilterra", "Croazia",      "Ghana",          "Panama"],
 }
 
-# Mappa squadra → CSV giocatori
 CSV_MAP = {
     "Cechia":           "data/Girone_A/repubblica_ceca.csv",
     "Corea del Sud":    "data/Girone_A/corea_del_sud.csv",
@@ -75,8 +74,7 @@ CSV_MAP = {
     "Panama":           "data/Girone_L/panama.csv",
 }
 
-def flag_path(s): 
-    return f"assets/flags/{FLAG_MAP.get(s, s)}.png"
+def flag_path(s): return f"assets/flags/{FLAG_MAP.get(s, s)}.png"
 
 def load_players(team):
     path = CSV_MAP.get(team)
@@ -84,8 +82,49 @@ def load_players(team):
         return pd.read_csv(path)
     return None
 
+def render_player_stats(row):
+    """Genera le statistiche HTML in base al ruolo del giocatore."""
+    ruolo = row.get("Ruolo", "")
+
+    if ruolo == "POR":
+        parate = int(row["Parate"]) if "Parate" in row and pd.notna(row.get("Parate")) else 0
+        stats_html = (
+            f"<div class='wca-stat'>🧤 Parate <span>{parate}</span></div>"
+            f"<div class='wca-stat'>📋 Presenze <span>{int(row.get('Presenze', 0))}</span></div>"
+            f"<div class='wca-stat'>📐 Pass% <span>{row.get('PassAccuracy', 0)}%</span></div>"
+        )
+    elif ruolo == "DIF":
+        stats_html = (
+            f"<div class='wca-stat'>📋 Presenze <span>{int(row.get('Presenze', 0))}</span></div>"
+            f"<div class='wca-stat'>⚽ Gol <span>{int(row.get('Gol', 0))}</span></div>"
+            f"<div class='wca-stat'>🎯 Assist <span>{int(row.get('Assist', 0))}</span></div>"
+            f"<div class='wca-stat'>🤼 Duelli <span>{int(row.get('DuelliVinti', 0))}</span></div>"
+        )
+    elif ruolo == "CEN":
+        stats_html = (
+            f"<div class='wca-stat'>📋 Presenze <span>{int(row.get('Presenze', 0))}</span></div>"
+            f"<div class='wca-stat'>⚽ Gol <span>{int(row.get('Gol', 0))}</span></div>"
+            f"<div class='wca-stat'>🎯 Assist <span>{int(row.get('Assist', 0))}</span></div>"
+            f"<div class='wca-stat'>🔑 KeyPass <span>{int(row.get('KeyPasses', 0))}</span></div>"
+        )
+    elif ruolo == "ALA":
+        stats_html = (
+            f"<div class='wca-stat'>📋 Presenze <span>{int(row.get('Presenze', 0))}</span></div>"
+            f"<div class='wca-stat'>⚽ Gol <span>{int(row.get('Gol', 0))}</span></div>"
+            f"<div class='wca-stat'>🎯 Assist <span>{int(row.get('Assist', 0))}</span></div>"
+            f"<div class='wca-stat'>🌀 Dribbling <span>{int(row.get('Dribbling', 0))}</span></div>"
+        )
+    else:  # ATT
+        stats_html = (
+            f"<div class='wca-stat'>📋 Presenze <span>{int(row.get('Presenze', 0))}</span></div>"
+            f"<div class='wca-stat'>⚽ Gol <span>{int(row.get('Gol', 0))}</span></div>"
+            f"<div class='wca-stat'>🎯 Assist <span>{int(row.get('Assist', 0))}</span></div>"
+            f"<div class='wca-stat'>📐 xG <span>{row.get('xG', 0)}</span></div>"
+        )
+    return stats_html
+
 # ── UI ────────────────────────────────────────────────────────────────────────
-st.markdown("<h1> TEAM COMPARISON</h1>", unsafe_allow_html=True)
+st.markdown("<h1>📊 TEAM COMPARISON</h1>", unsafe_allow_html=True)
 
 df = pd.read_csv("data/team_stats.csv")
 gironi_list = [f"Girone {k}" for k in GIRONI.keys()]
@@ -120,8 +159,7 @@ st.markdown("---")
 col_l, col_c, col_r = st.columns([3, 1, 3])
 with col_l:
     fp = flag_path(team1)
-    if os.path.exists(fp): 
-        st.image(fp, width=70)
+    if os.path.exists(fp): st.image(fp, width=70)
     st.markdown(f"### {team1}")
     st.markdown(f"<span class='wca-badge'>Girone {girone1.replace('Girone ', '')}</span>", unsafe_allow_html=True)
     c1, c2, c3 = st.columns(3)
@@ -139,8 +177,7 @@ with col_c:
 
 with col_r:
     fp2 = flag_path(team2)
-    if os.path.exists(fp2): 
-        st.image(fp2, width=70)
+    if os.path.exists(fp2): st.image(fp2, width=70)
     st.markdown(f"### {team2}")
     st.markdown(f"<span class='wca-badge'>Girone {girone2.replace('Girone ', '')}</span>", unsafe_allow_html=True)
     c1, c2, c3 = st.columns(3)
@@ -151,18 +188,18 @@ with col_r:
 st.markdown("---")
 
 # ── STATS A CONFRONTO ─────────────────────────────────────────────────────────
-st.markdown("<span class='wca-section-label'> Statistiche a Confronto</span>", unsafe_allow_html=True)
+st.markdown("<span class='wca-section-label'>📊 Statistiche a Confronto</span>", unsafe_allow_html=True)
 
 stats_confronto = [
-    (" Gol/Match",       "Gol",                ""),
-    (" xG",              "xG",                 ""),
-    (" Tiri",            "Tiri",               ""),
-    (" Possesso",        "Possesso",           "%"),
-    (" Prec. Passaggi",  "PrecisionePassaggi", "%"),
-    (" Overall",         "OverallRating",      ""),
-    (" Attacco",         "AttackRating",       ""),
-    (" Centrocampo",     "MidfieldRating",     ""),
-    (" Difesa",          "DefenseRating",      ""),
+    ("⚽ Gol/Match",       "Gol",                ""),
+    ("📐 xG",              "xG",                 ""),
+    ("🎯 Tiri",            "Tiri",               ""),
+    ("🔵 Possesso",        "Possesso",           "%"),
+    ("✅ Prec. Passaggi",  "PrecisionePassaggi", "%"),
+    ("⭐ Overall",         "OverallRating",      ""),
+    ("⚔️ Attacco",         "AttackRating",       ""),
+    ("🎯 Centrocampo",     "MidfieldRating",     ""),
+    ("🛡️ Difesa",          "DefenseRating",      ""),
 ]
 
 for label, col, suffix in stats_confronto:
@@ -192,7 +229,7 @@ for label, col, suffix in stats_confronto:
 st.markdown("---")
 
 # ── RADAR ─────────────────────────────────────────────────────────────────────
-st.markdown("<span class='wca-section-label'> Radar</span>", unsafe_allow_html=True)
+st.markdown("<span class='wca-section-label'>📈 Radar</span>", unsafe_allow_html=True)
 
 radar_stats = ["Gol", "xG", "Tiri", "Possesso", "PrecisionePassaggi"]
 fig = go.Figure()
@@ -221,15 +258,27 @@ st.plotly_chart(fig, use_container_width=True)
 st.markdown("---")
 
 # ── ROSA SQUADRE ──────────────────────────────────────────────────────────────
-st.markdown("<span class='wca-section-label'> Rosa delle Squadre</span>", unsafe_allow_html=True)
+st.markdown("<span class='wca-section-label'>👥 Rosa delle Squadre</span>", unsafe_allow_html=True)
 
-col_p1, col_p2 = st.columns(2)
+# Legenda ruoli
+st.markdown(
+    "<div style='display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px'>"
+    "<span class='wca-badge'>🧤 POR — Portiere: Parate · Presenze · Pass%</span>"
+    "<span class='wca-badge'>🛡️ DIF — Difensore: Presenze · Gol · Assist · Duelli</span>"
+    "<span class='wca-badge'>🔄 CEN — Centrocampista: Presenze · Gol · Assist · KeyPass</span>"
+    "<span class='wca-badge wca-badge-red'>🌀 ALA — Ala: Presenze · Gol · Assist · Dribbling</span>"
+    "<span class='wca-badge wca-badge-red'>⚽ ATT — Attaccante: Presenze · Gol · Assist · xG</span>"
+    "</div>",
+    unsafe_allow_html=True
+)
+
 role_colors = {
     "ATT": "wca-badge-red", "ALA": "wca-badge-red",
     "CEN": "wca-badge",     "DIF": "wca-badge",
     "POR": "wca-badge"
 }
 
+col_p1, col_p2 = st.columns(2)
 for col, team in [(col_p1, team1), (col_p2, team2)]:
     with col:
         fp_flag = flag_path(team)
@@ -240,25 +289,35 @@ for col, team in [(col_p1, team1), (col_p2, team2)]:
         if df_players is None:
             st.info("Rosa non ancora disponibile.")
         else:
-            for _, row in df_players.iterrows():
-                rc = role_colors.get(row.get("Ruolo", ""), "wca-badge")
-                parate_html = ""
-                if row.get("Ruolo") == "POR" and "Parate" in row and pd.notna(row["Parate"]):
-                    parate_html = f"<div class='wca-stat'> <span>{int(row['Parate'])}</span></div>"
+            # Raggruppa per ruolo: POR → DIF → CEN → ALA → ATT
+            role_order = ["POR", "DIF", "CEN", "ALA", "ATT"]
+            for ruolo in role_order:
+                gruppo = df_players[df_players["Ruolo"] == ruolo]
+                if gruppo.empty:
+                    continue
+                ruolo_label = {
+                    "POR": "🧤 Portieri",
+                    "DIF": "🛡️ Difensori",
+                    "CEN": "🔄 Centrocampisti",
+                    "ALA": "🌀 Ali",
+                    "ATT": "⚽ Attaccanti"
+                }[ruolo]
                 st.markdown(
-                    f"<div class='wca-card' style='padding:10px 14px;margin-bottom:6px'>"
-                    f"<div style='display:flex;align-items:center;gap:10px;flex-wrap:wrap'>"
-                    f"<span style='font-weight:700;font-size:14px'>{row['Giocatore']}</span>"
-                    f"<span class='{rc}'>{row.get('Ruolo','')}</span>"
-                    f"<span style='color:#6b7a99;font-size:11px'>{row.get('Età','')} anni</span>"
-                    f"</div>"
-                    f"<div class='wca-card' style='padding:10px 14px;margin-bottom:6px'>" # Nota: Chiusura tag coerente con logica originaria
-                    f"<div class='wca-stat-row'>"
-                    f"<div class='wca-stat'> <span>{int(row.get('Gol',0))}</span></div>"
-                    f"<div class='wca-stat'> <span>{int(row.get('Assist',0))}</span></div>"
-                    f"<div class='wca-stat'> <span>{row.get('xG',0)}</span></div>"
-                    f"<div class='wca-stat'> <span>{int(row.get('Velocita',0))}</span></div>"
-                    f"{parate_html}"
-                    f"</div></div>",
+                    f"<div style='color:#6b7a99;font-size:11px;text-transform:uppercase;"
+                    f"letter-spacing:1px;font-weight:600;margin:10px 0 6px'>{ruolo_label}</div>",
                     unsafe_allow_html=True
                 )
+                for _, row in gruppo.iterrows():
+                    rc = role_colors.get(ruolo, "wca-badge")
+                    stats_html = render_player_stats(row)
+                    st.markdown(
+                        f"<div class='wca-card' style='padding:10px 14px;margin-bottom:6px'>"
+                        f"<div style='display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:6px'>"
+                        f"<span style='font-weight:700;font-size:14px'>{row['Giocatore']}</span>"
+                        f"<span class='{rc}'>{ruolo}</span>"
+                        f"<span style='color:#6b7a99;font-size:11px'>{row.get('Età','')} anni</span>"
+                        f"</div>"
+                        f"<div class='wca-stat-row'>{stats_html}</div>"
+                        f"</div>",
+                        unsafe_allow_html=True
+                    )
