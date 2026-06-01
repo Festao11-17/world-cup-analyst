@@ -49,7 +49,6 @@ with col1:
     girone1 = st.selectbox("Girone Squadra Casa", gironi_list, key="g1")
     squadre1 = GIRONI[girone1.replace("Girone ", "")]
     team1 = st.selectbox("Squadra Casa", squadre1, key="t1")
-
 with col2:
     girone2 = st.selectbox("Girone Squadra Ospite", gironi_list, key="g2")
     squadre2 = GIRONI[girone2.replace("Girone ", "")]
@@ -68,11 +67,10 @@ if t1_row.empty or t2_row.empty:
 t1 = t1_row.iloc[0]
 t2 = t2_row.iloc[0]
 
-# Verifica colonne rating
 rating_cols = ["OverallRating","AttackRating","MidfieldRating","DefenseRating"]
 missing = [c for c in rating_cols if c not in df.columns]
 if missing:
-    st.error(f"❌ Colonne mancanti nel CSV: {missing}. Carica il team_stats.csv aggiornato con i Power Rating.")
+    st.error(f"❌ Colonne mancanti nel CSV: {missing}")
     st.stop()
 
 st.markdown("---")
@@ -83,14 +81,27 @@ with col_l:
     fp = flag_path(team1)
     if os.path.exists(fp): st.image(fp, width=70)
     st.markdown(f"### {team1}")
-    st.markdown(f"<span class='wca-badge'>Girone {girone1.replace('Girone ', '')}</span> <span class='wca-badge' style='margin-left:6px'>⭐ {t1['OverallRating']} Overall</span>", unsafe_allow_html=True)
+    st.markdown(
+        f"<span class='wca-badge'>Girone {girone1.replace('Girone ', '')}</span> "
+        f"<span class='wca-badge' style='margin-left:6px'>⭐ {t1['OverallRating']} Overall</span>",
+        unsafe_allow_html=True
+    )
 with col_c:
-    st.markdown("<div style='text-align:center;padding-top:36px'><div style='font-family:Bebas Neue,sans-serif;font-size:2.5rem;color:#6b7a99;letter-spacing:3px'>VS</div></div>", unsafe_allow_html=True)
+    st.markdown(
+        "<div style='text-align:center;padding-top:36px'>"
+        "<div style='font-family:Bebas Neue,sans-serif;font-size:2.5rem;color:#6b7a99;letter-spacing:3px'>VS</div>"
+        "</div>",
+        unsafe_allow_html=True
+    )
 with col_r:
     fp2 = flag_path(team2)
     if os.path.exists(fp2): st.image(fp2, width=70)
     st.markdown(f"### {team2}")
-    st.markdown(f"<span class='wca-badge'>Girone {girone2.replace('Girone ', '')}</span> <span class='wca-badge' style='margin-left:6px'>⭐ {t2['OverallRating']} Overall</span>", unsafe_allow_html=True)
+    st.markdown(
+        f"<span class='wca-badge'>Girone {girone2.replace('Girone ', '')}</span> "
+        f"<span class='wca-badge' style='margin-left:6px'>⭐ {t2['OverallRating']} Overall</span>",
+        unsafe_allow_html=True
+    )
 
 st.markdown("---")
 
@@ -120,22 +131,41 @@ st.markdown(
     f"<div style='width:{p1_adj}%;background:#00d4ff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700'>{p1_adj}%</div>"
     f"<div style='width:{draw}%;background:#1f2d45;display:flex;align-items:center;justify-content:center;font-size:12px;color:#6b7a99'>{draw}%</div>"
     f"<div style='width:{p2_adj}%;background:#ff3b5c;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700'>{p2_adj}%</div>"
-    f"</div><div style='display:flex;justify-content:space-between;font-size:11px;color:#6b7a99'>"
+    f"</div>"
+    f"<div style='display:flex;justify-content:space-between;font-size:11px;color:#6b7a99'>"
     f"<span>{team1}</span><span>Pareggio</span><span>{team2}</span></div>",
     unsafe_allow_html=True
 )
 
 st.markdown("---")
 
-# ── SCORE ─────────────────────────────────────────────────────────────────────
+# ── SCORE PREVISTO ────────────────────────────────────────────────────────────
 st.markdown("<span class='wca-section-label'>⚽ Risultato Previsto</span>", unsafe_allow_html=True)
 cs1, cscore, cs2 = st.columns([2, 1, 2])
 with cs1:
-    st.markdown(f"<div class='wca-card' style='text-align:center'><div style='font-size:11px;color:#6b7a99;text-transform:uppercase;letter-spacing:1px'>xG Previsto</div><div style='font-size:3rem;font-family:Bebas Neue,sans-serif;color:#00d4ff'>{xg1}</div><div style='font-size:12px;color:#6b7a99'>{team1}</div></div>", unsafe_allow_html=True)
+    st.markdown(
+        f"<div class='wca-card' style='text-align:center'>"
+        f"<div style='font-size:11px;color:#6b7a99;text-transform:uppercase;letter-spacing:1px'>xG Previsto</div>"
+        f"<div style='font-size:3rem;font-family:Bebas Neue,sans-serif;color:#00d4ff'>{xg1}</div>"
+        f"<div style='font-size:12px;color:#6b7a99'>{team1}</div></div>",
+        unsafe_allow_html=True
+    )
 with cscore:
-    st.markdown(f"<div style='text-align:center;padding-top:20px'><div style='font-family:Bebas Neue,sans-serif;font-size:3.5rem;letter-spacing:4px'>{goals1} - {goals2}</div><div style='color:#6b7a99;font-size:11px;text-transform:uppercase;letter-spacing:2px'>Pronostico</div></div>", unsafe_allow_html=True)
+    st.markdown(
+        f"<div style='text-align:center;padding-top:20px'>"
+        f"<div style='font-family:Bebas Neue,sans-serif;font-size:3.5rem;letter-spacing:4px'>{goals1} - {goals2}</div>"
+        f"<div style='color:#6b7a99;font-size:11px;text-transform:uppercase;letter-spacing:2px'>Pronostico</div>"
+        f"</div>",
+        unsafe_allow_html=True
+    )
 with cs2:
-    st.markdown(f"<div class='wca-card' style='text-align:center'><div style='font-size:11px;color:#6b7a99;text-transform:uppercase;letter-spacing:1px'>xG Previsto</div><div style='font-size:3rem;font-family:Bebas Neue,sans-serif;color:#ff3b5c'>{xg2}</div><div style='font-size:12px;color:#6b7a99'>{team2}</div></div>", unsafe_allow_html=True)
+    st.markdown(
+        f"<div class='wca-card' style='text-align:center'>"
+        f"<div style='font-size:11px;color:#6b7a99;text-transform:uppercase;letter-spacing:1px'>xG Previsto</div>"
+        f"<div style='font-size:3rem;font-family:Bebas Neue,sans-serif;color:#ff3b5c'>{xg2}</div>"
+        f"<div style='font-size:12px;color:#6b7a99'>{team2}</div></div>",
+        unsafe_allow_html=True
+    )
 
 st.markdown("---")
 
@@ -173,11 +203,20 @@ st.markdown("<span class='wca-section-label'>📡 Radar Confronto</span>", unsaf
 stats = ["Gol","xG","Tiri","Possesso","PrecisionePassaggi"]
 fig = go.Figure()
 for team, data, color in [(team1, t1, "#00d4ff"), (team2, t2, "#ff3b5c")]:
-    fig.add_trace(go.Scatterpolar(r=[data[s] for s in stats], theta=stats, fill='toself', name=team, line=dict(color=color, width=2)))
+    fig.add_trace(go.Scatterpolar(
+        r=[data[s] for s in stats], theta=stats,
+        fill='toself', name=team,
+        line=dict(color=color, width=2)
+    ))
 fig.update_layout(
     paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)",
-    polar=dict(bgcolor="rgba(26,32,53,0.6)", radialaxis=dict(visible=True, gridcolor="#1f2d45", color="#6b7a99"), angularaxis=dict(gridcolor="#1f2d45", color="#6b7a99")),
-    legend=dict(bgcolor="rgba(0,0,0,0)", font=dict(color="#e8edf5")), height=400, showlegend=True
+    polar=dict(
+        bgcolor="rgba(26,32,53,0.6)",
+        radialaxis=dict(visible=True, gridcolor="#1f2d45", color="#6b7a99"),
+        angularaxis=dict(gridcolor="#1f2d45", color="#6b7a99")
+    ),
+    legend=dict(bgcolor="rgba(0,0,0,0)", font=dict(color="#e8edf5")),
+    height=400, showlegend=True
 )
 st.plotly_chart(fig, use_container_width=True)
 
@@ -211,10 +250,16 @@ if overall_diff < 3:
 elif overall_diff >= 12:
     stronger = team1 if t1["OverallRating"] > t2["OverallRating"] else team2
     insights.append(("⚡", f"{stronger} è favorita su tutti i fronti.", "cyan" if stronger == team1 else "red"))
+
 color_map = {"cyan":"#00d4ff","red":"#ff3b5c","muted":"#6b7a99"}
 for emoji, text, ck in insights:
     c = color_map[ck]
-    st.markdown(f"<div class='wca-card' style='padding:12px 18px;margin-bottom:8px;border-left:3px solid {c}'><span style='margin-right:10px'>{emoji}</span><span style='color:{c};font-size:14px'>{text}</span></div>", unsafe_allow_html=True)
+    st.markdown(
+        f"<div class='wca-card' style='padding:12px 18px;margin-bottom:8px;border-left:3px solid {c}'>"
+        f"<span style='margin-right:10px'>{emoji}</span>"
+        f"<span style='color:{c};font-size:14px'>{text}</span></div>",
+        unsafe_allow_html=True
+    )
 
 st.markdown("---")
 
@@ -222,7 +267,10 @@ st.markdown("---")
 st.markdown("<span class='wca-section-label'>🏆 Verdetto</span>", unsafe_allow_html=True)
 diff = abs(t1["OverallRating"] - t2["OverallRating"])
 fav, fav_p, und_p = (team1, p1_adj, p2_adj) if p1_adj > p2_adj else (team2, p2_adj, p1_adj)
-if diff >= 10:   verdict = f"<span class='wca-badge'>🟢 FAVORITA NETTA</span> &nbsp; <b>{fav}</b> domina su carta con un gap di <b>{diff:.1f} punti</b>."
-elif diff >= 5:  verdict = f"<span class='wca-badge'>🟡 LEGGERO VANTAGGIO</span> &nbsp; <b>{fav}</b> parte favorita ({fav_p}% vs {und_p}%), ma la partita è aperta."
-else:            verdict = f"<span class='wca-badge wca-badge-red'>🔴 EQUILIBRIO TOTALE</span> &nbsp; Gap di soli <b>{diff:.1f} punti</b>. Ogni dettaglio conta."
+if diff >= 10:
+    verdict = f"<span class='wca-badge'>🟢 FAVORITA NETTA</span> &nbsp; <b>{fav}</b> domina su carta con un gap di <b>{diff:.1f} punti</b>."
+elif diff >= 5:
+    verdict = f"<span class='wca-badge'>🟡 LEGGERO VANTAGGIO</span> &nbsp; <b>{fav}</b> parte favorita ({fav_p}% vs {und_p}%), ma la partita è aperta."
+else:
+    verdict = f"<span class='wca-badge wca-badge-red'>🔴 EQUILIBRIO TOTALE</span> &nbsp; Gap di soli <b>{diff:.1f} punti</b>. Ogni dettaglio conta."
 st.markdown(f"<div class='wca-card'>{verdict}</div>", unsafe_allow_html=True)
