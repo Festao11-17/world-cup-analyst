@@ -1,0 +1,27 @@
+Giocatore,Squadra,Ruolo,Età,Presenze,Gol,Assist,xG,Tiri,Velocita,KeyPasses,Dribbling,DuelliVinti,DistanzaPercorsa,PassAccuracy,Parate
+Ahmed Alkassar,Arabia Saudita,Portiere,27,22,0,0,0.1,1,72,1,1,12,9.6,66,58
+Mohammed Alowais,Arabia Saudita,Portiere,32,26,0,0,0.1,1,70,1,1,14,9.5,65,72
+Nawaf Alaqidi,Arabia Saudita,Portiere,28,18,0,0,0.1,1,71,1,1,10,9.4,64,48
+Saud Abdulhamid,Arabia Saudita,Difensore,26,25,2,4,0.4,18,87,1.8,2.4,42,11.4,83,
+Jehad Thikri,Arabia Saudita,Difensore,25,24,1,2,0.2,10,82,1.1,1.6,36,10.9,80,
+Abdulelah Alamri,Arabia Saudita,Difensore,26,26,1,2,0.2,11,81,1.2,1.5,38,10.8,81,
+Hassan Altambakti,Arabia Saudita,Difensore,28,24,1,1,0.2,10,80,1.0,1.2,44,10.7,82,
+Ali Lajami,Arabia Saudita,Difensore,29,26,1,2,0.2,12,79,1.1,1.3,42,10.6,83,
+Hassan Kadish,Arabia Saudita,Difensore,27,22,1,1,0.2,9,80,1.0,1.3,38,10.7,80,
+Moteb Alharbi,Arabia Saudita,Difensore,24,20,1,2,0.2,10,83,1.3,1.7,34,10.9,79,
+Ali Majrashi,Arabia Saudita,Difensore,26,24,1,3,0.3,13,84,1.5,1.9,40,11.0,81,
+Mohammed Abu Alshamat,Arabia Saudita,Difensore,23,18,1,1,0.2,8,82,1.1,1.5,32,10.8,80,
+Ziyad Aljohani,Arabia Saudita,Centrocampista,24,22,3,4,0.5,26,82,2.4,2.8,42,11.1,81,
+Nasser Aldawsari,Arabia Saudita,Centrocampista,28,24,4,5,0.6,30,81,2.8,2.6,46,11.0,82,
+Mohammed Kanno,Arabia Saudita,Centrocampista,28,26,2,3,0.4,18,79,2.0,1.7,60,11.0,85,
+Abdullah Alkhaibari,Arabia Saudita,Centrocampista,26,24,3,5,0.5,28,83,3.0,3.2,44,11.2,82,
+Nawaf Buwashi,Arabia Saudita,Centrocampista,25,22,2,3,0.4,22,82,2.6,2.8,40,11.0,80,
+Abdul Ahlamddan,Arabia Saudita,Centrocampista,27,20,2,4,0.4,24,80,2.8,3.0,38,11.0,81,
+Khalid Alghannam,Arabia Saudita,Centrocampista,23,20,3,4,0.5,28,84,2.9,3.4,36,11.2,79,
+Ala Alhajji,Arabia Saudita,Centrocampista,22,18,2,3,0.4,22,83,2.7,3.2,34,11.1,78,
+Musab Aljuwyr,Arabia Saudita,Attaccante,22,22,2,8,0.6,28,86,3.8,4.6,40,11.4,76,
+Sultan Mandash,Arabia Saudita,Attaccante,26,24,7,4,0.9,52,84,2.6,3.8,38,11.2,75,
+Aiman Yahya,Arabia Saudita,Attaccante,24,22,6,4,0.8,46,85,2.4,4.0,36,11.2,74,
+Salem Aldawsari,Arabia Saudita,Attaccante,34,20,4,5,0.7,34,82,3.2,3.6,34,10.9,85,
+Feras Albrikan,Arabia Saudita,Attaccante,26,26,11,5,1.2,70,86,2.8,4.2,44,11.3,76,
+Saleh Alshehri,Arabia Saudita,Attaccante,31,24,8,4,1.0,56,83,2.2,3.0,40,11.0,75,

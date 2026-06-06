@@ -1,0 +1,27 @@
+Giocatore,Squadra,Ruolo,Età,Presenze,Gol,Assist,xG,Tiri,Velocita,KeyPasses,Dribbling,DuelliVinti,DistanzaPercorsa,PassAccuracy,Parate
+Beyranvand,Iran,Portiere,33,28,0,0,0.1,2,72,1,1,14,9.6,66,74
+Hoseini,Iran,Portiere,30,18,0,0,0.1,1,70,1,1,10,9.4,64,48
+Niazmand,Iran,Portiere,27,12,0,0,0.1,1,71,1,1,9,9.3,65,34
+Khalilzadeh,Iran,Difensore,34,26,1,2,0.2,12,76,1.0,1.1,44,10.5,80,
+Kanaani,Iran,Difensore,28,28,1,1,0.2,11,79,1.1,1.3,40,10.7,81,
+Nemati,Iran,Difensore,27,24,1,2,0.2,10,80,1.2,1.5,37,10.8,80,
+Eiri,Iran,Difensore,24,22,1,1,0.2,9,81,1.0,1.4,33,10.7,79,
+Hajisafi,Iran,Difensore,35,24,1,3,0.3,14,78,1.6,1.8,42,11.0,82,
+Mohammadi,Iran,Difensore,32,26,2,4,0.3,16,82,1.7,2.0,44,11.1,83,
+Hardani,Iran,Difensore,26,25,1,2,0.2,11,80,1.3,1.6,38,10.8,81,
+Rezaeiyan,Iran,Difensore,32,24,1,3,0.3,13,82,1.5,1.9,40,11.0,82,
+Ghodoos,Iran,Centrocampista,31,26,3,4,0.5,24,79,2.6,2.2,48,10.9,84,
+Ezatollahi,Iran,Centrocampista,29,28,1,1,0.3,14,80,2.0,1.7,58,11.0,83,
+Cheshmi,Iran,Centrocampista,30,27,2,3,0.4,20,78,2.2,1.9,52,10.8,82,
+Razagh Niya,Iran,Centrocampista,22,22,2,3,0.4,22,83,2.8,3.2,38,11.1,81,
+Ghorbani,Iran,Centrocampista,28,24,2,2,0.4,18,79,2.0,1.8,46,10.7,82,
+Ghayedi,Iran,Centrocampista,27,18,4,1,0.6,30,84,2.4,3.6,40,10.9,79,
+Yousefi,Iran,Centrocampista,24,24,2,3,0.4,20,81,2.2,2.4,42,10.9,81,
+Jahanbakhsh,Iran,Centrocampista,32,14,1,1,0.3,18,82,1.8,3.0,34,11.0,77,
+Torabi,Iran,Centrocampista,30,26,4,5,0.7,38,81,3.0,3.4,46,11.1,78,
+Mohebbi,Iran,Centrocampista,26,24,5,6,0.8,40,83,3.4,3.8,42,11.2,79,
+Taremi,Iran,Attaccante,33,28,14,3,1.6,86,82,2.4,2.8,44,11.0,76,
+Hosseinzadeh,Iran,Attaccante,23,24,7,4,0.9,52,85,2.2,3.8,38,11.3,74,
+Dargahi,Iran,Attaccante,27,26,8,5,1.0,56,83,2.6,4.2,40,11.1,75,
+Alipour,Iran,Attaccante,30,28,12,2,1.2,68,82,2.0,2.8,42,11.0,74,
+Moghanloo,Iran,Attaccante,26,22,6,3,0.8,44,81,1.8,3.2,36,10.8,73,

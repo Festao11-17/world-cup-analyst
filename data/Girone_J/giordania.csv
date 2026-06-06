@@ -1,0 +1,27 @@
+Giocatore,Squadra,Ruolo,Età,Presenze,Gol,Assist,xG,Tiri,Velocita,KeyPasses,Dribbling,DuelliVinti,DistanzaPercorsa,PassAccuracy,Parate
+Talib,Iraq,Portiere,29,24,0,0,0.1,1,72,1,1,12,9.6,65,62
+Hassan,Iraq,Portiere,35,18,0,0,0.1,1,70,1,1,11,9.4,64,54
+Basil,Iraq,Portiere,26,14,0,0,0.1,1,73,1,1,9,9.5,66,44
+H. Ali,Iraq,Difensore,26,28,1,2,0.2,12,83,1.2,1.8,38,11.0,79,
+Younis,Iraq,Difensore,27,24,1,1,0.2,10,79,1.0,1.2,40,10.6,80,
+Tahseen,Iraq,Difensore,25,26,1,2,0.2,11,80,1.1,1.4,36,10.7,80,
+Sulaka,Iraq,Difensore,24,22,1,2,0.3,12,82,1.3,1.6,34,10.9,78,
+Hashem,Iraq,Difensore,24,24,1,1,0.2,10,80,1.0,1.3,36,10.7,79,
+Doski,Iraq,Difensore,25,26,1,2,0.2,13,81,1.2,1.5,38,10.8,80,
+Yahya,Iraq,Difensore,26,22,1,1,0.2,9,79,1.0,1.2,34,10.6,79,
+Ismail,Iraq,Difensore,24,20,1,2,0.2,10,80,1.1,1.4,32,10.7,78,
+Putros,Iraq,Difensore,26,24,1,2,0.2,11,80,1.1,1.5,36,10.7,79,
+Saadoon,Iraq,Difensore,25,22,1,1,0.2,9,79,1.0,1.2,34,10.6,79,
+Al-Ammari,Iraq,Centrocampista,26,26,3,4,0.5,26,81,2.4,2.6,46,10.9,82,
+Yakob,Iraq,Centrocampista,25,26,4,5,0.6,32,82,2.8,3.0,44,11.1,80,
+Iqbal,Iraq,Centrocampista,22,8,1,1,0.3,8,83,1.8,2.4,36,10.8,90,
+Sher,Iraq,Centrocampista,23,22,3,4,0.5,26,82,2.6,3.2,40,11.0,79,
+Bayesh,Iraq,Centrocampista,26,24,2,3,0.4,22,80,2.2,2.4,42,10.8,81,
+Qasem,Iraq,Centrocampista,27,24,3,5,0.5,28,81,2.8,2.8,44,11.0,80,
+Amyn,Iraq,Centrocampista,25,22,2,4,0.4,22,80,2.6,2.8,38,10.9,79,
+Farji,Iraq,Centrocampista,22,20,3,4,0.5,28,83,2.8,3.4,36,11.0,78,
+Ali Jasim,Iraq,Attaccante,23,24,8,5,1.0,58,86,2.6,4.2,40,11.2,76,
+Al-Hamadi,Iraq,Attaccante,24,14,1,1,0.4,18,84,1.4,2.6,28,10.8,74,
+Youssef,Iraq,Attaccante,24,22,6,4,0.8,46,84,2.2,3.6,36,11.1,74,
+Hussein,Iraq,Attaccante,30,26,14,5,1.4,74,82,2.2,2.8,42,11.0,75,
+M. Ali,Iraq,Attaccante,25,22,9,4,1.1,60,83,2.0,3.2,38,11.0,74,
