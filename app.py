@@ -29,6 +29,27 @@ FLAG_MAP = {
 }
 def flag_path(s): return f"assets/flags/{FLAG_MAP.get(s, s)}.png"
 
+# ── CARICA TUTTI I GIOCATORI dalla struttura data/Girone_X/ ──────────────────
+@st.cache_data
+def load_all_players():
+    """Legge tutti i CSV da data/Girone_*/ e li unisce in un unico DataFrame."""
+    frames = []
+    data_dir = "data"
+    for girone_folder in sorted(os.listdir(data_dir)):
+        girone_path = os.path.join(data_dir, girone_folder)
+        if not os.path.isdir(girone_path): continue
+        for csv_file in os.listdir(girone_path):
+            if not csv_file.endswith(".csv"): continue
+            filepath = os.path.join(girone_path, csv_file)
+            try:
+                df_tmp = pd.read_csv(filepath)
+                frames.append(df_tmp)
+            except Exception:
+                pass
+    if frames:
+        return pd.concat(frames, ignore_index=True)
+    return pd.DataFrame()
+
 # ── SIDEBAR ──────────────────────────────────────────────────────────────────
 with st.sidebar:
     if os.path.exists("assets/logo.png"):
@@ -39,7 +60,7 @@ with st.sidebar:
 
 # ── DATI ─────────────────────────────────────────────────────────────────────
 df_teams   = pd.read_csv("data/team_stats.csv")
-df_players = pd.read_csv("data/world_cup_players.csv")
+df_players = load_all_players()
 
 # ── HERO ─────────────────────────────────────────────────────────────────────
 st.markdown("""
@@ -62,15 +83,20 @@ st.markdown("<span class='wca-section-label'>📊 Top Stats</span>", unsafe_allo
 best_attack = df_teams.loc[df_teams["Gol"].idxmax()]
 best_xg     = df_teams.loc[df_teams["xG"].idxmax()]
 best_poss   = df_teams.loc[df_teams["Possesso"].idxmax()]
-top_scorer  = df_players.loc[df_players["Gol"].idxmax()]
-top_assist  = df_players.loc[df_players["Assist"].idxmax()]
 
 c1, c2, c3, c4, c5 = st.columns(5)
-c1.metric("⚽ Miglior Attacco",  best_attack["Squadra"],  f"{best_attack['Gol']} gol/match")
-c2.metric("📐 Miglior xG",       best_xg["Squadra"],      f"xG {best_xg['xG']}")
-c3.metric("🔵 Miglior Possesso", best_poss["Squadra"],    f"{best_poss['Possesso']}%")
-c4.metric("🥇 Capocannoniere",   top_scorer["Giocatore"], f"{int(top_scorer['Gol'])} gol")
-c5.metric("🎯 Top Assistman",    top_assist["Giocatore"], f"{int(top_assist['Assist'])} assist")
+c1.metric("⚽ Miglior Attacco",  best_attack["Squadra"], f"{best_attack['Gol']} gol/match")
+c2.metric("📐 Miglior xG",       best_xg["Squadra"],     f"xG {best_xg['xG']}")
+c3.metric("🔵 Miglior Possesso", best_poss["Squadra"],   f"{best_poss['Possesso']}%")
+
+if not df_players.empty and "Gol" in df_players.columns:
+    top_scorer = df_players.loc[df_players["Gol"].idxmax()]
+    top_assist = df_players.loc[df_players["Assist"].idxmax()]
+    c4.metric("🥇 Capocannoniere", top_scorer["Giocatore"], f"{int(top_scorer['Gol'])} gol")
+    c5.metric("🎯 Top Assistman",  top_assist["Giocatore"], f"{int(top_assist['Assist'])} assist")
+else:
+    c4.metric("🥇 Capocannoniere", "—", "Dati in arrivo")
+    c5.metric("🎯 Top Assistman",  "—", "Dati in arrivo")
 
 st.markdown("---")
 
@@ -138,8 +164,7 @@ medals = {0:"🥇", 1:"🥈", 2:"🥉"}
 
 with col_lb:
     st.markdown("#### Top Nazionali per Overall")
-    sort_col2 = "OverallRating" if "OverallRating" in df_teams.columns else "Gol"
-    df_ranked = df_teams.sort_values(sort_col2, ascending=False).head(10).reset_index(drop=True)
+    df_ranked = df_teams.sort_values("OverallRating", ascending=False).head(10).reset_index(drop=True)
     for i, row in df_ranked.iterrows():
         medal = medals.get(i, f"{i+1}.")
         fp = flag_path(row["Squadra"])
@@ -161,25 +186,30 @@ with col_lb:
 
 with col_pl:
     st.markdown("#### Top Marcatori")
-    top8 = df_players.sort_values("Gol", ascending=False).head(8).reset_index(drop=True)
-    for i, row in top8.iterrows():
-        medal = medals.get(i, f"{i+1}.")
-        fp = flag_path(row["Squadra"])
-        c1, c2 = st.columns([1, 6])
-        with c1:
-            if os.path.exists(fp): st.image(fp, width=28)
-        with c2:
-            st.markdown(
-                f"<div class='wca-card' style='padding:10px 16px;margin-bottom:6px'>"
-                f"<b>{medal} {row['Giocatore']}</b> "
-                f"<span style='color:#6b7a99;font-size:12px'>{row['Squadra']}</span>"
-                f"<div class='wca-stat-row'>"
-                f"<div class='wca-stat'>⚽ <span>{int(row['Gol'])}</span></div>"
-                f"<div class='wca-stat'>🎯 <span>{int(row['Assist'])}</span></div>"
-                f"<div class='wca-stat'>xG <span>{row['xG']}</span></div>"
-                f"</div></div>",
-                unsafe_allow_html=True
-            )
+    if not df_players.empty and "Gol" in df_players.columns:
+        top8 = df_players.sort_values("Gol", ascending=False).head(8).reset_index(drop=True)
+        for i, row in top8.iterrows():
+            medal = medals.get(i, f"{i+1}.")
+            # Usa il nome squadra per trovare la bandiera
+            squadra_key = row["Squadra"].replace(" ", "_")
+            fp = flag_path(squadra_key)
+            c1, c2 = st.columns([1, 6])
+            with c1:
+                if os.path.exists(fp): st.image(fp, width=28)
+            with c2:
+                st.markdown(
+                    f"<div class='wca-card' style='padding:10px 16px;margin-bottom:6px'>"
+                    f"<b>{medal} {row['Giocatore']}</b> "
+                    f"<span style='color:#6b7a99;font-size:12px'>{row['Squadra']}</span>"
+                    f"<div class='wca-stat-row'>"
+                    f"<div class='wca-stat'>⚽ <span>{int(row['Gol'])}</span></div>"
+                    f"<div class='wca-stat'>🎯 <span>{int(row['Assist'])}</span></div>"
+                    f"<div class='wca-stat'>xG <span>{row['xG']}</span></div>"
+                    f"</div></div>",
+                    unsafe_allow_html=True
+                )
+    else:
+        st.info("Dati giocatori in arrivo.")
 
 st.markdown("---")
 
@@ -209,10 +239,10 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 sections = [
-    ("📊", "Team Comparison",   "Confronto radar tra nazionali",   "pages/1_Team_Comparison.py"),
-    ("🔮", "Match Prediction",  "Predizioni basate sui dati",      "pages/2_Match_Predictions.py"),
-    ("🌐", "WC Simulator",      "Simula l'intero Mondiale 2026",   "pages/3_WC_Simulator.py"),
-    ("🌍", "FIFA Rankings",     "Ranking FIFA + analytics",        "pages/4_FIFA_Rankings.py"),
+    ("📊", "Team Comparison",  "Confronto radar tra nazionali",  "pages/1_Team_Comparison.py"),
+    ("🔮", "Match Prediction", "Predizioni basate sui dati",     "pages/2_Match_Predictions.py"),
+    ("🌐", "WC Simulator",     "Simula l'intero Mondiale 2026",  "pages/3_WC_Simulator.py"),
+    ("🌍", "FIFA Rankings",    "Ranking FIFA + analytics",       "pages/4_FIFA_Rankings.py"),
 ]
 
 cols = st.columns(4)

@@ -37,39 +37,64 @@ GIRONI = {
 }
 
 CSV_MAP = {
+    # Girone A
     "Cechia":           "data/Girone_A/repubblica_ceca.csv",
     "Corea del Sud":    "data/Girone_A/corea_del_sud.csv",
+    "Messico":          "data/Girone_A/messico.csv",
     "Sudafrica":        "data/Girone_A/sud_africa.csv",
+    # Girone B
     "Bosnia":           "data/Girone_B/bosnia.csv",
     "Canada":           "data/Girone_B/canada.csv",
+    "Qatar":            "data/Girone_B/qatar.csv",
     "Svizzera":         "data/Girone_B/svizzera.csv",
+    # Girone C
     "Brasile":          "data/Girone_C/brasile.csv",
     "Haiti":            "data/Girone_C/haiti.csv",
     "Marocco":          "data/Girone_C/marocco.csv",
     "Scozia":           "data/Girone_C/scozia.csv",
-    "Turchia":          "data/Girone_D/turchia.csv",
+    # Girone D
+    "Australia":        "data/Girone_D/australia.csv",
+    "Paraguay":         "data/Girone_D/paraguay.csv",
     "Stati Uniti":      "data/Girone_D/usa.csv",
+    "Turchia":          "data/Girone_D/turchia.csv",
+    # Girone E
     "Costa d'Avorio":   "data/Girone_E/costa_d'avorio.csv",
     "Curacao":          "data/Girone_E/curacao.csv",
+    "Ecuador":          "data/Girone_E/ecuador.csv",
     "Germania":         "data/Girone_E/germania.csv",
+    # Girone F
     "Giappone":         "data/Girone_F/giappone.csv",
     "Olanda":           "data/Girone_F/olanda.csv",
     "Svezia":           "data/Girone_F/svezia.csv",
     "Tunisia":          "data/Girone_F/tunisia.csv",
+    # Girone G
     "Belgio":           "data/Girone_G/belgio.csv",
     "Egitto":           "data/Girone_G/egitto.csv",
+    "Iran":             "data/Girone_G/iran.csv",
     "Nuova Zelanda":    "data/Girone_G/nuova_zelanda.csv",
+    # Girone H
+    "Arabia Saudita":   "data/Girone_H/arabia_saudita.csv",
     "Capo Verde":       "data/Girone_H/capo_verde.csv",
     "Spagna":           "data/Girone_H/spagna.csv",
+    "Uruguay":          "data/Girone_H/uruguay.csv",
+    # Girone I
     "Francia":          "data/Girone_I/francia.csv",
+    "Iraq":             "data/Girone_I/iraq.csv",
     "Norvegia":         "data/Girone_I/norvegia.csv",
     "Senegal":          "data/Girone_I/senegal.csv",
+    # Girone J
+    "Algeria":          "data/Girone_J/algeria.csv",
     "Argentina":        "data/Girone_J/argentina.csv",
     "Austria":          "data/Girone_J/austria.csv",
+    "Giordania":        "data/Girone_J/giordania.csv",
+    # Girone K
     "Colombia":         "data/Girone_K/colombia.csv",
     "Portogallo":       "data/Girone_K/portogallo.csv",
     "Rep. del Congo":   "data/Girone_K/repubblica_del_congo.csv",
+    "Uzbekistan":       "data/Girone_K/uzbekistan.csv",
+    # Girone L
     "Croazia":          "data/Girone_L/croazia.csv",
+    "Ghana":            "data/Girone_L/ghana.csv",
     "Inghilterra":      "data/Girone_L/inghilterra.csv",
     "Panama":           "data/Girone_L/panama.csv",
 }
