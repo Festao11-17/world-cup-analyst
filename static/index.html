@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>World Cup Analyst</title>
+    <link rel="icon" href="/assets/logo.png" />
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <a class="brand" href="/" aria-label="World Cup Analyst">
+          <img src="/assets/logo.png" alt="" />
+          <span>World Cup Analyst</span>
+        </a>
+
+        <nav class="nav" aria-label="Sezioni dashboard">
+          <button class="nav-item is-active" type="button" data-view="dashboard">Dashboard</button>
+          <button class="nav-item" type="button" data-view="comparison">Team Comparison</button>
+          <button class="nav-item" type="button" data-view="predictions">Match Prediction</button>
+          <button class="nav-item" type="button" data-view="simulator">WC Simulator</button>
+          <button class="nav-item" type="button" data-view="rankings">FIFA Rankings</button>
+        </nav>
+
+        <div class="sidebar-meta">
+          <span>FIFA World Cup 2026</span>
+          <strong id="sidebar-count">48 nazionali</strong>
+        </div>
+      </aside>
+
+      <main class="main">
+        <header class="topbar">
+          <div>
+            <p class="topbar-label">Analytics platform</p>
+            <h1 id="page-title">Dashboard</h1>
+          </div>
+          <div class="status-strip" aria-label="Stato dati">
+            <span id="team-count">-- squadre</span>
+            <span id="player-count">-- giocatori</span>
+          </div>
+        </header>
+
+        <section id="dashboard-view" class="view is-active" aria-labelledby="page-title"></section>
+        <section id="comparison-view" class="view" aria-labelledby="page-title"></section>
+        <section id="predictions-view" class="view" aria-labelledby="page-title"></section>
+        <section id="simulator-view" class="view" aria-labelledby="page-title"></section>
+        <section id="rankings-view" class="view" aria-labelledby="page-title"></section>
+      </main>
+    </div>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <script src="/static/app.js" defer></script>
+  </body>
+</html>

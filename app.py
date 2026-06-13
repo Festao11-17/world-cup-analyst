@@ -1,251 +1,93 @@
-import os
-import streamlit as st
-import pandas as pd
-import plotly.graph_objects as go
+from __future__ import annotations
 
-st.set_page_config(
-    page_title="Home",
-    page_icon="assets/logo.png",
-    layout="wide"
+from pathlib import Path
+
+from starlette.applications import Starlette
+from starlette.responses import FileResponse, JSONResponse
+from starlette.routing import Mount, Route
+from starlette.staticfiles import StaticFiles
+
+from core import (
+    BASE_DIR,
+    bootstrap_payload,
+    comparison_payload,
+    fifa_rankings_payload,
+    json_safe,
+    prediction_payload,
+    simulate_tournament,
 )
 
-with open("assets/style.css") as f:
-    st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
-# ── FLAG MAP COMPLETO 48 SQUADRE ─────────────────────────────────────────────
-FLAG_MAP = {
-    "Messico":"Girone_A/Messico","Cechia":"Girone_A/Cechia","Corea_del_Sud":"Girone_A/Corea_del_Sud","Sudafrica":"Girone_A/Sudafrica",
-    "Svizzera":"Girone_B/Svizzera","Canada":"Girone_B/Canada","Bosnia_ed_Erzegovina":"Girone_B/Bosnia_ed_Erzegovina","Qatar":"Girone_B/Qatar",
-    "Brasile":"Girone_C/Brasile","Marocco":"Girone_C/Marocco","Haiti":"Girone_C/Haiti","Scozia":"Girone_C/Scozia",
-    "Australia":"Girone_D/Australia","Stati_Uniti":"Girone_D/Stati_Uniti","Paraguay":"Girone_D/Paraguay","Turchia":"Girone_D/Turchia",
-    "Germania":"Girone_E/Germania","Ecuador":"Girone_E/Ecuador","Costa_d'Avorio":"Girone_E/Costa_d'Avorio","Curacao":"Girone_E/Curacao",
-    "Giappone":"Girone_F/Giappone","Olanda":"Girone_F/Olanda","Svezia":"Girone_F/Svezia","Tunisia":"Girone_F/Tunisia",
-    "Belgio":"Girone_G/Belgio","Egitto":"Girone_G/Egitto","Iran":"Girone_G/Iran","Nuova_Zelanda":"Girone_G/Nuova_Zelanda",
-    "Spagna":"Girone_H/Spagna","Uruguay":"Girone_H/Uruguay","Arabia_Saudita":"Girone_H/Arabia_Saudita","Capo_Verde":"Girone_H/Capo_Verde",
-    "Francia":"Girone_I/Francia","Senegal":"Girone_I/Senegal","Norvegia":"Girone_I/Norvegia","Iraq":"Girone_I/Iraq",
-    "Argentina":"Girone_J/Argentina","Algeria":"Girone_J/Algeria","Austria":"Girone_J/Austria","Giordania":"Girone_J/Giordania",
-    "Portogallo":"Girone_K/Portogallo","Colombia":"Girone_K/Colombia","Repubblica_del_Congo":"Girone_K/Repubblica_del_Congo","Uzbekistan":"Girone_K/Uzbekistan",
-    "Inghilterra":"Girone_L/Inghilterra","Croazia":"Girone_L/Croazia","Ghana":"Girone_L/Ghana","Panama":"Girone_L/Panama",
-}
-def flag_path(s): return f"assets/flags/{FLAG_MAP.get(s, s)}.png"
+STATIC_DIR = BASE_DIR / "static"
+ASSETS_DIR = BASE_DIR / "assets"
 
-# ── CARICA TUTTI I GIOCATORI dalla struttura data/Girone_X/ ──────────────────
-@st.cache_data
-def load_all_players():
-    """Legge tutti i CSV da data/Girone_*/ e li unisce in un unico DataFrame."""
-    frames = []
-    data_dir = "data"
-    for girone_folder in sorted(os.listdir(data_dir)):
-        girone_path = os.path.join(data_dir, girone_folder)
-        if not os.path.isdir(girone_path): continue
-        for csv_file in os.listdir(girone_path):
-            if not csv_file.endswith(".csv"): continue
-            filepath = os.path.join(girone_path, csv_file)
-            try:
-                df_tmp = pd.read_csv(filepath)
-                frames.append(df_tmp)
-            except Exception:
-                pass
-    if frames:
-        return pd.concat(frames, ignore_index=True)
-    return pd.DataFrame()
 
-# ── SIDEBAR ──────────────────────────────────────────────────────────────────
-with st.sidebar:
-    if os.path.exists("assets/logo.png"):
-        st.image("assets/logo.png", width=100)
-    st.markdown("### WORLD CUP\nANALYST")
-    st.markdown("---")
-    st.markdown("<span class='wca-badge'>FIFA WORLD CUP 2026</span>", unsafe_allow_html=True)
+def api_response(data, status_code: int = 200) -> JSONResponse:
+    return JSONResponse(json_safe(data), status_code=status_code)
 
-# ── DATI ─────────────────────────────────────────────────────────────────────
-df_teams   = pd.read_csv("data/team_stats.csv")
-df_players = load_all_players()
 
-# ── HERO ─────────────────────────────────────────────────────────────────────
-st.markdown("""
-<div style="padding: 40px 0 20px;">
-  <div style="color:#6b7a99;font-size:11px;letter-spacing:3px;text-transform:uppercase;font-weight:600;margin-bottom:8px;">
-    FIFA WORLD CUP 2026 · ANALYTICS PLATFORM
-  </div>
-  <h1 style="font-size:4rem;margin:0;line-height:1">WORLD CUP<br>ANALYST</h1>
-  <p style="color:#6b7a99;margin-top:12px;font-size:15px;max-width:500px">
-    Statistiche avanzate, radar e previsioni per tutte le 48 nazionali del Mondiale 2026.
-  </p>
-</div>
-""", unsafe_allow_html=True)
+def api_error(message: str, status_code: int = 400) -> JSONResponse:
+    return api_response({"error": message}, status_code=status_code)
 
-st.markdown("---")
 
-# ── TOP STATS ────────────────────────────────────────────────────────────────
-st.markdown("<span class='wca-section-label'>📊 Top Stats</span>", unsafe_allow_html=True)
+async def index(_request):
+    return FileResponse(STATIC_DIR / "index.html")
 
-best_attack = df_teams.loc[df_teams["Gol"].idxmax()]
-best_xg     = df_teams.loc[df_teams["xG"].idxmax()]
-best_poss   = df_teams.loc[df_teams["Possesso"].idxmax()]
 
-c1, c2, c3, c4, c5 = st.columns(5)
-c1.metric("⚽ Miglior Attacco",  best_attack["Squadra"], f"{best_attack['Gol']} gol/match")
-c2.metric("📐 Miglior xG",       best_xg["Squadra"],     f"xG {best_xg['xG']}")
-c3.metric("🔵 Miglior Possesso", best_poss["Squadra"],   f"{best_poss['Possesso']}%")
+async def api_bootstrap(_request):
+    return api_response(bootstrap_payload())
 
-if not df_players.empty and "Gol" in df_players.columns:
-    top_scorer = df_players.loc[df_players["Gol"].idxmax()]
-    top_assist = df_players.loc[df_players["Assist"].idxmax()]
-    c4.metric("🥇 Capocannoniere", top_scorer["Giocatore"], f"{int(top_scorer['Gol'])} gol")
-    c5.metric("🎯 Top Assistman",  top_assist["Giocatore"], f"{int(top_assist['Assist'])} assist")
-else:
-    c4.metric("🥇 Capocannoniere", "—", "Dati in arrivo")
-    c5.metric("🎯 Top Assistman",  "—", "Dati in arrivo")
 
-st.markdown("---")
+async def api_compare(request):
+    team1 = request.query_params.get("team1", "Spagna")
+    team2 = request.query_params.get("team2", "Francia")
+    try:
+        return api_response(comparison_payload(team1, team2))
+    except (KeyError, ValueError) as exc:
+        return api_error(str(exc))
 
-# ── FEATURED MATCH ───────────────────────────────────────────────────────────
-st.markdown("<span class='wca-section-label'>🔥 Featured Match</span>", unsafe_allow_html=True)
 
-sort_col = "OverallRating" if "OverallRating" in df_teams.columns else "Gol"
-top2 = df_teams.nlargest(2, sort_col)
-t1, t2 = top2.iloc[0], top2.iloc[1]
-stats = ["Gol","xG","Tiri","Possesso","PrecisionePassaggi"]
+async def api_predict(request):
+    team1 = request.query_params.get("team1", "Spagna")
+    team2 = request.query_params.get("team2", "Francia")
+    try:
+        return api_response(prediction_payload(team1, team2))
+    except (KeyError, ValueError) as exc:
+        return api_error(str(exc))
 
-col_l, col_c, col_r = st.columns([3, 1, 3])
-with col_l:
-    fp = flag_path(t1["Squadra"])
-    if os.path.exists(fp): st.image(fp, width=56)
-    st.markdown(f"### {t1['Squadra']}")
-    st.markdown(f"<span class='wca-badge'>⭐ {t1['OverallRating']} Overall</span>", unsafe_allow_html=True)
-    ca, cb, cc = st.columns(3)
-    ca.metric("Gol", t1["Gol"]); cb.metric("xG", t1["xG"]); cc.metric("Poss.", f"{t1['Possesso']}%")
 
-with col_c:
-    st.markdown(
-        "<div style='text-align:center;padding-top:40px'>"
-        "<div style='font-family:Bebas Neue,sans-serif;font-size:2.5rem;color:#6b7a99;letter-spacing:3px'>VS</div>"
-        "<div style='width:1px;height:60px;background:#1f2d45;margin:8px auto'></div>"
-        "</div>", unsafe_allow_html=True
-    )
+async def api_simulate(request):
+    raw_seed = request.query_params.get("seed")
+    try:
+        seed = int(raw_seed) if raw_seed else None
+    except ValueError:
+        return api_error("Seed non valido.")
+    return api_response(simulate_tournament(seed=seed))
 
-with col_r:
-    fp2 = flag_path(t2["Squadra"])
-    if os.path.exists(fp2): st.image(fp2, width=56)
-    st.markdown(f"### {t2['Squadra']}")
-    st.markdown(f"<span class='wca-badge'>⭐ {t2['OverallRating']} Overall</span>", unsafe_allow_html=True)
-    ca, cb, cc = st.columns(3)
-    ca.metric("Gol", t2["Gol"]); cb.metric("xG", t2["xG"]); cc.metric("Poss.", f"{t2['Possesso']}%")
 
-fig = go.Figure()
-for team, color in [(t1, "#00d4ff"), (t2, "#ff3b5c")]:
-    fig.add_trace(go.Scatterpolar(
-        r=[team[s] for s in stats], theta=stats,
-        fill='toself', name=team["Squadra"],
-        line=dict(color=color, width=2),
-        opacity=0.85
-    ))
-fig.update_layout(
-    paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)",
-    polar=dict(
-        bgcolor="rgba(26,32,53,0.6)",
-        radialaxis=dict(visible=True, gridcolor="#1f2d45", color="#6b7a99"),
-        angularaxis=dict(gridcolor="#1f2d45", color="#6b7a99")
-    ),
-    showlegend=True,
-    legend=dict(bgcolor="rgba(0,0,0,0)", font=dict(color="#e8edf5")),
-    height=380, margin=dict(t=30, b=30)
-)
-st.plotly_chart(fig, use_container_width=True)
+async def api_rankings(request):
+    search = request.query_params.get("search", "")
+    group = request.query_params.get("group", "Tutti")
+    chart_group = request.query_params.get("chart_group")
+    return api_response(fifa_rankings_payload(search=search, group=group, chart_group=chart_group))
 
-st.markdown("---")
 
-# ── LEADERBOARD ──────────────────────────────────────────────────────────────
-st.markdown("<span class='wca-section-label'>🏆 Leaderboard</span>", unsafe_allow_html=True)
-
-col_lb, col_pl = st.columns(2)
-medals = {0:"🥇", 1:"🥈", 2:"🥉"}
-
-with col_lb:
-    st.markdown("#### Top Nazionali per Overall")
-    df_ranked = df_teams.sort_values("OverallRating", ascending=False).head(10).reset_index(drop=True)
-    for i, row in df_ranked.iterrows():
-        medal = medals.get(i, f"{i+1}.")
-        fp = flag_path(row["Squadra"])
-        c1, c2 = st.columns([1, 6])
-        with c1:
-            if os.path.exists(fp): st.image(fp, width=28)
-            else: st.write(medal)
-        with c2:
-            st.markdown(
-                f"<div class='wca-card' style='padding:10px 16px;margin-bottom:6px'>"
-                f"<b>{medal} {row['Squadra']}</b>"
-                f"<div class='wca-stat-row'>"
-                f"<div class='wca-stat'>⭐ <span>{row['OverallRating']}</span></div>"
-                f"<div class='wca-stat'>⚔️ <span>{row['AttackRating']}</span></div>"
-                f"<div class='wca-stat'>🛡️ <span>{row['DefenseRating']}</span></div>"
-                f"</div></div>",
-                unsafe_allow_html=True
-            )
-
-with col_pl:
-    st.markdown("#### Top Marcatori")
-    if not df_players.empty and "Gol" in df_players.columns:
-        top8 = df_players.sort_values("Gol", ascending=False).head(8).reset_index(drop=True)
-        for i, row in top8.iterrows():
-            medal = medals.get(i, f"{i+1}.")
-            # Usa il nome squadra per trovare la bandiera
-            squadra_key = row["Squadra"].replace(" ", "_")
-            fp = flag_path(squadra_key)
-            c1, c2 = st.columns([1, 6])
-            with c1:
-                if os.path.exists(fp): st.image(fp, width=28)
-            with c2:
-                st.markdown(
-                    f"<div class='wca-card' style='padding:10px 16px;margin-bottom:6px'>"
-                    f"<b>{medal} {row['Giocatore']}</b> "
-                    f"<span style='color:#6b7a99;font-size:12px'>{row['Squadra']}</span>"
-                    f"<div class='wca-stat-row'>"
-                    f"<div class='wca-stat'>⚽ <span>{int(row['Gol'])}</span></div>"
-                    f"<div class='wca-stat'>🎯 <span>{int(row['Assist'])}</span></div>"
-                    f"<div class='wca-stat'>xG <span>{row['xG']}</span></div>"
-                    f"</div></div>",
-                    unsafe_allow_html=True
-                )
-    else:
-        st.info("Dati giocatori in arrivo.")
-
-st.markdown("---")
-
-# ── NAV CARDS ────────────────────────────────────────────────────────────────
-st.markdown("<span class='wca-section-label'>📂 Sezioni</span>", unsafe_allow_html=True)
-
-st.markdown("""
-<style>
-[data-testid="stPageLink"] > a {
-  display: block !important;
-  background: var(--surface2) !important;
-  border: 1px solid var(--border) !important;
-  border-radius: var(--radius-lg) !important;
-  padding: 20px 14px !important;
-  text-align: center !important;
-  text-decoration: none !important;
-  color: var(--text) !important;
-  transition: border-color 0.2s, transform 0.15s !important;
-  min-height: 100px !important;
-}
-[data-testid="stPageLink"] > a:hover {
-  border-color: var(--cyan) !important;
-  transform: translateY(-2px) !important;
-}
-[data-testid="stPageLink"] p { color: var(--text) !important; font-size: 13px !important; margin: 0 !important; }
-</style>
-""", unsafe_allow_html=True)
-
-sections = [
-    ("📊", "Team Comparison",  "Confronto radar tra nazionali",  "pages/1_Team_Comparison.py"),
-    ("🔮", "Match Prediction", "Predizioni basate sui dati",     "pages/2_Match_Predictions.py"),
-    ("🌐", "WC Simulator",     "Simula l'intero Mondiale 2026",  "pages/3_WC_Simulator.py"),
-    ("🌍", "FIFA Rankings",    "Ranking FIFA + analytics",       "pages/4_FIFA_Rankings.py"),
+routes = [
+    Route("/", index),
+    Route("/api/bootstrap", api_bootstrap),
+    Route("/api/compare", api_compare),
+    Route("/api/predict", api_predict),
+    Route("/api/simulate", api_simulate),
+    Route("/api/rankings", api_rankings),
+    Mount("/static", StaticFiles(directory=STATIC_DIR), name="static"),
+    Mount("/assets", StaticFiles(directory=ASSETS_DIR), name="assets"),
+    Route("/{path:path}", index),
 ]
 
-cols = st.columns(4)
-for col, (icon, title, desc, page_path) in zip(cols, sections):
-    with col:
-        st.page_link(page_path, label=f"{icon} **{title}**\n\n*{desc}*", use_container_width=True)
+app = Starlette(debug=False, routes=routes)
+
+
+if __name__ == "__main__":
+    import uvicorn
+
+    uvicorn.run("app:app", host="0.0.0.0", port=8000, reload=True)
